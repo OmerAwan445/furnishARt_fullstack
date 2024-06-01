@@ -1,4 +1,4 @@
-import AuthPageLayout from '@/components/common/Layouts/AuthPageLayout';
+import AuthPageLayout from '@/components/common/layouts/AuthPageLayout';
 import { ReactNode } from 'react';
 
 type Props = {

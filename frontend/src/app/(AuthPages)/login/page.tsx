@@ -1,20 +1,20 @@
 
-import LoginForm from "@/components/LoginPage/LoginForm";
+import LoginForm from "@/components/AuthForms/LoginForm";
 import Link from "next/link";
 
 export default function Login() {
   return (
     <>
-      <div className="flex items-center justify-center px-4 py-10 dark:bg-neutral-950 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
-        <div className="xl:w-full xl:max-w-sm 2xl:max-w-md xl:mx-auto">
-          <h2 className="text-3xl font-bold leading-tight dark:text-white text-black sm:text-4xl">
-            Sign in to Celebration
+      <div className="flex items-center justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
+        <div className="w-full sm:max-w-lg md:max-w-md xl:w-full xl:max-w-md"> // copy this line to Signup layout
+          <h2 className=" text-3xl font-bold leading-tight text-black sm:text-4xl">
+          Unlock Exclusive Deals {"–"} <br/> Sign in to FurnishARt
           </h2>
-          <p className="mt-2 text-base dark:text-stone-500 text-gray-600">
+          <p className="mt-2 text-base text-gray-600">
             Don’t have an account?{" "}
             <Link
               href="/signup"
-              className="font-medium text-blue-600 dark:text-orange-500 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
+              className="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
             >
               Create a free account
             </Link>

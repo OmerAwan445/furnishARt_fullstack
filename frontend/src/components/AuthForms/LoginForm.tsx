@@ -8,6 +8,7 @@ import { useState } from "react";
 import { ErrorMessageToast } from "@/components/common/ErrorMessageToast";
 import { MyPasswordInput } from "../common/FormFields/MyPasswordInput";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
+import { useMutation } from "@tanstack/react-query";
 
 
 const LoginForm = () => {
@@ -31,12 +32,12 @@ const LoginForm = () => {
       { username_or_email, password },
       {
         onSuccess: (statusCode) => {
-          if (statusCode === 403) {
-            setErrorMessage("Please verify your email address");
-            // window.location.href = '/verify-email';
-          } else {
-            window.location.href = callbackUrl || "/";
-          }
+          // if (statusCode === 403) {
+          //   setErrorMessage("Please verify your email address");
+          //  // window.location.href = '/verify-email';
+          // } else {
+          //   window.location.href = callbackUrl || "/";
+          // }
         },
         onError: (error) => {
           setErrorMessage(error.message);
@@ -65,8 +66,8 @@ const LoginForm = () => {
                   htmlFor="username_or_email"
                   className="text-base font-medium text-gray-900"
                 >
-                  {" "}
-                  Email address{" "}
+
+                  Email address or Username
                 </label>
                 <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
                   <div
@@ -96,13 +97,13 @@ const LoginForm = () => {
                     id="username_or_email"
                     name="username_or_email"
                     type="text"
-                    placeholder="Enter email to get started"
+                    placeholder="Enter username or email to get started"
                     className={`${
                       touched.username_or_email && errors.username_or_email
                         ? "border-2 border-red-600 focus:border-red-600 focus:ring-0"
                         : "focus:border-blue-600 caret-blue-600 border border-gray-200"
                     }
-             block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 focus:bg-white  rounded-md bg-gray-50 focus:outline-none `}
+             block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 focus:bg-white  rounded-md bg-gray-50 focus:outline-none placeholder:text-sm`}
                   />
                 </div>
               </div>
@@ -125,7 +126,7 @@ const LoginForm = () => {
                     Forgot password?{" "}
                   </Link>
                 </div>
-                <div className="relative text-gray-400 focus-within:text-gray-600">
+                <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
                   <div
                     className={`${
                       touched.password && errors.password
@@ -156,7 +157,7 @@ const LoginForm = () => {
                       touched.password && errors.password
                         ? "border-2 border-red-600 focus:border-red-600 focus:ring-0"
                         : "focus:border-blue-600 caret-blue-600 border border-gray-200"
-                    } block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 rounded-md bg-gray-50 focus:outline-none focus:bg-white`}
+                    } block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 rounded-md bg-gray-50 focus:outline-none focus:bg-white placeholder:text-sm`}
                   />
                 </div>
               </div>
