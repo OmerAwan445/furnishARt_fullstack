@@ -119,7 +119,7 @@ const LoginForm = () => {
                   </label>
 
                   <Link
-                    href="/forgot-password"
+                    href="/forget-password"
                     className="text-sm font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"
                   >
                     {" "}

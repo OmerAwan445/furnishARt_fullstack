@@ -17,7 +17,7 @@ import Image from "next/image";
 
 export function CustomNavbar() {
   return (
-    <Navbar fluid rounded className="bg-gray-50 drop-shadow-md mb-2 sticky top-0 z-50">
+    <Navbar fluid rounded className="bg-gray-50 drop-shadow-md h-20 sticky top-0 z-50">
       <NavbarBrand href="https://flowbite-react.com">
         <Image src= {Logo} className="mr-3 h-6 sm:h-9 w-14 rounded-full" alt="Logo" />
       </NavbarBrand>

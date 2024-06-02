@@ -24,23 +24,22 @@ const textLogoList = [
 
 const AuthPageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="bg-white flex-grow flex overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 flex-grow ">
+    <section className="bg-white w-full max-h-[calc(100vh-5rem)] pt-2 overflow-hidden grid grid-cols-1 lg:grid-cols-2 ">
         {children}
-        <div className="hidden lg:block relative min-h-full px-4 pb-10 pt-60 sm:pb-16 lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
+        <div className="h-[calc(100vh-5rem)] hidden lg:block relative px-4 pb-10 pt-60 sm:pb-16 lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
           <div className="absolute  inset-0">
             <Image
               className="object-cover object-top w-full h-full"
               src={FormSideImg}
               alt="Auth Image"
-              width={1000}
-              height={1000}
+              width={0}
+              height={0}
               loading="lazy"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
 
-          <div className="relative">
+          <div className="relative flex justify-center items-center">
             <div className="w-full max-w-2xl xl:w-full xl:mx-auto xl:pr-24 xl:max-w-xl">
               <h3 className="text-3xl xl:text-4xl font-bold text-white">
                 Join 35k+ Happy Customers & <br className="hidden xl:block" />
@@ -54,7 +53,6 @@ const AuthPageLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 };

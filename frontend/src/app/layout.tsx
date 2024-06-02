@@ -27,7 +27,7 @@ return (
       </head>
       <body className={`${inter.className} bg-white`}>
         <ReactQueryProviders>
-          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <NavbarLayout>{children}</NavbarLayout>

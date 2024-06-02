@@ -1,36 +1,29 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
-import { red, blue, green } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: blue[500],
-      light: blue[300],
-      dark: blue[700],
-      contrastText: '#fff',
+      main: '#BDBDBD', // Light grey
     },
     secondary: {
-      main: green[500],
-      light: green[300],
-      dark: green[700],
-      contrastText: '#fff',
+      main: '#A1887F', // Light brownish
     },
     error: {
-      main: red[500],
-      contrastText: '#fff',
+      main: '#D32F2F', // Red for error
     },
     background: {
-      default: '#f5f5f5',
+      default: '#F5F5F5', // Light grey background
     },
     text: {
-      primary: '#333',
-      secondary: '#555',
+      primary: '#333333', // Dark grey for primary text
+      secondary: '#555555', // Medium grey for secondary text
     },
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
+    fontFamily: 'Roboto, Arial, sans-serif', // Default font family
   },
-  });
+});
 
 export default theme;
+
