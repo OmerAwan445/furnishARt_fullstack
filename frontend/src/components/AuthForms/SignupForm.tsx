@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { MyPasswordInput, } from '../common/FormFields/MyPasswordInput';
 import { MyTextInput } from '../common/FormFields/MyTextInput';
 import { ErrorMessageToast } from '../common/ErrorMessageToast';
+import SubmitBtn from '../common/FormFields/SubmitBtn';
 
 const SignupForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
@@ -75,12 +76,13 @@ const SignupForm = () => {
                                 ></div>
                             </div>
 
-                            <button
+                               <SubmitBtn text='Signup now'/>
+                           {/*  <button
                                 type="submit"
                                 className="relative flex items-center justify-center w-full px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 font-pj hover:bg-gray-600"
                             >
                                 Sign up now
-                            </button>
+                            </button> */}
                         </div>
                     </form>
                 )}

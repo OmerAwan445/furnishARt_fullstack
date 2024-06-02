@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomNavbar } from "../CustomNavbar";
+import CustomNavbar from "../CustomNavbar";
 
 const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -1,25 +1,30 @@
-import { Container } from '@mui/material';
+'use client';
+
+import theme from '@/utils/theme';
 import Button from '@mui/material/Button';
 import React from 'react';
 
 type SubmitBtnProps = {
-    onClick: () => void;
     text?: string;
 };
 
-const SubmitBtn: React.FC<SubmitBtnProps> = ({ onClick }) => {
+const SubmitBtn: React.FC<SubmitBtnProps> = ({ text }) => {
     return (
             <Button
-                sx={{
+            type='submit'
+                sx={
+                    {
+                    ':hover':{
+                     backgroundColor: theme.palette.primary.light,
+                    },
                     width: "100%",
                     height: "56px",
                     borderRadius: "8px",
                 }}
-                color='secondary'
-                onClick={onClick}
+                color='primary'
                 variant="contained"
             >
-                Submit
+                {text || "Submit"}
             </Button>
     );
 };

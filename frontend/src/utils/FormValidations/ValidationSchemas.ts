@@ -6,13 +6,6 @@ export const ForgotPasswordFormSchema = Yup.object({
     email: Yup.string().matches(EmailRegex, "Invalid email address").required("Email is required"),
 });
 
-
-export const ForgotPasswordVerifyFormSchema = Yup.object({
-    code: Yup.number()
-        .integer("Verification code must be numbers")
-        .required("Verification code is required"),
-});
-
 export const SetNewPasswordFormSchema = Yup.object({
   new_password: Yup.string()
     .required("Password is required")

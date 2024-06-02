@@ -1,20 +1,9 @@
-import SetNewPasswordForm from "@/components/ForgotPasswordPage/SetNewPasswordForm";
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import SetNewPasswordForm from "@/components/AuthForms/SetNewPasswordForm";
 
-function ForgotPasswordPage() {
-  const cookiesStore = cookies();
-  const cookiesUser_id = cookiesStore.get('user_id')?.value;
- let parsedCookieUser_id;
-  if(cookiesUser_id) {
-  parsedCookieUser_id = JSON.parse(cookiesUser_id);
-}
-  if(!parsedCookieUser_id) {
-   return redirect('/forgot-password')
-  }
+function SetNewPasswordPage() {
   return (
-   <SetNewPasswordForm user_id={parsedCookieUser_id} />
+   <SetNewPasswordForm />
   );
 }
 
-export default ForgotPasswordPage;
+export default SetNewPasswordPage;

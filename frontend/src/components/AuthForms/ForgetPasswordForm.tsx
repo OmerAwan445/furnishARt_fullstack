@@ -13,7 +13,6 @@ import SubmitBtn from "../common/FormFields/SubmitBtn";
 const ForgetPasswordForm = () => {
   const initialValues = {
     email: "",
-    password: "",
   };
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -59,7 +58,7 @@ const ForgetPasswordForm = () => {
                   placeholder="Email address"
                 />
               </div>
-              <SubmitBtn onClick={()=>{}}/>
+              <SubmitBtn />
             </form>
           )}
         </Formik>

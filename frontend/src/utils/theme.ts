@@ -4,25 +4,23 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#BDBDBD', // Light grey
+      main: '#222222',
+      light: '#484848',
     },
     secondary: {
-      main: '#A1887F', // Light brownish
-    },
-    error: {
-      main: '#D32F2F', // Red for error
+      main: '#f3f3f3',
+      light: '#fafafa',
     },
     background: {
-      default: '#F5F5F5', // Light grey background
+      default: '#f5f5f5',
+      paper: '#ffffff',
     },
     text: {
-      primary: '#333333', // Dark grey for primary text
-      secondary: '#555555', // Medium grey for secondary text
+      primary: '#333333',
+      secondary: '#f3f3f3',
     },
   },
-  typography: {
-    fontFamily: 'Roboto, Arial, sans-serif', // Default font family
-  },
+
 });
 
 export default theme;

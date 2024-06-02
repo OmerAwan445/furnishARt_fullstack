@@ -8,7 +8,7 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
     return (
-            <div className="flex max-h-[cacl(100vh-5rem)] items-center justify-center py-5 flex-wrap text-gray-800 max-w-8xl mx-auto">
+            <div className="flex max-h-[calc(100vh-5rem)] items-center justify-center py-5 flex-wrap text-gray-800 max-w-8xl mx-auto w-full">
                 <div className="w-full md:w-10/12 lg:w-10/12 mx-auto">
                     <div className="block bg-white md:shadow-lg md:rounded-md lg:rounded-none">
                         <div className="flex flex-wrap">
