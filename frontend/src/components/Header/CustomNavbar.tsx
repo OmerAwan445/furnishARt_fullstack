@@ -37,7 +37,7 @@ function CustomNavbar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -70,7 +70,7 @@ function CustomNavbar() {
               }}
             >
               {pages.map((page) => (
-                <Typography textAlign="center">{page}</Typography>
+                <Typography key={page} textAlign="center">{page}</Typography>
               ))}
             </Menu>
           </Box>
@@ -84,7 +84,7 @@ function CustomNavbar() {
                     flexItem
                     sx={{
                       backgroundColor: "white",
-                      height: "30px",
+                      height: "25px",
                       margin: "auto 0",
                     }}
                   />
@@ -127,7 +127,7 @@ function CustomNavbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <Typography textAlign="center" sx={{ p: "5px"}}>{setting}</Typography>
+                <Typography key={setting} textAlign="center" sx={{ p: "5px"}}>{setting}</Typography>
               ))}
             </Menu>
           </Box>
