@@ -24,10 +24,10 @@ const textLogoList = [
 
 const AuthPageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="bg-white flex flex-col min-h-screen">
-      <div className="flex-grow grid grid-cols-1 lg:grid-cols-2">
-        <div>{children}</div>
-        <div className="relative min-h-full px-4 pb-10 pt-60 sm:pb-16 lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
+    <section className="bg-white flex-grow flex overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 flex-grow ">
+        {children}
+        <div className="hidden lg:block relative min-h-full px-4 pb-10 pt-60 sm:pb-16 lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
           <div className="absolute  inset-0">
             <Image
               className="object-cover object-top w-full h-full"

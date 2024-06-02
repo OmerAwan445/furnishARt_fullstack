@@ -10,6 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.19",
+    "@mui/material-nextjs": "^5.15.11",
     "@tanstack/react-query": "^5.40.0",
     "flowbite-react": "^0.9.0",
     "formik": "^2.4.6",
