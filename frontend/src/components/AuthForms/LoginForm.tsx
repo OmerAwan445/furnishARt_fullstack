@@ -9,6 +9,7 @@ import { ErrorMessageToast } from "@/components/common/ErrorMessageToast";
 import { MyPasswordInput } from "../common/FormFields/MyPasswordInput";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import { useMutation } from "@tanstack/react-query";
+import GradientButton from "../common/buttons/GradientButton";
 
 
 const LoginForm = () => {
@@ -161,18 +162,10 @@ const LoginForm = () => {
                   />
                 </div>
               </div>
-
-              <button
-                disabled={isPending}
-                type="submit"
-                className={`inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 border rounded-md focus:outline-none ${
-                  isPending
-                    ? "cursor-not-allowed bg-gray-300 text-gray-500"
-                    : "bg-gradient-to-r from-fuchsia-600 to-blue-600 border-transparent hover:opacity-80 focus:opacity-80"
-                }`}
-              >
-                {isPending ? "Logging in..." : "Log in"}
-              </button>
+                 <GradientButton
+                    text="Login"
+                    onClick={handleSubmit}
+                    disabled={isPending} />
             </div>
           </form>
         )}

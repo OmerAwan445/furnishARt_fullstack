@@ -3,6 +3,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { BiSearch } from 'react-icons/bi';
+import { topFilms as suggestions }  from "@/DummyData";
+
 
 interface Film {
   title: string;
@@ -17,7 +19,7 @@ function sleep(duration: number): Promise<void> {
   });
 }
 
-export default function AutoCompleteSearchbar({ suggestions }: { suggestions: Film[] }) {
+export default function AutoCompleteSearchbar() {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<readonly Film[]>([]);
   const loading = open && options.length === 0;
@@ -62,7 +64,14 @@ export default function AutoCompleteSearchbar({ suggestions }: { suggestions: Fi
     <>
       <Autocomplete
         freeSolo
-        sx={{ width: 300, marginLeft: "0 !important" }}
+        sx={{  
+        width: 300,
+        marginLeft: "0 !important",
+        '&::placeholder': {
+          opacity: 1,
+          color: 'rgba(0, 0, 0, 0.6)', // Darker placeholder color
+        },
+        }}
         className='!rounded-r-none'
         size='small'
         id="free-solo-2-demo"
@@ -71,12 +80,21 @@ export default function AutoCompleteSearchbar({ suggestions }: { suggestions: Fi
         renderInput={(params) => (
           <TextField
             {...params}
+            sx={{
+              '& label': {
+                color: 'rgba(0, 0, 0, 0.6)', // Darker label color
+              },
+              '& label.Mui-focused': {
+                color: 'rgba(0, 0, 0, 0.8)', // Even darker label color when focused
+              },
+            }}
             label="Search input"
             onKeyDown= {handleKeyPress}
             InputProps={{
               ...params.InputProps,
               type: 'search',
             }}
+            
           />
         )}
       />

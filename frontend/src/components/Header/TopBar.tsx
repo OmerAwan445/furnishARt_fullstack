@@ -6,13 +6,16 @@ import {
   MenuItem,
   Stack,
   TextField,
-  Typography
 } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import AutoCompleteSearchbar from "../common/AutoCompleteSearchbar";
-import { topFilms } from "@/DummyData";
 import CartButton from "./CartButton";
+import NavbarMobileIcons from "./NavbarMobileIcons";
+import BlackOutlinedButton from "../common/buttons/BlackOutlinedButton";
+import { BiCart } from "react-icons/bi";
+import theme from "@/utils/theme";
+
 
 const categories = [
   { value: "all", label: "All categories" },
@@ -44,26 +47,11 @@ const TopBar = () => {
         direction="row"
         justifyContent={"space-between"}
       >
-        <Typography
-          variant="h6"
-          noWrap
-          component="a"
-          href="/"
-          sx={{
-            mr: 2,
-            display: { xs: "none", md: "flex" },
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-          }}
-        >
           <Image src={LOGO} className="w-28" alt="Logo" />
-        </Typography>
-
           
-          <Stack direction="row" justifyContent={"center"}>
+          <Stack 
+           sx={{ display: { xs:'none', md: 'flex' } }}
+           direction="row" flex={1} justifyContent={"center"}>
           <TextField
             select
             value={category}
@@ -71,7 +59,7 @@ const TopBar = () => {
             variant="outlined"
             size="small"
             type="search"
-            style={{ width: "200px" }}
+            style={{ width: "180px" }}
           >
             {categories.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -80,11 +68,16 @@ const TopBar = () => {
             ))}
           </TextField>
           
-          <AutoCompleteSearchbar suggestions={topFilms} />
+          <AutoCompleteSearchbar />
             </Stack>
-          
-          <CartButton />
 
+            <Box sx={{ display: { xs:'none', md: 'block',} }}>
+            <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
+              Cart
+            </BlackOutlinedButton>
+            </Box>
+
+            <NavbarMobileIcons /> {/* shown below the md screen */}
       </Stack>
     </Container>
   );
