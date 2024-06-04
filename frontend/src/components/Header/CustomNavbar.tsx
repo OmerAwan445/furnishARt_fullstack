@@ -1,7 +1,8 @@
 "use client";
 
+import AuthSvs from "@/services/Auth";
+import theme from "@/utils/theme";
 import { Divider, Drawer, Menu, Stack } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import AuthSvs from "@/services/Auth";
 import Link from "next/link";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
@@ -43,8 +43,8 @@ function CustomNavbar() {
   };
 
   return (
-    <AppBar sx={{ height: "65px" }} position="sticky">
-      <Container maxWidth="xl">
+      <Box sx={{ height: "65px", width: "100%", bgcolor: theme.palette.primary.main }}>
+      <Container  maxWidth="xl">
         <Toolbar disableGutters >
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -159,7 +159,7 @@ function CustomNavbar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+      </Box>
   );
 }
 
