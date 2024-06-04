@@ -15,6 +15,7 @@ import NavbarMobileIcons from "./NavbarMobileIcons";
 import BlackOutlinedButton from "../common/buttons/BlackOutlinedButton";
 import { BiCart } from "react-icons/bi";
 import theme from "@/utils/theme";
+import Link from "next/link";
 
 
 const categories = [
@@ -47,7 +48,9 @@ const TopBar = () => {
         direction="row"
         justifyContent={"space-between"}
       >
+          <Link href="/">
           <Image src={LOGO} className="w-28" alt="Logo" />
+          </Link>
           
           <Stack 
            sx={{ display: { xs:'none', md: 'flex' } }}
