@@ -1,9 +1,9 @@
 import { getEnv } from "@src/utils/getEnv";
 import { formatTimeInWordsWithUnit } from "@src/utils/formatTimeInWordsWithUnit";
-import { generateCryptoTokenAndEncryptData, isTokenResendEligible } from "./cryptoVerificationTokenSvs";
+import CryptoTokenSvs from "./cryptoTokenSvs";
 import { AppError } from "@src/errors/AppError";
-import EmailService from "./mailSvs";
-import { saveTokenToDbIfExistUpdate } from "@src/models/UserTokenModel";
+import EmailSvs from "./mailSvs";
+import { saveTokenToDbIfExistUpdate } from "@src/models/CustomerTokenModel";
 import { EncryptedDataInToken } from "@src/Types";
 
 /**
@@ -20,7 +20,7 @@ const sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded = async (
   const tokenType = "PASSWORD_RESET";
   const token_resend_time = getEnv('RESEND_FORGET_PASS_EMAIL_TIME');
 
-  const _isTokenResendEligible = await isTokenResendEligible(userId, tokenType, token_resend_time);
+  const _isTokenResendEligible = await CryptoTokenSvs.isTokenResendEligible(userId, tokenType, token_resend_time);
   const formatedResendTime = formatTimeInWordsWithUnit(token_resend_time);
   if (!_isTokenResendEligible) {
     return {
@@ -29,9 +29,9 @@ const sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded = async (
       statusCode: 409,
     };
   }
-  const token = generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ userId });
+  const token = CryptoTokenSvs.generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ userId });
   if (!token) throw new AppError("Token generation failed", 500);
-  const msg = await EmailService.sendForgotPasswordEmail(email, token);
+  const msg = await EmailSvs.sendForgotPasswordEmail(email, token);
   await saveTokenToDbIfExistUpdate(token, userId, tokenType);
   return { token: encodeURIComponent(token), msg, error: false, statusCode: 200 };
 };

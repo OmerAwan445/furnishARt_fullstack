@@ -18,10 +18,10 @@ export const SetNewPasswordFormSchema = Yup.object({
 
 export const SignupFormSchema = Yup.object({
   first_name: Yup.string().required("First Name is required"),
-  surname: Yup.string().required("SurName is required"),
+  last_name: Yup.string().required("Last Name is required"),
   email: Yup.string().matches(EmailRegex, "Invalid email address`").required("Email is required"),
-  phone_number: Yup.string().required("Phone Number is required"),
-  country_id: Yup.string().required("Country ID is required"),
+  address: Yup.string().required("Address is required"),
+  username: Yup.string().required("Username is required"),
   password: Yup.string().required("Password is required"),
   confirm_password: Yup.string()
   .oneOf([Yup.ref('password'), ''], "Passwords must match")
@@ -29,7 +29,7 @@ export const SignupFormSchema = Yup.object({
 });
 
 export const LoginFormSchema = Yup.object({
-  username_or_email: Yup.string().required("Username or email is required"),
+  email: Yup.string().matches(EmailRegex, "Invalid email address").required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 

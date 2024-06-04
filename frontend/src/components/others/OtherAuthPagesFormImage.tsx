@@ -1,5 +1,5 @@
 'use client';
-import OtherAuthFormImg from "@/assets/Images/other-auth-form-image.png";
+import OtherAuthFormImg from "@/assets/Images/other-auth-form-image.jpeg";
 import Image from 'next/image';
 
 const OtherAuthPagesFormImage = () => {

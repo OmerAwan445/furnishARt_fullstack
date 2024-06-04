@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 
 const url = getEnv("FRONTEND_URL");
 
-class EmailService {
+class EmailSvs {
   private static toSendEmail = process.env.NODE_ENV === "production";
   private static transporter = nodemailer.createTransport({
     service: "gmail",
@@ -89,4 +89,4 @@ class EmailService {
   }
 }
 
-export default EmailService;
+export default EmailSvs;

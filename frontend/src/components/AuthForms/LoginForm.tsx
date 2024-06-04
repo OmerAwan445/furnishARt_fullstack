@@ -16,7 +16,7 @@ import GradientButton from "../common/buttons/GradientButton";
 const LoginForm = () => {
   const saerchParams = useSearchParams();
   const initialValues = {
-    username_or_email: "",
+    email: "",
     password: "",
   };
 
@@ -25,9 +25,9 @@ const LoginForm = () => {
   const { mutate, isPending } = useMutation({ mutationFn: SigninUser });
 
   const handlerLogin = async (values: typeof initialValues) => {
-    const { username_or_email, password } = values;
+    const { email, password } = values;
     mutate(
-      { username_or_email, password },
+      { email, password },
       {
         onSuccess: (statusCode) => {
           window.location.href = callbackUrl || "/";
@@ -61,15 +61,15 @@ const LoginForm = () => {
             <div className="space-y-5">
               <div>
                 <label
-                  htmlFor="username_or_email"
+                  htmlFor="email"
                   className="text-base font-medium text-gray-900"
                 >
-                  Email address or Username
+                  Email address
                 </label>
                 <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
                   <div
                     className={`${
-                      touched.username_or_email && errors.username_or_email
+                      touched.email && errors.email
                         ? "top-5"
                         : "inset-y-0 items-center"
                     } absolute left-0 flex pl-3 pointer-events-none`}
@@ -78,12 +78,12 @@ const LoginForm = () => {
                                       </div>
 
                   <MyTextInput
-                    id="username_or_email"
-                    name="username_or_email"
+                    id="email"
+                    name="email"
                     type="text"
                     placeholder="Enter username or email to get started"
                     className={`${
-                      touched.username_or_email && errors.username_or_email
+                      touched.email && errors.email
                         ? "border-2 border-red-600 focus:border-red-600 focus:ring-0"
                         : "focus:border-blue-600 caret-blue-600 border border-gray-200"
                     }

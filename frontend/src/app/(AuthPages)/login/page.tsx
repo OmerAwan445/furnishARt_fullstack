@@ -1,11 +1,11 @@
 import LoginForm from "@/components/AuthForms/LoginForm";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 
 export default function Login() {
   return (
-    <>
+    <Suspense>
       <div className="flex justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="w-full sm:max-w-lg md:max-w-md xl:w-full xl:max-w-md">
           <h2 className=" text-3xl lg:text-2xl xl:text-3xl font-bold leading-tight text-black sm:text-4xl">
@@ -60,6 +60,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 }

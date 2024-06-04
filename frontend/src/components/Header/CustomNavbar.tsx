@@ -44,7 +44,7 @@ function CustomNavbar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar sx={{ height: "65px" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

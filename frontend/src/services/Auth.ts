@@ -1,9 +1,9 @@
 import { signIn } from "next-auth/react";
 
-const SigninUser = async (data: { username_or_email: string; password: string })=> {
-    const { username_or_email, password } = data;
+const SigninUser = async (data: { email: string; password: string })=> {
+    const { email, password } = data;
       const response = await signIn('login', {
-        username_or_email,
+        email,
         password,
         redirect: false,
       });

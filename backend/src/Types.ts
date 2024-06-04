@@ -1,5 +1,4 @@
-import { Prisma } from "@prisma/client";
-import { Decimal, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 
 // ======= Global types ==========
@@ -18,12 +17,6 @@ declare global {
   }
 }
   }
-// Generic type
-export type RemoveUndefined<T> = {
-    [k in keyof T] : T[k] extends undefined ? never : T[k];
-};
-
-export type RatingsCreateData = Prisma.RatingsCreateArgs['data'];
 export interface CustomError extends Error {
     statusCode: number;
 }
@@ -35,6 +28,7 @@ export interface JwtUser {
     id: number
     email: string;
     name: string;
+    username: string
 }
 
 
@@ -43,6 +37,8 @@ export interface SignupRequestBody {
     first_name: string
     last_name: string
     email: string
+    address?: string
+    username: string
     password: string;
     confirm_password: string;
 }
@@ -57,31 +53,13 @@ export interface ResetPasswordRequestBody {
     confirm_password: string;
 }
 
+export interface VerificationEmailResponse {
+    token?: string
+    msg: string;
+    error: boolean;
+    statusCode: number;
+  }
+
 export interface EncryptedDataInToken {
     userId: number;
 }
-
-
-// =============== Restuarants ================
-
-export interface RestaurantCreateData {
- name: string;
- location: string;
- priceRange: Decimal;
-}
-
-export interface RestaurantUpdateData {
- name?: string;
- location?: string;
- priceRange?: Decimal;
-}
-
-export interface CreateRatingRequestBody {
-    review: string
-    rating: Decimal
-    restaurantId: number
-}
-
-export interface CreateRatingRequestParam {
-    restaurantId?: number
- }

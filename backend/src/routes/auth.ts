@@ -1,5 +1,4 @@
-import { ForgetPassword, LoginUser, ResetPassword, SendVerificationEmail, SignupUser,
-  VerifyEmailVerificationToken, VerifyForgetPasswordToken } from "@src/controllers/auth_controller";
+import AuthController from "@src/controllers/auth_controller";
 import { validateRequestSchema } from "@src/middlewares/validate-request-schema";
 import { validatePasswordMatch } from "@src/middlewares/validatePasswordMatch";
 import { forgetPasswordSchema, loginSchema, resetPasswordSchema, signupSchema,
@@ -10,28 +9,28 @@ import { checkSchema } from "express-validator";
 const authRoutes = expressRouters();
 
 authRoutes.route('/signup').post(checkSchema(signupSchema, ['body']), validateRequestSchema,
-    validatePasswordMatch, SignupUser);
+    validatePasswordMatch, AuthController.createCustomerAndSendVerification);
 
-authRoutes.route('/login').post(checkSchema(loginSchema, ['body']), validateRequestSchema, LoginUser);
+authRoutes.route('/login').post(checkSchema(loginSchema, ['body']), validateRequestSchema, AuthController.authenticateCustomer);
 
 authRoutes.route('/send-verification-email').
-    post(checkSchema(verifyEmailSchema, ['body']), validateRequestSchema, SendVerificationEmail);
+    post(checkSchema(verifyEmailSchema, ['body']), validateRequestSchema, AuthController.sendVerificationEmail);
 
 authRoutes.route('/resend-verification-email').
-    post(checkSchema(verifyEmailSchema, ['body']), validateRequestSchema, SendVerificationEmail);
+    post(checkSchema(verifyEmailSchema, ['body']), validateRequestSchema, AuthController.sendVerificationEmail);
 
 authRoutes.route('/verify-email').
-    post(checkSchema(verifyEmailTokenSchema, ['query']), validateRequestSchema, VerifyEmailVerificationToken);
+    post(checkSchema(verifyEmailTokenSchema, ['query']), validateRequestSchema, AuthController.verifyEmailVerificationToken);
 
 // forget-password routes
 authRoutes.route('/forget-password').
-    post(checkSchema(forgetPasswordSchema, ['body']), validateRequestSchema, ForgetPassword);
+    post(checkSchema(forgetPasswordSchema, ['body']), validateRequestSchema, AuthController.forgetPassword);
 
 authRoutes.route('/verify-forget-password').
-    post(checkSchema(verifyEmailTokenSchema, ['query']), validateRequestSchema, VerifyForgetPasswordToken);
+    post(checkSchema(verifyEmailTokenSchema, ['query']), validateRequestSchema, AuthController.verifyForgetPasswordToken);
 
 authRoutes.route('/reset-password').
     post(checkSchema(resetPasswordSchema, ['body']), validateRequestSchema,
-        validatePasswordMatch, ResetPassword);
+        validatePasswordMatch, AuthController.resetPassword);
 
 export default authRoutes;
