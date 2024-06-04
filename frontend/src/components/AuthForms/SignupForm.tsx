@@ -3,13 +3,19 @@
 import { SignupFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { Formik } from "formik";
 import { useState } from "react";
-import { ErrorMessageToast } from "../common/ErrorMessageToast";
+import { ErrorMessageToast } from "../common/toasts/ErrorMessageToast";
 import { MyPasswordInput } from "../common/FormFields/MyPasswordInput";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import GradientButton from "../common/buttons/GradientButton";
+import AuthSvs from "@/services/Auth";
+import SuccessMessageToast from "../common/toasts/SuccessMessageToast";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const { isPending, mutate: signup } = useMutation({ mutationFn: AuthSvs.signUpCustomer})
 
   const initialValues = {
     first_name: "",
@@ -20,12 +26,31 @@ const SignupForm = () => {
     password: "",
     confirm_password: "",
   };
+const router = useRouter();
 
   async function handlerSubmit(values: typeof initialValues) {
-    alert(JSON.stringify(values, null, 2));
-    // actions.setSubmitting(false);
-    
+
+    signup(values,
+      {
+        onSuccess(data) {
+          setErrorMessage("");
+          setSuccessMessage(data.message);
+          // router.push('/verify-email');
+        },
+        onError(error) {
+          setSuccessMessage("");
+          setErrorMessage(error.message);
+        }
+      }
+    )
   }
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSuccessMessage("");
+  };
 
   return (
     <Formik
@@ -39,6 +64,9 @@ const SignupForm = () => {
             setErrorMessage={setErrorMessage}
             errorMessage={errorMessage}
           />
+          <SuccessMessageToast open={successMessage !== ""} handleClose={handleClose}>
+            {successMessage}
+          </SuccessMessageToast>
           <div className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <MyTextInput
@@ -122,7 +150,7 @@ const SignupForm = () => {
           </div>
 
           <div className="mx-auto mt-8 sm:max-w-lg md:max-w-md xl:w-full xl:max-w-md">
-            <GradientButton onClick={() => {}} disabled={false}>
+            <GradientButton type="submit"  disabled={isPending}>
               Signup now
             </GradientButton>
           </div>

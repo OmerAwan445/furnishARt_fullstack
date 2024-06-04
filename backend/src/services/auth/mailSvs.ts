@@ -1,12 +1,12 @@
 import { AppError } from "@src/errors/AppError";
-import { getEnv } from "@src/utils/getEnv";
 import { formatTimeInWordsWithUnit } from "@src/utils/formatTimeInWordsWithUnit";
+import { getEnv } from "@src/utils/getEnv";
 import nodemailer from "nodemailer";
 
 const url = getEnv("FRONTEND_URL");
 
 class EmailSvs {
-  private static toSendEmail = process.env.NODE_ENV === "production";
+  private static toSendEmail = true; // !isDevEnvironment;
   private static transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
