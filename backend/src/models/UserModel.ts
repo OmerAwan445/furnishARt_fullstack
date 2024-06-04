@@ -26,6 +26,7 @@ async function checkEmailUniqueAndCreateUser(
         email,
         password: hashedPassword,
       },
+      select: prismaExclude("User", ["password"]),
     });
   });
 }

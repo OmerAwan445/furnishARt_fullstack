@@ -7,6 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/utils/theme";
 import NavbarLayout from "@/components/common/layouts/NavbarLayout";
+import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,8 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-return (
+  return (
     <html lang="en">
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -30,7 +30,9 @@ return (
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <NavbarLayout>{children}</NavbarLayout>
+              <AuthSessionProvider>
+                <NavbarLayout>{children}</NavbarLayout>
+              </AuthSessionProvider>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </ReactQueryProviders>
