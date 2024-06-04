@@ -1,6 +1,6 @@
+import FormSideImg from "@/assets/Images/form-side-image.jpg";
 import Image from "next/image";
 import React from "react";
-import FormSideImg from "@/assets/Images/form-side-image.jpg";
 import { FaCompass, FaLightbulb, FaPaintBrush, FaShoppingCart } from "react-icons/fa";
 
 const textLogoList = [
@@ -23,10 +23,11 @@ const textLogoList = [
 ]
 
 const AuthPageLayout = ({ children }: { children: React.ReactNode }) => {
+  const car ="80px";
   return (
-    <section className="bg-white w-full max-h-[calc(100vh-5rem)] pt-2 overflow-hidden grid grid-cols-1 lg:grid-cols-2 ">
+    <section className={`bg-white w-full min-h-[calc(100vh-(60px+65px))] overflow-hidden pt-2 grid grid-cols-1 lg:grid-cols-2 `}>
         {children}
-        <div className="h-[calc(100vh-5rem)] hidden lg:block relative px-4 pb-10 pt-60 sm:pb-16 lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
+        <div className="hidden lg:block relative px-4 pb-10 pt-60 sm:pb-16 lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
           <div className="absolute  inset-0">
             <Image
               className="object-cover object-top w-full h-full"
@@ -41,9 +42,9 @@ const AuthPageLayout = ({ children }: { children: React.ReactNode }) => {
 
           <div className="relative flex justify-center items-center">
             <div className="w-full max-w-2xl xl:w-full xl:mx-auto xl:pr-24 xl:max-w-xl">
+                <h1 className="text-5xl xl:text-6xl font-bold text-white mb-5">furnishArt</h1>
               <h3 className="text-3xl xl:text-4xl font-bold text-white">
-                Join 35k+ Happy Customers & <br className="hidden xl:block" />
-                Revolutionize Your Furniture Shopping Experience
+                Furnish your imagaination
               </h3>
               <ul className="grid grid-cols-1 mt-10 sm:grid-cols-2 gap-x-8 gap-y-4">
                 {textLogoList.map((el) => {

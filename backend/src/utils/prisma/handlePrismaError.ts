@@ -27,7 +27,7 @@ export function handlePrismaError( error: PrismaClientKnownRequestError): Custom
       break;
     default:
       // handling all other errors
-      prismaError.message = `An unexpected database error occurred. ${isDevEnvironment() ? prismaError.message : ''}`;
+      prismaError.message = `An unexpected database error occurred. ${isDevEnvironment ? prismaError.message : ''}`;
       prismaError.statusCode = 500;
   }
 

@@ -17,11 +17,11 @@ export const MyTextInput = ({ label, ...props }: MyTextInputProps) => {
   // which we can spread on <input> and also replace ErrorMessage entirely.
   const [field, meta] = useField(props);
   return (
-    <>
+    <div>
       {label && <label htmlFor={props.id || props.name}>{label}</label>}
       <input {...field} {...props} />
       {meta.touched && meta.error && <FieldErrorMessage
        message={meta.error} />}
-    </>
+    </div>
   );
 };

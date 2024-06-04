@@ -8,14 +8,12 @@ import {
   TextField,
 } from "@mui/material";
 import Image from "next/image";
-import React from "react";
-import AutoCompleteSearchbar from "../common/AutoCompleteSearchbar";
-import CartButton from "./CartButton";
-import NavbarMobileIcons from "./NavbarMobileIcons";
-import BlackOutlinedButton from "../common/buttons/BlackOutlinedButton";
-import { BiCart } from "react-icons/bi";
-import theme from "@/utils/theme";
 import Link from "next/link";
+import React from "react";
+import { BiCart } from "react-icons/bi";
+import AutoCompleteSearchbar from "../common/AutoCompleteSearchbar";
+import BlackOutlinedButton from "../common/buttons/BlackOutlinedButton";
+import NavbarMobileIcons from "./NavbarMobileIcons";
 
 
 const categories = [
@@ -42,14 +40,14 @@ const TopBar = () => {
   };
 
   return (
-    <Container maxWidth={"xl"} sx={{ p: "7px" }}>
+    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px" }}>
       <Stack
         sx={{ width: "100%" }}
         direction="row"
         justifyContent={"space-between"}
       >
-          <Link href="/">
-          <Image src={LOGO} className="w-28" alt="Logo" />
+          <Link href="/" className="self-center">
+          <Image src={LOGO} className="w-36" alt="Logo" />
           </Link>
           
           <Stack 

@@ -19,7 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", appRoutes);
 
-console.log(process.env.DATABASE_URL);
 app.use(
     (
         err: CustomError | AppError,

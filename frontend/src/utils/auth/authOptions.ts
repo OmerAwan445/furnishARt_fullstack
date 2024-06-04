@@ -12,19 +12,19 @@ export const authOptions: NextAuthOptions = {
       id: "login",
       name: "Email and Password",
       credentials: {
-        username_or_email: { label: "Username or Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        email: { },
+        password: { },
       },
       authorize: async (credentials, req) => {
         try {
-          if (!credentials?.username_or_email || !credentials?.password)
+          if (!credentials?.email || !credentials?.password)
             return null;
 
           const { data } = await axios.post(
-            API_BASE_URL!! + BACKEND_API_ENDPOINTS.loginUser,
+            API_BASE_URL!! + BACKEND_API_ENDPOINTS.loginCustomer,
             {
               password: credentials.password,
-              email: credentials.username_or_email,
+              email: credentials.email,
             }
           );
 
@@ -43,14 +43,15 @@ export const authOptions: NextAuthOptions = {
 
           return null;
         } catch (err: any) {
-          err.status = err.response.data.statusCode;
-          err.message = err.response.data?.message || "Error in Authentication";
-          
           // if account is not acctivated
           // if (err.response && err.response.status === 403 && err.response.data && err.response.data.user_id) {
-            //   cookies().set(CookieKeys.UserId, err.response.data.user_id,{expires:cookieConfig[CookieKeys.UserId].expirationTime});
-            // }
-          throw new Error(err);
+          //   cookies().set(CookieKeys.UserId, err.response.data.user_id,{expires:cookieConfig[CookieKeys.UserId].expirationTime});
+          // }
+          throw new Error(
+            err.response?.data?.message ||
+              err.message ||
+              "Error in Authentication"
+          );
         }
       },
     }),
