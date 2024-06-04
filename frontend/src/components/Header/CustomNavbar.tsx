@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider, Stack, Drawer, Menu } from "@mui/material";
+import { Divider, Drawer, Menu, Stack } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -10,11 +10,10 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import AuthSvs from "@/services/Auth";
 import Link from "next/link";
-import { Link as MuiLink} from "@mui/material";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
-import { signOut } from "next-auth/react";
 
 const pages = ["Home", "Shop", "About", "Contact us"];
 const settings = ["Profile", "Account", "Logout"];
@@ -44,9 +43,9 @@ function CustomNavbar() {
   };
 
   return (
-    <AppBar sx={{ height: "65px" }} position="static">
+    <AppBar sx={{ height: "65px" }} position="sticky">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters >
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -97,7 +96,7 @@ function CustomNavbar() {
             </Drawer>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, alignItems: "center", display: { xs: "none", md: "flex" } }}>
             <Container fixed>
               <Stack
                 direction={{ sm: "row" }}
@@ -117,7 +116,7 @@ function CustomNavbar() {
                 {pages.map((page) => (
                   <Link key={page} href={`/${page === "Home" ? "" : page.toLowerCase().replace(' ', '-')}`} >
                     <Typography
-                  className={`relative pb-2 text-white hover:text-gray-300 transition-all duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white after:scale-x-0 after:origin-left after:transition-transform after:duration-200 hover:after:scale-x-100 hover:border-white`}
+                  className={`relative py-2 text-white hover:text-gray-300 transition-all duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white after:scale-x-0 after:origin-left after:transition-transform after:duration-200 hover:after:scale-x-100 hover:border-white`}
                 >
                     {page}
                 </Typography>
@@ -151,7 +150,7 @@ function CustomNavbar() {
             >
               <Stack direction={"column"} gap={1}>
               {settings.map((setting) => (
-                <Button key={setting} variant="text" sx={{ px: "20px" }} onClick={setting === "Logout" ? () => { signOut() } : undefined}>
+                <Button key={setting} variant="text" sx={{ px: "20px" }} onClick={setting === "Logout" ? AuthSvs.signOutUser : undefined}>
                 <Typography textAlign="center">{setting}</Typography>
                 </Button>
               ))}

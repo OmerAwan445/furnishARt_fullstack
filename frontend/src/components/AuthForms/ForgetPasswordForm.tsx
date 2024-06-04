@@ -4,7 +4,7 @@ import { ForgotPasswordFormSchema } from "@/utils/FormValidations/ValidationSche
 import { Formik, FormikHelpers } from "formik";
 import Link from "next/link";
 import { useState } from "react";
-import { ErrorMessageToast } from "../common/ErrorMessageToast";
+import { ErrorMessageToast } from "../common/toasts/ErrorMessageToast";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import SubmitBtn from "../common/FormFields/SubmitBtn";
 

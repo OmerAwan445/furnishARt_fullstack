@@ -1,6 +1,21 @@
-import { signIn } from "next-auth/react";
+import apiInstance from "@/ApiInstance";
+import { SignupFormData } from "@/types/Types";
+import { signIn, signOut } from "next-auth/react";
+import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
+import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
+class AuthService {
 
-const SigninUser = async (data: { email: string; password: string })=> {
+static async signUpCustomer(formData: SignupFormData) {
+  const { data, error} =  await handleApiCall(async ()=> await apiInstance.post(BACKEND_API_ENDPOINTS.signupCustomer, formData));
+  console.log(data, "data", error, "err");
+  if (error) {
+    throw new Error(error.message); //make custom error class
+  }
+  return data;
+}
+
+
+static async signinUser (data: { email: string; password: string }) {
     const { email, password } = data;
       const response = await signIn('login', {
         email,
@@ -22,4 +37,11 @@ const SigninUser = async (data: { email: string; password: string })=> {
       }
 };
 
-export { SigninUser };
+static async signOutUser() {
+  signOut();
+}
+
+
+}
+
+export default AuthService;

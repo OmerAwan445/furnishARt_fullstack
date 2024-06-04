@@ -40,7 +40,7 @@ const TopBar = () => {
   };
 
   return (
-    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px" }}>
+    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px", }} >
       <Stack
         sx={{ width: "100%" }}
         direction="row"

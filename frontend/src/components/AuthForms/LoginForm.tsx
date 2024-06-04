@@ -1,6 +1,6 @@
 "use client";
-import { ErrorMessageToast } from "@/components/common/ErrorMessageToast";
-import { SigninUser } from "@/services/Auth";
+import { ErrorMessageToast } from "@/components/common/toasts/ErrorMessageToast";
+import AuthSvs from "@/services/Auth";
 import { LoginFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
@@ -22,7 +22,7 @@ const LoginForm = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const callbackUrl = saerchParams?.get("callbackUrl");
-  const { mutate, isPending } = useMutation({ mutationFn: SigninUser });
+  const { mutate, isPending } = useMutation({ mutationFn: AuthSvs.signinUser });
 
   const handlerLogin = async (values: typeof initialValues) => {
     const { email, password } = values;
