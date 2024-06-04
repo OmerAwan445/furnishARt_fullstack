@@ -2,13 +2,16 @@ import { authConfig } from '@/utils/auth/auth.config';
 import { withAuth } from "next-auth/middleware";
 
 export default withAuth(
-  function onSuccess(req) {
-    return;
+  function middleware(req) {
+    // console.log(req.nextauth.token, "Auth Middleware")
   },
   {
+    ...authConfig,
     callbacks: {
-      authorized: ({ token }) => token != null
+    authorized: ({ req, token }) => {
+      console.log(token, "Token");
+      return token != null
+    }
     },
-    ...authConfig
   }
 );

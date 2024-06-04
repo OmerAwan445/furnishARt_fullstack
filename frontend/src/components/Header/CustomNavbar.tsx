@@ -14,9 +14,10 @@ import Link from "next/link";
 import { Link as MuiLink} from "@mui/material";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
+import { signOut } from "next-auth/react";
 
 const pages = ["Home", "Shop", "About", "Contact us"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Logout"];
 
 function CustomNavbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -129,7 +130,7 @@ function CustomNavbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Umer" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Umer" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -148,9 +149,13 @@ function CustomNavbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <Stack direction={"column"} gap={1}>
               {settings.map((setting) => (
-                <Typography key={setting} textAlign="center" sx={{ p: "5px" }}>{setting}</Typography>
+                <Button key={setting} variant="text" sx={{ px: "20px" }} onClick={setting === "Logout" ? () => { signOut() } : undefined}>
+                <Typography textAlign="center">{setting}</Typography>
+                </Button>
               ))}
+              </Stack>
             </Menu>
           </Box>
         </Toolbar>

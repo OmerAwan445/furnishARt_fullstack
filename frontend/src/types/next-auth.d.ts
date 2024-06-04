@@ -8,7 +8,7 @@ declare module "next-auth" {
     username: string;
     first_name: string;
     last_name: string;
-    is_email_verified: boolean;
+    is_verified: boolean;
     is_admin: boolean;
     email: string;
   }
@@ -19,7 +19,7 @@ declare module "next-auth" {
       username: string;
       first_name: string;
       last_name: string;
-      is_email_verified: boolean;
+      is_verified: boolean;
       is_admin: boolean;
       email: string;
     };
@@ -29,12 +29,14 @@ declare module "next-auth" {
 /** Example on how to extend the built-in types for JWT */
 declare module "next-auth/jwt" {
   interface JWT {
-    id: number;
-    username: string;
-    first_name: string;
-    last_name: string;
-    is_email_verified: boolean;
-    is_admin: boolean;
-    email: string;
+    user: {
+      id: number;
+      username: string;
+      first_name: string;
+      last_name: string;
+      is_verified: boolean;
+      is_admin: boolean;
+      email: string;
+    };
   }
 }

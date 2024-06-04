@@ -1,12 +1,9 @@
+import { CustomButtonProps } from '@/types/Types'
 import theme from '@/utils/theme'
 import { Button, ButtonProps, ButtonTypeMap, ExtendButtonBase } from '@mui/material'
 import { ReactNode } from 'react'
 
-interface BlackOutlinedButtonProps extends Partial<ButtonProps> {
-    children: ReactNode;
-  }
-
-const BlackOutlinedButton = ({ children, ...props }: BlackOutlinedButtonProps ) => {
+const BlackOutlinedButton = ({ children, ...props }: CustomButtonProps ) => {
   return (
     <Button variant="outlined" size="large" 
     {...props}

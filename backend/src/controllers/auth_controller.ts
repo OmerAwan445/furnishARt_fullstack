@@ -33,7 +33,7 @@ const LoginUser = catchAsyncError(async (req: Request<object, object, LoginReque
 
   if (!user.is_verified) {
     const { msg } = await sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded(user.email, user.id);
-    return res.status(401).send(ApiResponse.error('User Email is not verified & ' + msg, 401, { userId: user.id }));
+    return res.status(403).send(ApiResponse.error('User Email is not verified & ' + msg, 403, { userId: user.id }));
   }
 
   const { password:_, ...userWithoutPassword } = user; // eslint-disable-line

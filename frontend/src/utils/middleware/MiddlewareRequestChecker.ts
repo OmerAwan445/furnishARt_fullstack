@@ -1,8 +1,10 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import { AUTH_URL } from "@/utils/auth/auth.config";
+import { NEXTAUTH_SECRET_KEY } from "@/utils/auth/auth.config";
 
 type ResponseType = NextResponse | null;
+
+const authpages = ["/login", "/signup", "/forget-password", "/forget-password/set-new-password"];
 
 export class MiddlewareRequestChecker {
   private request: NextRequest;
@@ -18,13 +20,12 @@ export class MiddlewareRequestChecker {
   authChecker = async (): Promise<ResponseType> => {
 
     // if the user is logged in and tries to access auth page
-    if (this.pathname === "/login") {
-// TODO: Add the logic to check if the user is logged in
-      const token = await getToken({
+    if (authpages.includes(this.pathname)) {
+      const isAuthenticated = await getToken({
         req: this.request,
-        secret: AUTH_URL,
+        secret: NEXTAUTH_SECRET_KEY,
       });
-      if (token) {
+      if (isAuthenticated) {
         return NextResponse.redirect(this.homePageRedirectionUrl);
       }
     }
