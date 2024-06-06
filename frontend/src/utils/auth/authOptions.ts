@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
               first_name: data.data.first_name,
               last_name: data.data.last_name,
               is_verified: data.data.is_verified ?? false,
-              is_admin: data.data.is_admin ?? false,
+              role: data.data.is_admin ?? "user",
               email: data.data.email,
             };
             return user;
@@ -55,26 +55,39 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
-    /* CredentialsProvider({
+    CredentialsProvider({
             id: "verify-email",
             credentials: {
               token: {},
             },
-            async authorize(credentials) {
+            async authorize(credentials, req) {
               try {
-                console.log('called Signup' , credentials?.token);
-                return {
-                  id: '1',
-                  accessToken: credentials?.token ?? 'asdasd',
-                  refreshToken: 'asdasd',
-                  accessTokenExpires: getAccessTokenExpTime(),
-                }
-  
+              if (!credentials) return null;
+
+              const { data } = await axios.get(`${API_BASE_URL!!}${BACKEND_API_ENDPOINTS.verifyEmail}?token=${encodeURIComponent(credentials.token)}`);
+              if (data) {
+                const user = {
+                  id: data.data.id,
+                  username: data.data.username,
+                  first_name: data.data.first_name,
+                  last_name: data.data.last_name,
+                  is_verified: data.data.is_verified ?? false,
+                  role: data.data.is_admin ?? "user",
+                  email: data.data.email,
+                };
+                return user;
+              }
+              
+              return null;
               } catch (error:any) {
-                throw new Error(error.message);
+                throw new Error(
+                  error.response?.data?.message ||
+                  error.message ||
+                    "Error in verification"
+                );
               }
             },
-          }), */
+          }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -85,7 +98,7 @@ export const authOptions: NextAuthOptions = {
           first_name: user.first_name,
           last_name: user.last_name,
           is_verified: user.is_verified,
-          is_admin: user.is_admin,
+          role: user.role,
           email: user.email,
         };
       }

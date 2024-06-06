@@ -71,10 +71,10 @@ class AuthController {
   static verifyEmailVerificationToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
     const token = req.query.token as string;
     // 1. check if token is valid from db and is not expired
-    const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "EMAIL_VERIFICATION"); //eslint-disable-line
+    const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "EMAIL_VERIFICATION");
     if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));
     // 2. make user verified and Delete the token from the Db
-    const user = await makeCustomerVerifiedAndDeleteToken(data.userId);
+    const user = await makeCustomerVerifiedAndDeleteToken(data.customer_id);
     const accessToken = await JwtSvs.generateAccessToken({ username: user.username,
       id: user.id, email: user.email, name: user.first_name + user.last_name });
 
@@ -111,7 +111,7 @@ class AuthController {
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "PASSWORD_RESET");
     if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));
     // 2. update the password and delete the token from the db
-    const { email } = await updatePasswordAndDeleteToken(data.userId, await BcryptSvs.hashPassword(password));
+    const { email } = await updatePasswordAndDeleteToken(data.customer_id, await BcryptSvs.hashPassword(password));
     // 3. send email to user that password has been changed
     await EmailSvs.sendResetPasswordEmail(email);
     return res.send(ApiResponse.success({}, "Password changed successfully"));

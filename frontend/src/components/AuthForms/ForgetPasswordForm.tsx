@@ -1,26 +1,30 @@
 "use client";
 
+import useAuth from "@/hooks/useAuth";
+import AuthSvs from "@/services/Auth";
 import { ForgotPasswordFormSchema } from "@/utils/FormValidations/ValidationSchemas";
-import { Formik, FormikHelpers } from "formik";
+import { handleClose } from "@/utils/toastHandleClose";
+import { Formik } from "formik";
 import Link from "next/link";
-import { useState } from "react";
-import { ErrorMessageToast } from "../common/toasts/ErrorMessageToast";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import SubmitBtn from "../common/FormFields/SubmitBtn";
+import CustomToast from "../common/toasts/CustomToast";
 
-{
-}
 const ForgetPasswordForm = () => {
   const initialValues = {
     email: "",
   };
+  const {
+    mutate: forgetPass,
+    successMessage,
+    errorMessage,
+    clearMessages,
+    isPending,
+  } = useAuth({ mutationFn: AuthSvs.sendForgetPassEmail });
 
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handlerLogin = async (
-    values: typeof initialValues,
-    actions: FormikHelpers<typeof initialValues>
-  ) => {};
+  function handlerForgetPass(values: typeof initialValues) {
+    forgetPass(values.email);
+  }
 
   return (
     <>
@@ -36,16 +40,23 @@ const ForgetPasswordForm = () => {
         </div>
 
         <Formik
-          onSubmit={handlerLogin}
+          onSubmit={handlerForgetPass}
           validationSchema={ForgotPasswordFormSchema}
           initialValues={initialValues}
         >
           {({ errors, touched, handleSubmit }) => (
             <form onSubmit={handleSubmit} className="space-y-5 mt-4 lg:mt-8">
-              <ErrorMessageToast
-                setErrorMessage={setErrorMessage}
-                errorMessage={errorMessage}
-              />
+              {(errorMessage || successMessage) && (
+                <CustomToast
+                  open={!!successMessage || !!errorMessage}
+                  type={!!errorMessage ? "error" : "success"}
+                  handleClose={(event, reason) =>
+                    handleClose(clearMessages, event, reason)
+                  }
+                >
+                  {successMessage || errorMessage}
+                </CustomToast>
+              )}
               <div className="mb-4 relative">
                 <MyTextInput
                   className={`${
@@ -58,7 +69,9 @@ const ForgetPasswordForm = () => {
                   placeholder="Email address"
                 />
               </div>
-              <SubmitBtn />
+              <SubmitBtn>
+                {isPending ? "Sending..." : "Send Reset Link"}
+              </SubmitBtn>
             </form>
           )}
         </Formik>

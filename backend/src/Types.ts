@@ -61,5 +61,5 @@ export interface VerificationEmailResponse {
   }
 
 export interface EncryptedDataInToken {
-    userId: number;
+    customer_id: number;
 }

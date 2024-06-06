@@ -8,10 +8,10 @@ const url = getEnv("FRONTEND_URL");
 class EmailSvs {
   private static toSendEmail = true; // !isDevEnvironment;
   private static transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: getEnv("NODEMAILER.SMTP_SERVICE"),
     auth: {
-      user: "international.romeo333@gmail.com",
-      pass: "ozyk wwyb qhmx irsy",
+      user: getEnv("NODEMAILER.SMTP_FROM_EMAIL"),
+      pass: getEnv("NODEMAILER.SMTP_PASSWORD"),
     },
     secure: true,
   });
@@ -23,14 +23,14 @@ class EmailSvs {
     }
 
     const mailOptions = {
-      from: '"My Company" <international.romeo333@gmail.com>',
+      from: '"FurnishARt Team"',
       to: email,
       subject: `Email Verification`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <h2 style="color: #007bff;">Email Verification</h2>
           <p style="font-size: 16px;">You requested for email verification, kindly use this Link <a
-            style="color: #007bff; text-decoration: none;" href=${url}/verify-email?token=${encodeURIComponent(token)}">
+            style="color: #007bff; text-decoration: none;" target="_blank" href=${url}/verify-email?token=${encodeURIComponent(token)}>
             Verify your email address</a> to verify your email address.</p>
       <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(
       getEnv("tokenExpiry.EMAIL_VERIFICATION"))}</b>
@@ -53,7 +53,7 @@ class EmailSvs {
         subject: "Forgot Password",
         html: `
             <p>To reset your password, please click the link below.
-              <a
+              <a target="_blank"
                 href="${url}/reset-password?token=${encodeURIComponent(token)}"
               >
               <br/>

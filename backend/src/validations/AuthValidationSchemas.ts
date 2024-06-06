@@ -61,11 +61,11 @@ export const verifyLoginSchema: Schema = {
   },
 };
 
-export const verifyEmailSchema: Schema = {
-  userId: {
+export const sendVerificationEmailSchema: Schema = {
+  customer_id: {
     exists: {
       options: { values: "falsy" },
-      errorMessage: "User id is required",
+      errorMessage: "customer_id is required",
     },
     custom: {
       options: (value: any) => {
@@ -74,7 +74,7 @@ export const verifyEmailSchema: Schema = {
           value <= 0 ||
           !Number.isInteger(value)
         ) {
-          throw new Error("User id must be an integer greater than 0");
+          throw new Error("customer_id must be an integer greater than 0");
         }
         return true;
       },

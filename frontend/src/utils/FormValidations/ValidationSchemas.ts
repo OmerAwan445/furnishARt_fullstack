@@ -6,7 +6,7 @@ export const ForgotPasswordFormSchema = Yup.object({
     email: Yup.string().matches(EmailRegex, "Invalid email address").required("Email is required"),
 });
 
-export const SetNewPasswordFormSchema = Yup.object({
+export const ResetPasswordFormSchema = Yup.object({
   new_password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),

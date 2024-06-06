@@ -16,6 +16,11 @@ export default {
     access_token_secret: "JWT_ACCESS_TOKEN_SECRET",
     access_token_expiry: "JWT_ACCESS_TOKEN_EXPIRY",
   },
+  NODEMAILER: {
+    SMTP_PASSWORD: "SMTP_PASSWORD",
+    SMTP_SERVICE: "SMTP_SERVICE",
+    SMTP_FROM_EMAIL: "SMTP_FROM_EMAIL",
+  },
   VerificationTokenSecret: "VERIFICATION_TOKEN_SECRET",
   tokenExpiry: {
     EMAIL_VERIFICATION: "EMAIL_VERIFICATION_TOKEN_EXPIRY",

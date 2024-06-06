@@ -1,16 +1,41 @@
 "use client";
 
-import SubmitButton from "@/components/common/FormFields/SubmitBtn";
-import { SetNewPasswordFormSchema } from "@/utils/FormValidations/ValidationSchemas";
-import { Formik } from "formik";
 import { MyPasswordInput } from "@/components/common/FormFields/MyPasswordInput";
+import SubmitButton from "@/components/common/FormFields/SubmitBtn";
+import useAuth from "@/hooks/useAuth";
+import AuthSvs from "@/services/Auth";
+import { ResetPasswordFormSchema } from "@/utils/FormValidations/ValidationSchemas";
+import { Formik } from "formik";
+import CustomToast from "../common/toasts/CustomToast";
+import { handleClose } from "@/utils/toastHandleClose";
+import { useRouter } from "next/navigation";
 
-const SetNewPasswordForm = () => {
+const ResetPasswordForm = ({ token }:{ token: string }) => {
   const initialValues = {
     new_password: "",
     confirm_password: "",
   };
+  const router = useRouter();
+  const { errorMessage, successMessage, isPending, mutate: resetPassword, clearMessages } = useAuth({ mutationFn: AuthSvs.resetPassword, onSuccess: () => setTimeout(() => router.push("/login"), 3000)});
+
+  async function handleResetPassword(values: typeof initialValues) {
+    const { new_password, confirm_password } = values;
+    resetPassword({ password: new_password, confirm_password, token });
+  }
+
   return (
+    <>
+    {(errorMessage || successMessage) && (
+      <CustomToast
+        open={!!successMessage || !!errorMessage}
+        type={!!errorMessage ? "error" : "success"}
+        handleClose={(event, reason) =>
+          handleClose(clearMessages, event, reason)
+        }
+      >
+        {successMessage || errorMessage}
+      </CustomToast>
+    )}
     <div  className="w-full flex-grow">
       <div className="text-center">
         <h4 className="xl:text-3xl lg:text-2xl text-2xl font-semibold xl:mt-5 lg:mt-5 mb-7 pb-1 dark:text-white">
@@ -22,8 +47,8 @@ const SetNewPasswordForm = () => {
       </div>
 
       <Formik
-        onSubmit={() => {}}
-        validationSchema={SetNewPasswordFormSchema}
+        onSubmit={handleResetPassword}
+        validationSchema={ResetPasswordFormSchema}
         initialValues={initialValues}
       >
         {({ errors, touched, handleSubmit }) => (
@@ -48,12 +73,15 @@ const SetNewPasswordForm = () => {
                   : "border-gray-300 focus:border-gray-900 focus:ring-gray-900 caret-gray-900"
               } block w-full px-4 py-4 overflow-hidden text-base font-normal text-gray-900 placeholder-gray-600 transition-all duration-200 border rounded-xl bg-gray-50 outline-none focus:bg-white font-pj"`}
             />
-            <SubmitButton />
+            <SubmitButton>
+              {isPending ? "Loading..." : "Set New Password"}
+            </SubmitButton>
           </form>
         )}
       </Formik>
     </div>
+    </>
   );
 };
 
-export default SetNewPasswordForm;
+export default ResetPasswordForm;

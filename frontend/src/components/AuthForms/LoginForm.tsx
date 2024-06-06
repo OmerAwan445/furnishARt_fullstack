@@ -31,11 +31,6 @@ const LoginForm = () => {
       {
         onSuccess: (statusCode) => {
           window.location.href = callbackUrl || "/";
-          // if (statusCode === 403) {
-          //   setErrorMessage("Please verify your email address");
-           // window.location.href = '/verify-email';
-          // } else {
-          // }
         },
         onError: (error) => {
           setErrorMessage(error.message);
