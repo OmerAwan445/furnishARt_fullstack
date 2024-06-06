@@ -23,6 +23,11 @@ export default {
     access_token_secret: "",
     access_token_expiry: "",
   },
+  NODEMAILER: {
+    SMTP_PASSWORD: "",
+    SMTP_SERVICE: "",
+    SMTP_FROM_EMAIL: "",
+  },
   tokenExpiry: {
     EMAIL_VERIFICATION: "",
     PASSWORD_RESET: "",

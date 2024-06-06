@@ -7,20 +7,20 @@ import EmailSvs from "./mailSvs";
 import { EncryptedDataInToken, VerificationEmailResponse } from "@src/Types";
 
 /**
- * Sends a Verification email, generates a crypto token with encrypted userId in it and
+ * Sends a Verification email, generates a crypto token with encrypted customer_id in it and
  * saves token to DB if the resend time limit has not been exceeded.
  * @param {string} email The email address of the user.
- * @param {number} userId The ID of the user.
+ * @param {number} customer_id The ID of the user.
  * @return { object } An object containing a message, error flag, and status code.
  */
 
-const sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded = async ( email: string, userId: number ): Promise<
+const sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded = async ( email: string, customer_id: number ): Promise<
     VerificationEmailResponse> => {
   const tokenType = "EMAIL_VERIFICATION";
   const token_resend_time = getEnv("RESEND_VERIFICATION_EMAIL_TIME");
 
   const _isTokenResendEligible = await CryptoTokenSvs.isTokenResendEligible(
-      userId,
+      customer_id,
       tokenType,
       token_resend_time,
   );
@@ -34,11 +34,11 @@ const sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded = async ( em
     };
   }
 
-  const token = CryptoTokenSvs.generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ userId });
+  const token = CryptoTokenSvs.generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ customer_id });
   if (!token) throw new AppError("Token generation failed", 500);
 
   const msg = EmailSvs.sendVerificationEmail(email, token);
-  await saveTokenToDbIfExistUpdate(token, userId, tokenType);
+  await saveTokenToDbIfExistUpdate(token, customer_id, tokenType);
 
   return {
     token: encodeURIComponent(token),

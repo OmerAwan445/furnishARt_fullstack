@@ -1,21 +1,33 @@
 "use client";
 
+import useAuth from "@/hooks/useAuth";
+import AuthSvs from "@/services/Auth";
 import { SignupFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { Formik } from "formik";
-import { useState } from "react";
-import { ErrorMessageToast } from "../common/toasts/ErrorMessageToast";
+import { useRouter } from "next/navigation";
 import { MyPasswordInput } from "../common/FormFields/MyPasswordInput";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import GradientButton from "../common/buttons/GradientButton";
-import AuthSvs from "@/services/Auth";
-import SuccessMessageToast from "../common/toasts/SuccessMessageToast";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import CustomToast from "../common/toasts/CustomToast";
+import { ErrorMessageToast } from "../common/toasts/ErrorMessageToast";
+import { handleClose } from "@/utils/toastHandleClose";
 
 const SignupForm = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const { isPending, mutate: signup } = useMutation({ mutationFn: AuthSvs.signUpCustomer})
+  const {
+    errorMessage,
+    clearMessages,
+    successMessage,
+    isPending,
+    mutate: signup,
+    setErrorMessage,
+  } = useAuth({
+    mutationFn: AuthSvs.signUpCustomer,
+    onSuccess: () => setTimeout(() => router.push("/login"), 3000),
+  });
+  // const [errorMessage, setErrorMessage] = useState("");
+  // const [successMessage, setSuccessMessage] = useState("");
+  // const { isPending, mutate: signup } = useMutation({ mutationFn: AuthSvs.signUpCustomer})
+  const router = useRouter();
 
   const initialValues = {
     first_name: "",
@@ -26,31 +38,10 @@ const SignupForm = () => {
     password: "",
     confirm_password: "",
   };
-const router = useRouter();
 
   async function handlerSubmit(values: typeof initialValues) {
-
-    signup(values,
-      {
-        onSuccess(data) {
-          setErrorMessage("");
-          setSuccessMessage(data.message);
-          // router.push('/verify-email');
-        },
-        onError(error) {
-          setSuccessMessage("");
-          setErrorMessage(error.message);
-        }
-      }
-    )
+    signup(values);
   }
-
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSuccessMessage("");
-  };
 
   return (
     <Formik
@@ -60,13 +51,19 @@ const router = useRouter();
     >
       {({ errors, touched, handleSubmit }) => (
         <form onSubmit={handleSubmit} className="mt-10">
-          <ErrorMessageToast
+            <ErrorMessageToast
             setErrorMessage={setErrorMessage}
             errorMessage={errorMessage}
-          />
-          <SuccessMessageToast open={successMessage !== ""} handleClose={handleClose}>
+            />
+          <CustomToast
+            open={!!successMessage}
+            handleClose={(event, reason) =>
+              handleClose(clearMessages, event, reason)
+            }
+            type="success"
+          >
             {successMessage}
-          </SuccessMessageToast>
+          </CustomToast>
           <div className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <MyTextInput
@@ -150,7 +147,7 @@ const router = useRouter();
           </div>
 
           <div className="mx-auto mt-8 sm:max-w-lg md:max-w-md xl:w-full xl:max-w-md">
-            <GradientButton type="submit"  disabled={isPending}>
+            <GradientButton type="submit" disabled={isPending}>
               Signup now
             </GradientButton>
           </div>

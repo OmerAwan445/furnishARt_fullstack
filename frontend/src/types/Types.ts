@@ -34,17 +34,32 @@ export interface CustomButtonProps extends Partial<ButtonProps> {
   children: ReactNode;
 }
 
-export interface SuccessMessageToastProps {
+export interface CustomToastProps {
   children: ReactNode;
   open: boolean;
   handleClose: (event?: React.SyntheticEvent | Event, reason?: string) => void;
+  type: "success" | "error";
 }
 
 
-// ==== APi CALLS ====
+// ==== API CALLS ====
 export type ApiCall<T> = () => Promise<AxiosResponse<T>>;
 
-export interface ApiResponse<T> {
-  data: T | null;
-  error: CustomError | null;
+interface ApiSuccess<T> {
+  data: T;
+  error: null;
+}
+
+interface ApiError {
+  data: null;
+  error: CustomError;
+}
+
+export type ApiResponse<T> = ApiSuccess<T> | ApiError;
+
+
+export interface ResetPassword {
+  token: string;
+  password: string;
+  confirm_password: string;
 }

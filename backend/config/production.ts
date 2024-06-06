@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 /* IN THIS FILE EMPTY FIELDS MEANS THAT THESE FIELDS WILL BE FILLED BY THE
 custom-environment-variables.js FILE
 AND THEY ARE COMMON ON DEV AND PRODUCTION
@@ -20,6 +23,11 @@ export default {
   JWT: {
     access_token_secret: "",
     access_token_expiry: "",
+  },
+  NODEMAILER: {
+    SMTP_PASSWORD: "",
+    SMTP_SERVICE: "",
+    SMTP_FROM_EMAIL: "",
   },
   VerificationTokenSecret: "",
   tokenExpiry: {

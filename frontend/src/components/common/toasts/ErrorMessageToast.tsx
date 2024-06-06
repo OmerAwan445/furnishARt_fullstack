@@ -8,7 +8,7 @@ export function ErrorMessageToast({ errorMessage, setErrorMessage }:{ errorMessa
     return (
      <Toast theme={{
         "root": {
-            "base": "flex w-full max-w-md mb-2 items-center rounded-lg bg-[#FA838F] p-2.5 text-white shadow-md",
+            "base": "flex w-full max-w-md mb-2 justify-center items-center rounded-lg bg-[#FA838F] p-2.5 text-white shadow-md",
           },
           "toggle": {
             "base": "ml-auto inline-flex rounded-full justify-center items-center text-white hover:text-dark-color1 ",

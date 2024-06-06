@@ -1,22 +1,22 @@
 "use client";
 
+import { CustomButtonProps } from "@/types/Types";
 import theme from "@/utils/theme";
 import Button from "@mui/material/Button";
 import React from "react";
 
-type SubmitBtnProps = {
-  text?: string;
-};
-
-const SubmitBtn: React.FC<SubmitBtnProps> = ({ text }) => {
+const SubmitBtn = ({ children, disabled, ...props }: CustomButtonProps ) => {
   return (
     <Button
+      {...props}
       type="submit"
+      disabled={disabled}
       sx={{
         ":hover": {
-          backgroundColor: theme.palette.primary.light,
+          backgroundColor: !disabled ? theme.palette.primary.light : theme.palette.action.disabledBackground,
         },
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: !disabled ? theme.palette.primary.main : theme.palette.action.disabledBackground,
+        color: !disabled ? theme.palette.primary.contrastText : theme.palette.action.disabled,
         width: "100%",
         height: "56px",
         borderRadius: "8px",
@@ -24,7 +24,7 @@ const SubmitBtn: React.FC<SubmitBtnProps> = ({ text }) => {
       color="primary"
       variant="contained"
     >
-      {text || "Submit"}
+      {children}
     </Button>
   );
 };

@@ -38,8 +38,8 @@ class CryptoTokenSvs {
     }
   }
 
-  public static async isTokenResendEligible(userId: number, tokenType: tokenType, RESEND_TIME: number) {
-    const existingToken = await findCustomerToken(userId, tokenType);
+  public static async isTokenResendEligible(customer_id: number, tokenType: tokenType, RESEND_TIME: number) {
+    const existingToken = await findCustomerToken(customer_id, tokenType);
     if (!existingToken) return true;
 
     const currentTime = new Date();
@@ -53,13 +53,15 @@ class CryptoTokenSvs {
       token: string,
       tokenType: tokenType,
   ): Promise<{ data: EncryptedDataInToken | null, isValidToken: boolean, errorMsg: string | null }> {
-    const data = this.extractDataFromCryptoToken<EncryptedDataInToken>(token);
-    if (!data || !data.userId) {
+    const decodeedToken = decodeURIComponent(token);
+    console.log(decodeedToken, "decodeedToken");
+    const data = this.extractDataFromCryptoToken<EncryptedDataInToken>(decodeedToken);
+    if (!data || !data.customer_id) {
       return { data: null, isValidToken: false, errorMsg: "Invalid token" };
     }
 
-    const userToken = await findCustomerToken(data.userId, tokenType);
-    if (!userToken || userToken.token !== token || userToken.expiry.getTime() < Date.now()) {
+    const userToken = await findCustomerToken(data.customer_id, tokenType);
+    if (!userToken || userToken.token !== decodeedToken || userToken.expiry.getTime() < Date.now()) {
       return { data: null, isValidToken: false, errorMsg: "Token is invalid or expired" };
     }
 

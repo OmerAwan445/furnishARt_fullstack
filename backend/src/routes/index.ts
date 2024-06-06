@@ -9,10 +9,8 @@ const protectedRoutes = expressRouter();
 
 
 protectedRoutes.use(checkSchema(verifyLoginSchema, ['headers']), validateRequestSchema, verifyLogin);
+// appRoutes.use(protectedRoutes);
 
 appRoutes.use("/auth", authRoutes);
-
-
-appRoutes.use(protectedRoutes);
 
 export default appRoutes;
