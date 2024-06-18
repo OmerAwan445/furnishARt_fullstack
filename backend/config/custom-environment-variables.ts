@@ -11,7 +11,6 @@ export default {
     user: 'DB_USER',
     password: 'DB_PASSWORD',
   },
-  DEV_ENV: 'DEV_ENV',
   JWT: {
     access_token_secret: "JWT_ACCESS_TOKEN_SECRET",
     access_token_expiry: "JWT_ACCESS_TOKEN_EXPIRY",

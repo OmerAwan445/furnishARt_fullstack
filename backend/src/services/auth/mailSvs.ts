@@ -30,7 +30,7 @@ class EmailSvs {
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <h2 style="color: #007bff;">Email Verification</h2>
           <p style="font-size: 16px;">You requested for email verification, kindly use this Link <a
-            style="color: #007bff; text-decoration: none;" target="_blank" href=${url}/verify-email?token=${encodeURIComponent(token)}>
+            style="color: #007bff; text-decoration: none;" target="_blank" href=${url}/verify-email?token=${token}>
             Verify your email address</a> to verify your email address.</p>
       <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(
       getEnv("tokenExpiry.EMAIL_VERIFICATION"))}</b>
@@ -54,7 +54,7 @@ class EmailSvs {
         html: `
             <p>To reset your password, please click the link below.
               <a target="_blank"
-                href="${url}/reset-password?token=${encodeURIComponent(token)}"
+                href="${url}/reset-password?token=${token}"
               >
               <br/>
               Reset Password

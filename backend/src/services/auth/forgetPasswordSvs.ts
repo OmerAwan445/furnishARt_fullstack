@@ -6,13 +6,6 @@ import EmailSvs from "./mailSvs";
 import { saveTokenToDbIfExistUpdate } from "@src/models/CustomerTokenModel";
 import { EncryptedDataInToken } from "@src/Types";
 
-/**
- * Sends a forget password email, generates a crypto token with encrypted customer_id in it and
- * saves token to DB if the resend time limit has not been exceeded.
- * @param {string} email The email address of the user.
- * @param {number} customer_id The ID of the user.
- * @return { object } An object containing a message, error flag, and status code.
- */
 const sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded = async (
     email: string,
     customer_id: number,
@@ -31,9 +24,10 @@ const sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded = async (
   }
   const token = CryptoTokenSvs.generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ customer_id });
   if (!token) throw new AppError("Token generation failed", 500);
-  const msg = await EmailSvs.sendForgotPasswordEmail(email, token);
+  const encodedToken = encodeURIComponent(token);
+  const msg = await EmailSvs.sendForgotPasswordEmail(email, encodedToken);
   await saveTokenToDbIfExistUpdate(token, customer_id, tokenType);
-  return { token: encodeURIComponent(token), msg, error: false, statusCode: 200 };
+  return { token, msg, error: false, statusCode: 200 };
 };
 
 

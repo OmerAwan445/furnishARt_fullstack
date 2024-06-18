@@ -69,7 +69,7 @@ const ForgetPasswordForm = () => {
                   placeholder="Email address"
                 />
               </div>
-              <SubmitBtn>
+              <SubmitBtn disabled= {isPending}>
                 {isPending ? "Sending..." : "Send Reset Link"}
               </SubmitBtn>
             </form>

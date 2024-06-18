@@ -13,6 +13,7 @@ import { isDevEnvironment } from '@src/utils/common/isDevEnvironment';
 import { Request } from 'express';
 
 class AuthController {
+  // SIGNUP controller:
   static createCustomerAndSendVerification = catchAsyncError(async (req: Request<object, object, SignupRequestBody>, res) => {
     const { first_name, last_name, email, address, username, password } = req.body;
 
@@ -23,6 +24,7 @@ class AuthController {
     return res.send(ApiResponse.success({ ...customer }, 'User created successfully & ' + msg, 201));
   });
 
+  // LOGIN controller:
   static authenticateCustomer = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res, next) => {
     const { email, password } = req.body;
 
@@ -98,6 +100,7 @@ class AuthController {
 
   static verifyForgetPasswordToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
     const { token } = req.query;
+    console.log(token, "token received");
 
     // check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token as string, "PASSWORD_RESET");
@@ -110,8 +113,10 @@ class AuthController {
     // 1. check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "PASSWORD_RESET");
     if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));
+
     // 2. update the password and delete the token from the db
     const { email } = await updatePasswordAndDeleteToken(data.customer_id, await BcryptSvs.hashPassword(password));
+
     // 3. send email to user that password has been changed
     await EmailSvs.sendResetPasswordEmail(email);
     return res.send(ApiResponse.success({}, "Password changed successfully"));

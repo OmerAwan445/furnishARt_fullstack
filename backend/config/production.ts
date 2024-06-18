@@ -19,7 +19,6 @@ export default {
     port: process.env.SERVER_PORT,
   },
   FRONTEND_URL: process.env.FRONTEND_URL,
-  DEV_ENV: "",
   JWT: {
     access_token_secret: "",
     access_token_expiry: "",

@@ -44,7 +44,7 @@ class AuthService {
   }
   
   static async verifyForgetPasswordToken(token: string) {
-    const { data, error } = await handleApiCall<{ message: string }>(async ()=> await axios.get(`${this.BASE_URL}+${BACKEND_API_ENDPOINTS.verifyForgetPasswordToken}?token=${encodeURIComponent(token)}`));
+    const { data, error } = await handleApiCall<{ message: string }>(async ()=> await axios.get(`${this.BASE_URL}${BACKEND_API_ENDPOINTS.verifyForgetPasswordToken}?token=${encodeURIComponent(token)}`));
     
     if (error) throw error;
     return data;

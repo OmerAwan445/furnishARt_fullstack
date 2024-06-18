@@ -36,12 +36,12 @@ const sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded = async ( em
 
   const token = CryptoTokenSvs.generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ customer_id });
   if (!token) throw new AppError("Token generation failed", 500);
-
-  const msg = EmailSvs.sendVerificationEmail(email, token);
+  const encodedToken = encodeURIComponent(token);
+  const msg = EmailSvs.sendVerificationEmail(email, encodedToken);
   await saveTokenToDbIfExistUpdate(token, customer_id, tokenType);
 
   return {
-    token: encodeURIComponent(token),
+    token,
     msg,
     error: false,
     statusCode: 200,
