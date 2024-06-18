@@ -52,7 +52,7 @@ export default function VerifyEmail() {
         clearTimeout(timeoutId);
       }
     };
-  }, [token, router]);
+  }, []);
 
   
   return (
@@ -61,7 +61,7 @@ export default function VerifyEmail() {
         <Typography sx={{ fontWeight: 500 }} variant="h2" gutterBottom>
           Verify Email
         </Typography>
-        <Typography
+        {!!message.text && !!message.type && <Typography
           variant="subtitle1"
           gutterBottom
           style={{
@@ -71,7 +71,7 @@ export default function VerifyEmail() {
           }}
         >
           {message.text}
-        </Typography>
+        </Typography>}
       </div>
     </Container>
   );

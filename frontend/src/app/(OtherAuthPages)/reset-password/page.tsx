@@ -1,4 +1,3 @@
-"use client";
 
 import ResetPasswordForm from "@/components/AuthForms/ResetPasswordForm";
 import AuthSvs from "@/services/Auth";
@@ -28,6 +27,8 @@ async function ResetPasswordPage({
 
   return (
     <Container>
+      <br/>
+      {token}
       {(isTokenValid && token) ? (
         <ResetPasswordForm token={token} />
       ) : (
