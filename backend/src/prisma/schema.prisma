@@ -6,42 +6,149 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 // Make Schema for Customer, CustomerToken, Furniture, Cateogory
 
 model Customer {
-  id Int @id @default(autoincrement())
-  username String @unique
-  email String @unique
-  first_name String
-  last_name String
-  address String?     @db.VarChar(255)
-  is_verified Boolean @default(false)
-  password String @db.VarChar(255)
-
-  tokens CustomerToken[]
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int             @id @default(autoincrement())
+  username    String          @unique @db.VarChar(100)
+  email       String          @unique @db.VarChar(100)
+  first_name  String          @db.VarChar(100)
+  last_name   String          @db.VarChar(100)
+  address     String?         @db.VarChar(255)
+  is_verified Boolean         @default(false)
+  password    String          @db.VarChar(255)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  tokens      CustomerToken[]
+  cart        Cart?
+  orders      Order[]
+  payments    Payment[]
+  reviews     Review[]
 }
 
-
 model CustomerToken {
-  id         Int       @id @default(autoincrement())
-  tokenType  tokenType
-  token      String
-  expiry     DateTime
-  customer_id     Int
-  updated_at DateTime  @updatedAt
-  created_at DateTime  @default(now())
+  id          Int       @id @default(autoincrement())
+  tokenType   tokenType
+  token       String
+  expiry      DateTime
+  customer_id Int
+  updated_at  DateTime  @updatedAt
+  created_at  DateTime  @default(now())
 
-  Customer   Customer  @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  Customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
 
   @@unique([customer_id, tokenType])
 }
 
+model Cart {
+  id          Int        @id @default(autoincrement())
+  price       Decimal    @db.Decimal(10, 2)
+  customer_id Int        @unique
+  cartItems   CartItem[]
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+  order       Order?
 
+  customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+}
 
+model CartItem {
+  id                Int      @id @default(autoincrement())
+  quantity          Int
+  furniture_item_id Int
+  cart_id           Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
+  furniture_item FurnitureItem @relation(fields: [furniture_item_id], references: [id])
+  cart           Cart          @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(100)
+
+  FurnitureItem FurnitureItem[]
+}
+
+model FurnitureItem {
+  id             Int        @id @default(autoincrement())
+  name           String     @db.VarChar(100)
+  description    String?    @db.Text
+  price          Decimal    @db.Decimal(10, 2)
+  stock_quantity Int
+  model_3d_url   String?
+  color          String?    @db.VarChar(50)
+  dimension      String?    @db.VarChar(100)
+  weight         Decimal?   @db.Decimal(10, 2)
+  category_id    Int
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  CartItem       CartItem[]
+  reviews        Review[]
+
+  Category Category @relation(fields: [category_id], references: [id])
+}
+
+model Order {
+  id            Int           @id @default(autoincrement())
+  order_status  ORDERSTATUS
+  total_amount  Decimal       @db.Decimal(10, 2)
+  customer_id   Int
+  cart_id       Int           @unique
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  order_address OrderAddress?
+
+  customer Customer @relation(fields: [customer_id], references: [id])
+  cart     Cart     @relation(fields: [cart_id], references: [id])
+  payment  Payment?
+}
+
+model OrderAddress {
+  id                    Int     @id @default(autoincrement())
+  receiver_name         String? @db.VarChar(100)
+  receiver_phone_number String? @db.VarChar(20)
+  address               String  @db.VarChar(255)
+  postal_code           String  @db.VarChar(20)
+  city                  String  @db.VarChar(100)
+  order_id              Int     @unique
+
+  order Order @relation(fields: [order_id], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id             Int      @id @default(autoincrement())
+  amount         Decimal  @db.Decimal(10, 2)
+  payment_method String   @db.VarChar(50)
+  created_at     DateTime @default(now())
+  order_id       Int      @unique
+  customer_id    Int
+
+  order    Order    @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  @@unique([order_id, customer_id])
+}
+
+model Review {
+  id           Int      @id @default(autoincrement())
+  rating       Decimal  @db.Decimal(2, 1)
+  comment      String?
+  created_at   DateTime @default(now())
+  customer_id  Int
+  furniture_id Int
+
+  customer  Customer      @relation(fields: [customer_id], references: [id])
+  furniture FurnitureItem @relation(fields: [furniture_id], references: [id])
+}
+
+enum ORDERSTATUS {
+  PENDING
+  DELIVERED
+  CANCELLED
+}
 
 enum tokenType {
   EMAIL_VERIFICATION
