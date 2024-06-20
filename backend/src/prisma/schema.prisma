@@ -45,7 +45,7 @@ model Cart {
   id          Int        @id @default(autoincrement())
   price       Decimal    @db.Decimal(10, 2)
   customer_id Int        @unique
-  cartItems   CartItem[]
+  cartItems   CartItem[] 
   created_at  DateTime   @default(now())
   updated_at  DateTime   @updatedAt
   order       Order?
@@ -63,6 +63,7 @@ model CartItem {
 
   furniture_item FurnitureItem @relation(fields: [furniture_item_id], references: [id])
   cart           Cart          @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  @@unique([furniture_item_id, cart_id])
 }
 
 model Category {
@@ -74,7 +75,7 @@ model Category {
 
 model FurnitureItem {
   id             Int        @id @default(autoincrement())
-  name           String     @db.VarChar(100)
+  name           String     @db.VarChar(255)
   description    String?    @db.Text
   price          Decimal    @db.Decimal(10, 2)
   stock_quantity Int
