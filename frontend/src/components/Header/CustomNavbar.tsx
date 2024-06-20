@@ -1,6 +1,7 @@
 "use client";
 
 import AuthSvs from "@/services/Auth";
+import { stringAvatar } from "@/utils/others/avatarColor";
 import theme from "@/utils/theme";
 import { Divider, Drawer, Menu, Stack } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -11,9 +12,11 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
+import DefaultButton from "../common/buttons/DefaultButton";
 
 const pages = ["Home", "Shop", "About", "Contact us"];
 const settings = ["Profile", "Account", "Logout"];
@@ -21,6 +24,7 @@ const settings = ["Profile", "Account", "Logout"];
 function CustomNavbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const { data } = useSession();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -127,9 +131,11 @@ function CustomNavbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            { data ? 
+            <>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Umer" />
+                <Avatar  {...stringAvatar(data.user.first_name + " " + data.user.last_name)} alt={data.user.first_name + " " + data.user.last_name} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -156,6 +162,14 @@ function CustomNavbar() {
               ))}
               </Stack>
             </Menu>
+            </> 
+            :
+            <Link href="/login" passHref>
+            <DefaultButton>
+            Login
+            </DefaultButton> 
+            </Link> 
+            }
           </Box>
         </Toolbar>
       </Container>

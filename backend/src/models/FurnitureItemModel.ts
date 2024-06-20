@@ -17,4 +17,21 @@ export class FurnitureItemModel {
 
     return bestSeller;
   }
+
+  async getAutoComplete(searchTerm: string, category_id?: string) {
+    return await prisma.furnitureItem.findMany({
+      where: {
+        name: {
+          contains: searchTerm,
+          mode: 'insensitive',
+        },
+        ...(category_id && { category_id: Number(category_id) }),
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+      take: 10,
+    });
+  }
 }

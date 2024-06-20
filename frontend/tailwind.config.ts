@@ -55,7 +55,7 @@ const config: Config = {
         darkcharcoal: "#26282B",
         darkplum: "#63585E",
         "jet-gray":"#24292B",
-       "dark-muted":"#C4BCB1",
+       "dark-muted":"#CCC0B6",
       "dark-color1": "#070707",
       "dark-color2": "#252729",
       "dark-color3": "#2C313A",

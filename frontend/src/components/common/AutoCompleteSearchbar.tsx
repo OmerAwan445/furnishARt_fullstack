@@ -1,100 +1,103 @@
 import { Button } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import * as React from 'react';
 import { BiSearch } from 'react-icons/bi';
-import { topFilms as suggestions }  from "@/DummyData";
+import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import FurnitureItemsSvs from '@/services/FurnitureItems';
+import { AutoCompleteResponse } from '@/types/Types';
+import { debounce } from 'lodash';
 
+export default function AutoCompleteSearchbar({ selectedCategoryId }: { selectedCategoryId: number }) {
+  const [options, setOptions] = useState<AutoCompleteResponse[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const { mutate, isPending } = useMutation({mutationFn: FurnitureItemsSvs.fetchSuggestions});
 
-interface Film {
-  title: string;
-  year: number;
-}
-
-function sleep(duration: number): Promise<void> {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, duration);
-  });
-}
-
-export default function AutoCompleteSearchbar() {
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState<readonly Film[]>([]);
-  const loading = open && options.length === 0;
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') {
       handleSearch();
     }
   };
 
   const handleSearch = () => {
-    console.log('Search button clicked!');
+    console.log('Search button clicked!', inputValue);
+    // Add your search logic here
   };
 
-  React.useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
-    }
-
-    (async () => {
-      await sleep(1e3); // For demo purposes.
-
-      if (active) {
-        setOptions([...suggestions]);
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [loading]);
-
-  React.useEffect(() => {
-    if (!open) {
+  const fetchSuggestions = (query: string) => {
+    if (query.trim()) {
+      mutate({searchTerm: query.trim(), category_id: selectedCategoryId}, {
+        onSuccess: (data) => {
+          setOptions((prevOptions) => {
+            const newOptions = [...prevOptions];
+            data.forEach((item) => {
+              if (!newOptions.some(option => option.name === item.name)) {
+                newOptions.push(item);
+              }
+            });
+            return newOptions;
+          });
+        },
+        onError: () => setOptions([]),
+      });
+    } else {
       setOptions([]);
     }
-  }, [open]);
+  };
+  
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 500);
+
+  useEffect(() => {
+    debouncedFetchSuggestions(inputValue);
+    return () => {
+      debouncedFetchSuggestions.cancel();
+    };
+  }, [inputValue]);
 
   return (
     <>
       <Autocomplete
         freeSolo
-        sx={{  
-        width: 300,
-        marginLeft: "0 !important",
-        '&::placeholder': {
-          opacity: 1,
-          color: 'rgba(0, 0, 0, 0.6)', // Darker placeholder color
-        },
+        sx={{
+          width: 300,
+          marginLeft: "0 !important",
+          '&::placeholder': {
+            opacity: 1,
+            color: 'rgba(0, 0, 0, 0.6)',
+          },
         }}
         className='!rounded-r-none'
         size='small'
         id="free-solo-2-demo"
+        
         disableClearable
-        options={suggestions.map((option) => option.title)}
+        options={options.length > 0 ? options.map((option) => option.name) : ["No Options"] }
+        onInputChange={(event: ChangeEvent<{}>, value: string) => {
+          setInputValue(value);
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
             sx={{
               '& label': {
-                color: 'rgba(0, 0, 0, 0.6)', // Darker label color
+                color: 'rgba(0, 0, 0, 0.6)',
               },
               '& label.Mui-focused': {
-                color: 'rgba(0, 0, 0, 0.8)', // Even darker label color when focused
+                color: 'rgba(0, 0, 0, 0.8)',
               },
             }}
             label="Search input"
-            onKeyDown= {handleKeyPress}
+            onKeyDown={handleKeyPress}
             InputProps={{
               ...params.InputProps,
               type: 'search',
+              endAdornment: (
+                <>
+                  {isPending ? <span>Loading...</span> : null}
+                  {params.InputProps.endAdornment}
+                </>
+              ),
             }}
-            
           />
         )}
       />

@@ -1,6 +1,7 @@
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
 import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
+import { Request } from "express";
 
 export class FurnitureItemController {
   private furnitureItemModel: FurnitureItemModel;
@@ -10,9 +11,16 @@ export class FurnitureItemController {
   }
 
   public getBestSellerFurnitureItems = catchAsyncError(async (req, res) => {
-    // Call the getBestSeller function from the model
     const items = await this.furnitureItemModel.getBestSeller();
-    // Send the response with the items
+
     return res.send(ApiResponse.success(items, "Best seller furniture items retrieved successfully"));
+  });
+
+  // Auto Complete Furniture Items
+  public getAutoCompleteFurnitureItems = catchAsyncError(async (req: Request<any, any, any, { q?: string, cid?:  string }>, res) => {
+    const { q, cid } = req.query;
+    const items = await this.furnitureItemModel.getAutoComplete(q as string, cid);
+
+    return res.send(ApiResponse.success(items, "Auto complete furniture items retrieved successfully"));
   });
 }

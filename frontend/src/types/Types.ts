@@ -63,3 +63,13 @@ export interface ResetPassword {
   password: string;
   confirm_password: string;
 }
+
+//  API RESPONSES
+export interface AutoCompleteResponse {
+  name: string
+  id: string
+}
+export interface GetCategoriesResponse {
+  id: number
+  name: string
+}
