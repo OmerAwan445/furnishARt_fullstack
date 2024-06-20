@@ -9,57 +9,69 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { BiCart } from "react-icons/bi";
 import AutoCompleteSearchbar from "../common/AutoCompleteSearchbar";
 import BlackOutlinedButton from "../common/buttons/BlackOutlinedButton";
 import NavbarMobileIcons from "./NavbarMobileIcons";
+import CategorySvs from "@/services/Category";
 
 
-const categories = [
+/* const categories = [
   { value: "all", label: "All categories" },
   { value: "Table", label: "Table" },
   { value: "Desk", label: "Desk" },
   { value: "Decoration", label: "Decoration" },
   // Add more categories as needed
-];
+]; */
+
 const TopBar = () => {
-  const [category, setCategory] = React.useState("all");
+  const [categories, setCategories] = React.useState([{ value: 0, label: "All categories" }]);
+  const [selectedCategory, setSelectedCategory] = React.useState(0);
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const handleCategoryChange = (event: any) => {
-    setCategory(event.target.value);
+  const handleCategoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedCategory(event.target.value as number);
+    console.log(`Searching for ${searchQuery} in category ${selectedCategory}`);
   };
 
-  const handleSearchChange = (event: any) => {
-    setSearchQuery(event.target.value);
-  };
+  // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchQuery(event.target.value);
+  // };
 
-  const handleSearch = () => {
-    console.log(`Searching for ${searchQuery} in ${category}`);
-  };
+  // const handleSearch = () => {
+  //   // Add your search logic here
+  // };
+
+  useEffect(() => {
+    (async () => {
+        const data = await CategorySvs.getCategories();
+        if (!data) return;
+
+        setCategories([{ value: 0, label: "All categories" }, ...data.map((cat) => ({ value: cat.id, label: cat.name }))]);
+    })();
+  }, []);
 
   return (
-    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px", }} >
+    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px", }}>
       <Stack
         sx={{ width: "100%" }}
         direction="row"
         justifyContent={"space-between"}
       >
-          <Link href="/" className="self-center">
+        <Link href="/" className="self-center">
           <Image src={LOGO} className="w-36" alt="Logo" />
-          </Link>
-          
-          <Stack 
-           sx={{ display: { xs:'none', md: 'flex' } }}
-           direction="row" flex={1} justifyContent={"center"}>
+        </Link>
+
+        <Stack
+          sx={{ display: { xs: 'none', md: 'flex' } }}
+          direction="row" flex={1} justifyContent={"center"}>
           <TextField
             select
-            value={category}
             onChange={handleCategoryChange}
             variant="outlined"
             size="small"
-            type="search"
+            value={selectedCategory}
             style={{ width: "180px" }}
           >
             {categories.map((option) => (
@@ -68,20 +80,21 @@ const TopBar = () => {
               </MenuItem>
             ))}
           </TextField>
-          
-          <AutoCompleteSearchbar />
-            </Stack>
 
-            <Box sx={{ display: { xs:'none', md: 'block',} }}>
-            <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
-              Cart
-            </BlackOutlinedButton>
-            </Box>
+          <AutoCompleteSearchbar selectedCategoryId= {Number(selectedCategory)} />
+        </Stack>
 
-            <NavbarMobileIcons /> {/* shown below the md screen */}
+        <Box sx={{ display: { xs: 'none', md: 'block', } }}>
+          <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
+            Cart
+          </BlackOutlinedButton>
+        </Box>
+
+        <NavbarMobileIcons /> {/* shown below the md screen */}
       </Stack>
     </Container>
   );
 };
 
 export default TopBar;
+

@@ -7,4 +7,10 @@ export const BACKEND_API_ENDPOINTS = {
   forgetPassword: "/auth/forget-password/",
   verifyForgetPasswordToken: "/auth/verify-forget-password/",
   resetPassword: "/auth/reset-password/",
+
+  // Furniture Items
+  autocompleteFurnitureItems: "/furniture-item",
+
+  // Category
+  getCategories: "/category",
 }
