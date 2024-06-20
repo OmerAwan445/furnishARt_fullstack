@@ -1,0 +1,72 @@
+SELECT * FROM "Customer";
+SELECT * FROM "CustomerToken";
+SELECT * FROM "Review";
+SELECT * FROM "FurnitureItem";
+SELECT * FROM "CartItem";
+
+
+
+DELETE FROM "Restaurant";  
+DELETE FROM "Reviews"; 
+DELETE FROM "Customer";
+DELETE from "CustomerToken"
+
+INSERT INTO "Category" (name) VALUES 
+('Chairs'),
+('Tables'),
+('Sofas'),
+('Beds');
+
+-- BEST SELLER
+SELECT fi.id AS furniture_item_id, fi.name, SUM(ci.quantity) AS total_quantity_sold
+FROM "FurnitureItem" fi
+INNER JOIN "CartItem" ci ON ci.furniture_item_id = fi.id
+INNER JOIN "Cart" c ON ci.cart_id = c.id
+INNER JOIN "Order" o ON o.cart_id = c.id
+WHERE o.order_status = 'DELIVERED'  -- Consider only completed orders
+GROUP BY fi.id, fi.name
+ORDER BY total_quantity_sold DESC;
+
+		
+
+
+INSERT INTO "FurnitureItem" (name, description, price, stock_quantity, model_3d_url, color, dimension, weight, category_id, "updatedAt") VALUES 
+('Ergonomic Office Chair', 'Comfortable and adjustable office chair', 11999.99, 50, 'http://example.com/model3d/office_chair', 'Black', '120x60x60', 10.5, 1, now()),
+('Dining Table', 'Wooden dining table with a modern design', 22499.99, 20, 'http://example.com/model3d/dining_table', 'Brown', '200x100x75', 30.0, 2, now()),
+('Leather Sofa', 'Luxury leather sofa with recliner', 56799.99, 10, 'http://example.com/model3d/leather_sofa', 'Brown', '220x100x90', 50.0, 3, now()),
+('Queen Bed', 'Queen size bed with storage', 21999.99, 15, 'http://example.com/model3d/queen_bed', 'White', '200x150x60', 80.0, 4, now()),
+('Gaming Chair', 'Comfortable chair designed for gaming', 18229.99, 35, 'http://example.com/model3d/gaming_chair', 'Red', '120x65x65', 12.5, 1, now()),
+('Coffee Table', 'Glass coffee table with a wooden base', 13249.99, 25, 'http://example.com/model3d/coffee_table', 'Clear', '100x50x40', 15.0, 2, now()),
+('Sectional Sofa', 'Large sectional sofa with chaise', 39999.99, 5, 'http://example.com/model3d/sectional_sofa', 'Gray', '300x200x90', 70.0, 3, now()),
+('Bunk Bed', 'Sturdy bunk bed with ladder', 19999.99, 8, 'http://example.com/model3d/bunk_bed', 'Blue', '200x100x160', 100.0, 4, now());
+
+
+INSERT INTO "Cart" (price, customer_id, created_at, updated_at) VALUES
+(259.98, 1, NOW(), NOW()),
+(399.99, 2, NOW(), NOW()),
+(149.99, 3, NOW(), NOW()),
+(499.98, 4, NOW(), NOW()),
+(99.99, 5, NOW(), NOW());
+
+
+INSERT INTO "Order" (order_status, total_amount, customer_id, cart_id, created_at, updated_at) VALUES
+('DELIVERED', 259.98, 1, 1, NOW(), NOW()),
+('PENDING', 399.99, 2, 2, NOW(), NOW()),
+('DELIVERED', 149.99, 3, 3, NOW(), NOW()),
+('DELIVERED', 499.98, 4, 4, NOW(), NOW()),
+('DELIVERED', 99.99, 5, 5, NOW(), NOW());
+
+
+-- Insert data into CartItem
+INSERT INTO "CartItem" (quantity, furniture_item_id, cart_id, "updatedAt") VALUES
+(3, 9, 1, NOW()), -- Ergonomic Office Chair in Cart 1
+(5, 2, 2,NOW()), -- Leather Sofa in Cart 2
+(2, 11, 3,NOW()), -- Bookshelf in Cart 3
+(5, 10, 4,NOW()); -- Coffee Table in Cart 4
+
+-- Insert data into CartItem
+INSERT INTO "CartItem" (quantity, furniture_item_id, cart_id, "updatedAt") VALUES
+(5, 2, 2,NOW()),
+(2, 11, 3,NOW()),
+(5, 10, 4,NOW()); 
+

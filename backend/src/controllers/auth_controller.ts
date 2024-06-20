@@ -14,7 +14,7 @@ import { Request } from 'express';
 
 class AuthController {
   // SIGNUP controller:
-  static createCustomerAndSendVerification = catchAsyncError(async (req: Request<object, object, SignupRequestBody>, res) => {
+  createCustomerAndSendVerification = catchAsyncError(async (req: Request<object, object, SignupRequestBody>, res) => {
     const { first_name, last_name, email, address, username, password } = req.body;
 
     const customer = await checkEmailUniqueAndCreateCustomer(first_name, last_name, email, password, username, address);
@@ -25,7 +25,7 @@ class AuthController {
   });
 
   // LOGIN controller:
-  static authenticateCustomer = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res, next) => {
+  authenticateCustomer = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res, next) => {
     const { email, password } = req.body;
 
     const customer = await findCustomerByEmail(email);
@@ -56,7 +56,7 @@ class AuthController {
         "User logged in successfully", 200));
   });
 
-  static sendVerificationEmail = catchAsyncError(async (req: Request<object, object, { customer_id: number }>, res, next) => {
+  sendVerificationEmail = catchAsyncError(async (req: Request<object, object, { customer_id: number }>, res, next) => {
     const { customer_id } = req.body;
     const customer = await findCustomerById(customer_id);
 
@@ -70,7 +70,7 @@ class AuthController {
     return res.send(ApiResponse.success((isDevEnvironment ? { token } : {}), msg, statusCode));
   });
 
-  static verifyEmailVerificationToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
+  verifyEmailVerificationToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
     const token = req.query.token as string;
     // 1. check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "EMAIL_VERIFICATION");
@@ -83,7 +83,7 @@ class AuthController {
     res.send(ApiResponse.success({ ...user, accessToken }, "User verified successfully", 200));
   });
 
-  static forgetPassword = catchAsyncError(async (req: Request<object, object, { email: string }>, res, next) => {
+  forgetPassword = catchAsyncError(async (req: Request<object, object, { email: string }>, res, next) => {
     const { email } = req.body;
     // 1. find customer by email
     const customer = await findCustomerByEmail(email);
@@ -98,7 +98,7 @@ class AuthController {
     return res.send(ApiResponse.success((isDevEnvironment ? { token } : {}), msg, statusCode));
   });
 
-  static verifyForgetPasswordToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
+  verifyForgetPasswordToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
     const { token } = req.query;
     console.log(token, "token received");
 
@@ -108,7 +108,7 @@ class AuthController {
     return res.send(ApiResponse.success((isDevEnvironment ? { ...data } : {}), "Token Verified Successfully"));
   });
 
-  static resetPassword = catchAsyncError(async (req: Request<any, any, ResetPasswordRequestBody>, res, next) => {
+  resetPassword = catchAsyncError(async (req: Request<any, any, ResetPasswordRequestBody>, res, next) => {
     const { token, password } = req.body;
     // 1. check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "PASSWORD_RESET");
