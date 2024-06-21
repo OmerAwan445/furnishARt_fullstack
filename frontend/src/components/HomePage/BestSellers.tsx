@@ -3,7 +3,7 @@
 import { ItemCardProps } from "@/types/Types";
 import { Box, Typography } from "@mui/material";
 import { SwiperSlide } from "swiper/react";
-import CustomSwiperSlider from "../common/CustomSwiperSlider";
+import CustomSwiperSlider from "../common/Sliders/CustomSwiperSlider";
 import ItemCard from "../common/ItemCards/ItemCard";
 
 const BestSellers = ({ items }: { items: ItemCardProps[] }) => {
@@ -12,7 +12,7 @@ const BestSellers = ({ items }: { items: ItemCardProps[] }) => {
       <Typography variant="h3" fontWeight={500} sx={{ mb: 2 }}>
         Best Sellers
       </Typography>
-      <Box>
+      <Box className="px-0 lg:px-10">
       <CustomSwiperSlider>
         {
         items.map((item)=> 

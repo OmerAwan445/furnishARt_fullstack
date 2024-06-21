@@ -30,4 +30,27 @@ export class FurnitureItemModel {
       take: 10,
     });
   }
+  async getFurnitureItemFromID(id: number) {
+    return await prisma.furnitureItem.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        reviews: {
+          select: {
+            id: true,
+            rating: true,
+            comment: true,
+            customer: {
+              select: {
+                id: true,
+                username: true,
+            }
+          }
+        },
+          take: 10,
+        }
+      }
+    });
+  }
 }

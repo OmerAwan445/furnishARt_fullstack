@@ -9,3 +9,13 @@ export const autoCompleteFurnitureItems: Schema = {
     errorMessage: "Search Term is required",
   },
 };
+
+export const getFurnitureFromID: Schema = {
+  id: {
+    notEmpty: true,
+    isInt: {
+      errorMessage: "Id must be a number",
+    },
+    errorMessage: "Id is required",
+  },
+};
