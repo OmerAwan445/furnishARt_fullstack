@@ -49,7 +49,7 @@ model Cart {
   created_at  DateTime   @default(now())
   updated_at  DateTime   @updatedAt
   order       Order?
-
+  deleted    Boolean    @default(false)
   customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
 }
 
@@ -80,6 +80,8 @@ model FurnitureItem {
   price          Decimal    @db.Decimal(10, 2)
   stock_quantity Int
   model_3d_url   String?
+  image_urls     String[]
+  total_sales    Int        @default(0)
   color          String?    @db.VarChar(50)
   dimension      String?    @db.VarChar(100)
   weight         Decimal?   @db.Decimal(10, 2)

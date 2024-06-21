@@ -8,6 +8,6 @@ const furntiureItemRoutes = expressRouters();
 const controller = new FurnitureItemController();
 
 furntiureItemRoutes.get("/", checkSchema(autoCompleteFurnitureItems, ['query']), validateRequestSchema, controller.getAutoCompleteFurnitureItems);
-furntiureItemRoutes.get("/bestseller", controller.getBestSellerFurnitureItems);
+furntiureItemRoutes.get("/best-sellers", controller.getBestSellerFurnitureItems);
 
 export default furntiureItemRoutes;
