@@ -1,7 +1,7 @@
 import apiInstance from "@/ApiInstance";
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
-import { AutoCompleteResponse, GetBestSellerResponse } from "@/types/Types";
+import { AutoCompleteResponse, FurnitureItemDetailsResponse, GetBestSellerResponse } from "@/types/Types";
 import axios from "axios";
 
 
@@ -17,6 +17,12 @@ class FurnitureItemsService {
 
     static async getBestSellers() {
         const { data, error } = await handleApiCall<{ data: GetBestSellerResponse }>(async ()=> await axios.get(`${this.BASE_URL}${BACKEND_API_ENDPOINTS.getBestSellerFurnitureItems}`));
+    
+        if (error) return null;
+        return data.data;
+    }
+    static async fetchFurnitureItemFromID(id: number) {
+        const { data, error } = await handleApiCall<{data: FurnitureItemDetailsResponse}>(async ()=> await apiInstance.get(`${BACKEND_API_ENDPOINTS.getFurnitureItemFromID}/${id}`));
     
         if (error) return null;
         return data.data;

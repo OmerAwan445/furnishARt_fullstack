@@ -1,7 +1,6 @@
 'use client';
 
 import 'swiper/css';
-import '@/assets/css/Slider.css'
 import { FC, ReactNode } from 'react';
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
@@ -12,7 +11,7 @@ export interface SliderProps {
     customBreakpoints?: any
   }
 
-const CustomSwiperSlider: FC<SliderProps> = ({
+const SimpleSlider: FC<SliderProps> = ({
   children,
   customBreakpoints,
 }) => {
@@ -42,7 +41,6 @@ const CustomSwiperSlider: FC<SliderProps> = ({
         navigation={true}
         grabCursor={true}
         modules={[Navigation]}
-        className='custom-Slider mySwiper !static'
         >
         {children}
       </Swiper>
@@ -50,4 +48,4 @@ const CustomSwiperSlider: FC<SliderProps> = ({
   )
 }
 
-export default CustomSwiperSlider
+export default SimpleSlider

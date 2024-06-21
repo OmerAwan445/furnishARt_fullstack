@@ -82,4 +82,29 @@ export interface ItemCardProps {
   price: number
 }
 
-export type GetBestSellerResponse = ItemCardProps[]
+export interface FurnitureItemDetailsProps {
+  id: number
+  name: string
+  description: string
+  price: number
+  rating: number
+  image_urls: string[]
+  total_sales: number
+  category_id: number
+  category_name: string
+  // reviews: {
+  //   id: number
+  //   rating: number
+  //   comment: string
+  //   user: {
+  //     id: number
+  //     username: string
+  //   }
+  // }[]
+}
+
+export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
+
+
+export type GetBestSellerResponse = ItemCardProps[];
+

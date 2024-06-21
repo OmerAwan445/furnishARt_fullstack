@@ -11,6 +11,7 @@ export const BACKEND_API_ENDPOINTS = {
   // Furniture Items
   autocompleteFurnitureItems: "/furniture-item",
   getBestSellerFurnitureItems: "/furniture-item/best-sellers",
+  getFurnitureItemFromID: "/furniture-item",
 
   // Category
   getCategories: "/category",
