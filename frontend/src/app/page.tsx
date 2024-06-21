@@ -1,9 +1,16 @@
-import { authOptions } from "@/utils/auth/authOptions";
-import { getServerSession } from "next-auth";
+import Banner from "@/components/HomePage/Banner";
+import BestSellers from "@/components/HomePage/BestSellers";
+import FurnitureItemsSvs from "@/services/FurnitureItems";
+import { Container } from "@mui/material";
 
 export default async function Home() {
-  const  data = await getServerSession(authOptions);
+  const bestSellerItems = await FurnitureItemsSvs.getBestSellers();
+  // const  data = await getServerSession(authOptions);
   return (
-    <div  className="w-full bg-red-500"> {JSON.stringify(data)} </div>
+    <Container maxWidth="xl" className="w-full mt-4 pb-10">
+      {/* {JSON.stringify(bestSellerItems)} */}
+      <Banner />
+      {bestSellerItems && <BestSellers items={bestSellerItems} />}
+    </Container>
   );
 }

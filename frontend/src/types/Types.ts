@@ -73,3 +73,13 @@ export interface GetCategoriesResponse {
   id: number
   name: string
 }
+
+export interface ItemCardProps {
+  id: number
+  image: string
+  name: string
+  rating: number
+  price: number
+}
+
+export type GetBestSellerResponse = ItemCardProps[]

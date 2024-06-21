@@ -1,0 +1,69 @@
+.swiper-button-prev,
+.swiper-button-next {
+  border: none !important;
+  outline: none !important;
+  border-radius: 50px !important;
+  background-color: #fff !important;
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 40%) !important;
+  width: 45px !important;
+  height: 45px !important;
+  color: rgb(112 112 112) !important;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
+.swiper-button-prev {
+  left: -55px !important;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  opacity: 0.5 !important;
+}
+.swiper-button-next {
+  right: -55px !important;
+}
+
+/* For pagination sliders dots */
+.home-banner-slider .swiper-pagination{
+  bottom: 85px !important;
+}
+.hide-pagination-dots .swiper-pagination{
+  display: none !important;
+}
+
+
+.swiper-pagination-bullet{
+    border-radius: 10px !important;
+    padding: 0px 14px !important;
+    height: 4px !important;
+    background-color: #D3D6DC !important;
+    opacity: 1 !important;
+  }
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+background-color: rgb(215 110 45 / var(--tw-bg-opacity)) !important;
+}
+
+/* --- Dark Mode Arrow */
+.dark-arrow .swiper-button-prev,
+.dark-arrow .swiper-button-next {
+  background-color: #2a2f38 !important;
+  color: black !important;
+}
+
+@media (max-width: 1023.98px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .custom-Slider .swiper-slide{
+    width:auto !important;
+  }
+}
