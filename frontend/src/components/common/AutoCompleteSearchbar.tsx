@@ -30,7 +30,7 @@ export default function AutoCompleteSearchbar({ selectedCategoryId }: { selected
         onSuccess: (data) => {
           setOptions((prevOptions) => {
             const newOptions = [...prevOptions];
-            data.forEach((item) => {
+            data?.forEach((item) => {
               if (!newOptions.some(option => option.name === item.name)) {
                 newOptions.push(item);
               }

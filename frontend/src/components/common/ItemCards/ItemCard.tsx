@@ -25,8 +25,9 @@ const ItemCard = ({ item }: { item: ItemCardProps }) => {
 
   return (
     <Card
+    className="!rounded-t-2xl !overflow-hidden"
       sx={{
-        boxShadow: 3,
+        boxShadow: 4,
         transition: "0.3s",
         "&:hover": {
           boxShadow: 1,
@@ -35,13 +36,21 @@ const ItemCard = ({ item }: { item: ItemCardProps }) => {
     >
       <Link href={`/furniture/${id}`} passHref>
         <CardMedia
+        sx={{ 
+          height: 330,
+          filter: 'brightness(0.95)',
+          transition: 'filter 0.3s',
+          "&:hover": {
+            filter: 'brightness(1)',
+          }
+        }}
+        className="rounded-lg"
           component="img"
-          sx={{ height: 330 }}
           image={image}
           alt={name}
         />
       </Link>
-      <CardContent sx={{ height: 150 }}>
+      <CardContent className="bg-lightBg" sx={{ height: 150 }}>
         <Stack spacing={2} direction={"column"} >
           <Typography
             variant="h5"

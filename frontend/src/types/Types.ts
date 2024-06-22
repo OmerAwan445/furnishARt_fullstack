@@ -83,24 +83,49 @@ export interface ItemCardProps {
 }
 
 export interface FurnitureItemDetailsProps {
-  id: number
-  name: string
-  description: string
-  price: number
-  rating: number
-  image_urls: string[]
-  total_sales: number
-  category_id: number
-  category_name: string
-  // reviews: {
-  //   id: number
-  //   rating: number
-  //   comment: string
-  //   user: {
-  //     id: number
-  //     username: string
-  //   }
-  // }[]
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  stock_quantity: number;
+  model_3d_url: string | null;
+  image_urls: string[];
+  total_sales: number;
+  color: string;
+  dimension: string;
+  weight: string;
+  category_id: number;
+  createdAt: string;
+  updatedAt: string;
+  reviews: Review[];
+};
+
+export interface Review {
+  id: number;
+  rating: number;
+  comment: string;
+  customer: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      username: string;
+  };
+};
+
+
+export interface TabData {
+  label: string;
+  component: React.ReactNode;
+}
+
+export interface SimpleTabsProps {
+  tabs: TabData[];
+}
+
+export interface CustomTabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
 }
 
 export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;

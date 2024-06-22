@@ -1,4 +1,5 @@
 import FurnitureItemDetails from "@/components/FurniturePage/FurnitureItemDetails";
+import TabsSection from "@/components/FurniturePage/TabsSection";
 import FurnitureItemsSvs from "@/services/FurnitureItems";
 import { FurnitureItemDetailsResponse } from "@/types/Types";
 import { Container, Typography } from "@mui/material";
@@ -16,7 +17,11 @@ const FurniturePage = async ({ params }: { params: { id: string } }) => {
   }
   return <Container maxWidth="xl" sx={{ py: 4 }} >
     {item === null && <Typography mt={4} textAlign={"center"} variant="h3">Item not found</Typography>}
-    {item && <FurnitureItemDetails item={item}/> }
+    {item && <>
+    <FurnitureItemDetails item={item}/> 
+    <TabsSection item= {item} />
+    </>
+    }
     </Container>;
 };
 

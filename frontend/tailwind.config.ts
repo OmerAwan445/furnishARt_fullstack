@@ -31,11 +31,16 @@ const config: Config = {
       }
       ,
       colors: {
+        "primary-main":"#754c24",
+        "primary-light":"#9c6530",
+        "secondary-main":"#f3f3f3",
+        "secondary-light":"#fafafa",
         lightBg:"#FAFAFC",
         lightgray:"#D0D6E5",
         lightblue: "#F5F8FE",
         lightcyan: "#ECFCFF",
         lightgreen:"#FAFFF8",
+        lightBrown: "#baab9b",
         brightcyan: "#3AD0E6",
         maincolor: "#D76E2D",
         CourseTitle: "#1D2733",
