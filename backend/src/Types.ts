@@ -53,6 +53,28 @@ export interface ResetPasswordRequestBody {
     confirm_password: string;
 }
 
+export interface GetFurnitureItemsFiltersReqQuery {
+    category_id?: string
+    itemsPerPage?: string
+    page?: string
+}
+export interface GetFurnitureItemsFilters {
+    category_id?: number
+    itemsPerPage?: number
+    page?: number
+}
+
+export interface FurnitureItemModelFilters {
+    whereClause: {
+        category_id?: number;
+    };
+    orderBy: {
+        createdAt: "desc" | "asc";
+    };
+    take: number;
+    skip: number;
+}
+
 export interface VerificationEmailResponse {
     token?: string
     msg: string;

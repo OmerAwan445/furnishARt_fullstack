@@ -1,3 +1,4 @@
+import { FurnitureItemModelFilters } from "@src/Types";
 import { prisma } from "@src/db";
 
 export class FurnitureItemModel {
@@ -30,6 +31,7 @@ export class FurnitureItemModel {
       take: 10,
     });
   }
+
   async getFurnitureItemFromID(id: number) {
     return await prisma.furnitureItem.findUnique({
       where: {
@@ -53,6 +55,17 @@ export class FurnitureItemModel {
           take: 10,
         },
       },
+    });
+  }
+
+  async getAllFurnitureItems(filters: FurnitureItemModelFilters) {
+    const { orderBy, skip, take, whereClause } = filters;
+    console.log(orderBy, skip, take, whereClause);
+    return await prisma.furnitureItem.findMany({
+      take,
+      orderBy,
+      skip,
+      where: whereClause,
     });
   }
 }
