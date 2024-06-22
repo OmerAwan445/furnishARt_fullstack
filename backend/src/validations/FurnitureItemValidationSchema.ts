@@ -9,6 +9,26 @@ export const autoCompleteFurnitureItems: Schema = {
     errorMessage: "Search Term is required",
   },
 };
+export const getFurnitureItems: Schema = {
+  itemsPerPage: {
+    optional: true,
+    isInt: {
+      errorMessage: "itemsPerPage must be a number",
+    },
+  },
+  page: {
+    optional: true,
+    isInt: {
+      errorMessage: "page must be a number",
+    },
+  },
+  category_id: {
+    optional: true,
+    isInt: {
+      errorMessage: "category_id must be a number",
+    },
+  },
+};
 
 export const getFurnitureFromID: Schema = {
   id: {
