@@ -1,8 +1,6 @@
 'use client';
 
-import React from 'react';
 import { Box, Card, CardMedia } from '@mui/material';
-import CustomSwiperSlider from '../common/Sliders/CustomSwiperSlider';
 import { SwiperSlide } from 'swiper/react';
 import SimpleSlider from '../common/Sliders/SimpleSlider';
 
@@ -20,35 +18,26 @@ const FurnitureItemImages = ({ images }: { images: string[] }) => {
       slidesPerView: 1,
       spaceBetween: 20,
     },
-  }
-    return (
-    <Box>
-      {/* <Card>
-        <CardMedia
-          component="img"
-          height="330"
-          image={images[0]}
-          alt="Product Image"
-        />
-      </Card> */}
-      <Box mt={2}>
-        <SimpleSlider customBreakpoints={customBreakpoints}>
-          {images.map((image, index) => (
-            <SwiperSlide key={index} className='w-full'>
-            <Box>
-              <Card>
+  };
+
+  return (
+    <Box className="!drop-shadow-primary">
+      <SimpleSlider customBreakpoints={customBreakpoints}>
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <Box sx={{ maxHeight: 700, overflow: 'hidden', borderRadius: '15px' }}>
+              <Card sx={{ maxHeight: 700, }}>
                 <CardMedia
                   component="img"
-                  height="100"
+                  sx={{ maxHeight: 700, objectFit: 'cover',}}
                   image={image}
                   alt={`Product Image ${index + 1}`}
                 />
               </Card>
             </Box>
-            </SwiperSlide>
-          ))}
-        </SimpleSlider>
-      </Box>
+          </SwiperSlide>
+        ))}
+      </SimpleSlider>
     </Box>
   );
 };

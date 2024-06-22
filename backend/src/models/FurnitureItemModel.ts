@@ -19,7 +19,7 @@ export class FurnitureItemModel {
       where: {
         name: {
           contains: searchTerm,
-          mode: 'insensitive',
+          mode: "insensitive",
         },
         ...(category_id && { category_id: Number(category_id) }),
       },
@@ -45,12 +45,14 @@ export class FurnitureItemModel {
               select: {
                 id: true,
                 username: true,
-            }
-          }
-        },
+                first_name: true,
+                last_name: true,
+              },
+            },
+          },
           take: 10,
-        }
-      }
+        },
+      },
     });
   }
 }

@@ -9,7 +9,7 @@ export const BACKEND_API_ENDPOINTS = {
   resetPassword: "/auth/reset-password/",
 
   // Furniture Items
-  autocompleteFurnitureItems: "/furniture-item",
+  autocompleteFurnitureItems: "/furniture-item/auto-complete",
   getBestSellerFurnitureItems: "/furniture-item/best-sellers",
   getFurnitureItemFromID: "/furniture-item",
 
