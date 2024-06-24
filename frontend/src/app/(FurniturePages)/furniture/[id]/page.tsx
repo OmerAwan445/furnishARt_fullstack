@@ -15,14 +15,14 @@ const FurniturePage = async ({ params }: { params: { id: string } }) => {
     console.log(err);
     item = null;
   }
-  return <Container maxWidth="xl" sx={{ py: 4 }} >
+  return <>
     {item === null && <Typography mt={4} textAlign={"center"} variant="h3">Item not found</Typography>}
     {item && <>
     <FurnitureItemDetails item={item}/> 
     <TabsSection item= {item} />
     </>
     }
-    </Container>;
+    </>;
 };
 
 export default FurniturePage;

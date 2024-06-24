@@ -26,10 +26,14 @@ const FurnitureItemImages = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <Box sx={{ maxHeight: 700, overflow: 'hidden', borderRadius: '15px' }}>
-              <Card sx={{ maxHeight: 700, }}>
+              <Card sx={{ maxHeight: 700,
+                // filter: 'brightness(0.98)',
+                // transition: 'filter 0.3s',
+              }}>
                 <CardMedia
                   component="img"
-                  sx={{ maxHeight: 700, objectFit: 'cover',}}
+                  sx={{ maxHeight: 700,
+                    objectFit: 'cover',}}
                   image={image}
                   alt={`Product Image ${index + 1}`}
                 />

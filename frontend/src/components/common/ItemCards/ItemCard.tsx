@@ -8,7 +8,7 @@ import Link from "next/link";
 import { IoIosStarOutline } from "react-icons/io";
 import DefaultButton from "../buttons/DefaultButton";
 
-const ItemCard = ({ item }: { item: ItemCardProps }) => {
+const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?: number }) => {
   const { id, name, price, rating } = item;
   let image = item.image;
 
@@ -50,8 +50,8 @@ const ItemCard = ({ item }: { item: ItemCardProps }) => {
           alt={name}
         />
       </Link>
-      <CardContent className="bg-lightBg" sx={{ height: 150 }}>
-        <Stack spacing={2} direction={"column"} >
+      <CardContent className="bg-lightBg" sx={{ height: contentHeight ?? 130 }}>
+        <Stack spacing={2} direction={"column"} pb={2} >
           <Typography
             variant="h5"
             fontWeight={400}

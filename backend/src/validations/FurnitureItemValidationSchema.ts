@@ -24,9 +24,9 @@ export const getFurnitureItems: Schema = {
   },
   category_id: {
     optional: true,
-    isInt: {
-      errorMessage: "category_id must be a number",
-    },
+    // isInt: {
+    //   errorMessage: "category_id must be a number",
+    // },
   },
 };
 

@@ -14,6 +14,6 @@
       "@utils/*": ["src/utils/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../frontend/src/utils/filteredItems.ts"],
   "exclude": ["node_modules"]
 }

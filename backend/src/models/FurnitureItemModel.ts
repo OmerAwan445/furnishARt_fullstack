@@ -60,12 +60,23 @@ export class FurnitureItemModel {
 
   async getAllFurnitureItems(filters: FurnitureItemModelFilters) {
     const { orderBy, skip, take, whereClause } = filters;
-    console.log(orderBy, skip, take, whereClause);
     return await prisma.furnitureItem.findMany({
       take,
       orderBy,
       skip,
       where: whereClause,
-    });
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        image_urls: true,
+        reviews: {
+          select: {
+            rating: true,
+          },
+        },
+      },
+    },
+    );
   }
 }

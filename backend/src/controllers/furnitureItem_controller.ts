@@ -17,6 +17,7 @@ export class FurnitureItemController {
     const filters = getParsedFilters({ category_id, itemsPerPage, page });
 
     const items = await this.furnitureItemModel.getAllFurnitureItems(filters);
+
     if (!items.length) return res.status(404).send(ApiResponse.error("No Item Found", 404));
 
     return res.send(ApiResponse.success(items, "Furniture items retrieved successfully", 200, items.length));

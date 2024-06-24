@@ -1,17 +1,18 @@
 "use client";
 
 import { ItemCardProps } from "@/types/Types";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { SwiperSlide } from "swiper/react";
-import CustomSwiperSlider from "../common/Sliders/CustomSwiperSlider";
 import ItemCard from "../common/ItemCards/ItemCard";
+import CustomSwiperSlider from "../common/Sliders/CustomSwiperSlider";
+import TitleHeadings from "../common/headings/TitleHeadings";
 
 const BestSellers = ({ items }: { items: ItemCardProps[] }) => {
   return (
     <Box mt={4}>
-      <Typography variant="h3" fontWeight={500} sx={{ mb: 2 }}>
+      <TitleHeadings>
         Best Sellers
-      </Typography>
+      </TitleHeadings>
       <Box className="px-0 lg:px-10">
       <CustomSwiperSlider>
         {
