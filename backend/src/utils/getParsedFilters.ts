@@ -3,7 +3,7 @@ import { removeUndefinedFromObject } from "./common/removeUndefinesFromObjext";
 
 
 const DEFAULTPAGE = 1;
-const DEFAULTITEMSPERPAGE = 5;
+const DEFAULTITEMSPERPAGE = 7;
 const MAXITEMSPERPAGE = 100;
 
 export function getParsedFilters(appliedFilters: GetFurnitureItemsFiltersReqQuery) {
@@ -11,10 +11,21 @@ export function getParsedFilters(appliedFilters: GetFurnitureItemsFiltersReqQuer
   const sort_order: "desc" | "asc" = "desc";
   const filters = removeUndefinedFromObject<GetFurnitureItemsFiltersReqQuery>(appliedFilters);
   const parsedFilters: GetFurnitureItemsFilters = Object.fromEntries(
-      Object.entries(filters).map(([key, value]) => [key, parseInt(value)]),
-  );
+      Object.entries(filters).map(([key, value]) => {
+        if (key === 'category_id') {
+          return [key, (value).split(',').map(Number)];
+        }
+        return [key, parseInt(value)];
+      }),
+  ) as GetFurnitureItemsFilters;
 
-  const { itemsPerPage= DEFAULTITEMSPERPAGE, page= DEFAULTPAGE, ...whereClause } = parsedFilters;
+  const { itemsPerPage = DEFAULTITEMSPERPAGE, page = DEFAULTPAGE, category_id, ...rest } = parsedFilters;
+
+  const whereClause = {
+    ...rest,
+    ...(category_id ? { category_id: { in: category_id } } : {}),
+  };
+
   const skip = (page - 1) * itemsPerPage;
   return {
     whereClause,

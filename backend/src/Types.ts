@@ -59,14 +59,16 @@ export interface GetFurnitureItemsFiltersReqQuery {
     page?: string
 }
 export interface GetFurnitureItemsFilters {
-    category_id?: number
+    category_id?: number[]
     itemsPerPage?: number
     page?: number
 }
 
 export interface FurnitureItemModelFilters {
     whereClause: {
-        category_id?: number;
+        category_id?: {
+            in: number[]
+        };
     };
     orderBy: {
         createdAt: "desc" | "asc";

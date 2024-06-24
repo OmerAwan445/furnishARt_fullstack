@@ -8,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/utils/theme";
 import NavbarLayout from "@/components/common/layouts/NavbarLayout";
 import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
+import StoreProvider from "@/components/providers/StoreProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,7 +32,9 @@ export default function RootLayout({
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <AuthSessionProvider>
+              <StoreProvider>
                 <NavbarLayout>{children}</NavbarLayout>
+              </StoreProvider>
               </AuthSessionProvider>
             </ThemeProvider>
           </AppRouterCacheProvider>

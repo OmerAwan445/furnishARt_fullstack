@@ -1,5 +1,5 @@
 import { CustomError } from "@/utils/error/CustomError"
-import { ButtonProps } from "@mui/material"
+import { ButtonProps, TypographyProps } from "@mui/material"
 import { AxiosResponse } from "axios"
 import { ReactNode } from "react"
 
@@ -31,6 +31,9 @@ export interface SignupFormData {
 
 /* ========= PROPS TYPE ======= */
 export interface CustomButtonProps extends Partial<ButtonProps> {
+  children: ReactNode;
+}
+export interface CustomHeadingProps extends Partial<TypographyProps> {
   children: ReactNode;
 }
 
@@ -73,6 +76,7 @@ export interface GetCategoriesResponse {
   id: number
   name: string
 }
+
 
 export interface ItemCardProps {
   id: number
@@ -128,8 +132,30 @@ export interface CustomTabPanelProps {
   value: number;
 }
 
+export interface ReturnFurnitureItems {
+  id: number;
+  name: string;
+  price: number;
+  image_urls: string[];
+  reviews: {
+      rating: number;
+  }[];
+}
+
 export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
 
 
 export type GetBestSellerResponse = ItemCardProps[];
+export type GetFurnitureItems = ItemCardProps[];
 
+// ======= REDUX =======
+export type CategoryInfo = {
+  label: string;
+  value: number;
+}
+
+export interface FiltersSliceState {
+  category_ids?: number[]
+  itemsPerPage: number
+  page: number
+}

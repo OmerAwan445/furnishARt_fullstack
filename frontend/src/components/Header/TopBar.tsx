@@ -15,6 +15,8 @@ import AutoCompleteSearchbar from "../common/AutoCompleteSearchbar";
 import BlackOutlinedButton from "../common/buttons/BlackOutlinedButton";
 import NavbarMobileIcons from "./NavbarMobileIcons";
 import CategorySvs from "@/services/Category";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { CategoryActions } from "@/store/Slices/CategorySlice";
 
 
 /* const categories = [
@@ -26,10 +28,11 @@ import CategorySvs from "@/services/Category";
 ]; */
 
 const TopBar = () => {
-  const [categories, setCategories] = React.useState([{ value: 0, label: "All categories" }]);
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector(store => store.categories );
+  const { AddCategories } = CategoryActions;
   const [selectedCategory, setSelectedCategory] = React.useState(0);
   const [searchQuery, setSearchQuery] = React.useState("");
-
   const handleCategoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedCategory(event.target.value as number);
     console.log(`Searching for ${searchQuery} in category ${selectedCategory}`);
@@ -47,8 +50,7 @@ const TopBar = () => {
     (async () => {
         const data = await CategorySvs.getCategories();
         if (!data) return;
-
-        setCategories([{ value: 0, label: "All categories" }, ...data.map((cat) => ({ value: cat.id, label: cat.name }))]);
+        dispatch(AddCategories([{ value: 0, label: "All categories" }, ...data.map((cat) => ({ value: cat.id, label: cat.name }))]));
     })();
   }, []);
 
