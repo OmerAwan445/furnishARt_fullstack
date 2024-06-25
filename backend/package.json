@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "export NODE_ENV=production && nodemon src/app.ts",
     "dev": "nodemon src/app.ts",
-    "dev:debug": "nodemon --inspect src/app.ts",
+    "dev:debug": "export NODE_ENV=development && nodemon --inspect src/app.ts",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },

@@ -3,4 +3,5 @@ node_modules
 .env
 nodemon.json
 db_test_queries.sql
+
 .vscode

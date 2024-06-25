@@ -16,8 +16,7 @@ class EmailSvs {
     secure: true,
   });
 
-
-  public static sendVerificationEmail(email: string, token: string) {
+  public static async sendVerificationEmail(email: string, token: string) {
     if (!this.toSendEmail) {
       return "Email sending disabled";
     }
@@ -32,14 +31,18 @@ class EmailSvs {
           <p style="font-size: 16px;">You requested for email verification, kindly use this Link <a
             style="color: #007bff; text-decoration: none;" target="_blank" href=${url}/verify-email?token=${token}>
             Verify your email address</a> to verify your email address.</p>
-      <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(
-      getEnv("tokenExpiry.EMAIL_VERIFICATION"))}</b>
-            </div>
+          <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(getEnv("tokenExpiry.EMAIL_VERIFICATION"))}</b>
+        </div>
       `,
     };
 
-    this.transporter.sendMail(mailOptions);
-    return "Verification email sent successfully";
+    try {
+      await this.transporter.sendMail(mailOptions);
+      return "Verification email sent successfully";
+    } catch (error: any) {
+      console.error('Error sending verification email:', error); // Log the error
+      throw new AppError(error.message, 500);
+    }
   }
 
   public static async sendForgotPasswordEmail(email: string, token: string) {
@@ -52,22 +55,22 @@ class EmailSvs {
         to: email,
         subject: "Forgot Password",
         html: `
-            <p>To reset your password, please click the link below.
-              <a target="_blank"
-                href="${url}/reset-password?token=${token}"
-              >
+          <p>To reset your password, please click the link below.
+            <a target="_blank" href="${url}/reset-password?token=${token}">
               <br/>
               Reset Password
-              </a></p>
-            <p>
-              <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(
-      getEnv("tokenExpiry.PASSWORD_RESET"))}</b>
-            </p>`,
+            </a>
+          </p>
+          <p>
+            <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(getEnv("tokenExpiry.PASSWORD_RESET"))}</b>
+          </p>
+        `,
       };
 
       await this.transporter.sendMail(message);
       return "Password reset email sent successfully";
     } catch (error: any) {
+      console.error('Error sending forgot password email:', error); // Log the error
       throw new AppError(error.message, 500);
     }
   }
@@ -84,8 +87,13 @@ class EmailSvs {
       html: "<p>Your password has been changed successfully.</p>",
     };
 
-    await this.transporter.sendMail(message);
-    return "Password reset email sent successfully";
+    try {
+      await this.transporter.sendMail(message);
+      return "Password reset email sent successfully";
+    } catch (error: any) {
+      console.error('Error sending reset password email:', error); // Log the error
+      throw new AppError(error.message, 500);
+    }
   }
 }
 
