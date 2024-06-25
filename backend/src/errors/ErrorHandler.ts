@@ -34,6 +34,8 @@ class ErrorHandler {
 
   async crashIfUntrustedErrorOrSendResponse() {
     if (this.error instanceof AppError) {
+      console.log(isDevEnvironment, "isDevEnvironment", this.error.statusCode, "statusCode");
+      if (!isDevEnvironment && this.error.statusCode === 500) this.error.message = "Internal Server Error";
       return this.responseStream
           .status(this.error.statusCode)
           .send(errorResponseObj(this.error));

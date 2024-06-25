@@ -85,12 +85,14 @@ const TopBar = () => {
 
           <AutoCompleteSearchbar selectedCategoryId= {Number(selectedCategory)} />
         </Stack>
-
+        
+        <Link href={"/cart"} passHref>
         <Box sx={{ display: { xs: 'none', md: 'block', } }}>
           <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
             Cart
           </BlackOutlinedButton>
         </Box>
+        </Link>
 
         <NavbarMobileIcons /> {/* shown below the md screen */}
       </Stack>
