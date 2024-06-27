@@ -28,7 +28,6 @@ async function ResetPasswordPage({
   return (
     <Container>
       <br/>
-      {token}
       {(isTokenValid && token) ? (
         <ResetPasswordForm token={token} />
       ) : (
