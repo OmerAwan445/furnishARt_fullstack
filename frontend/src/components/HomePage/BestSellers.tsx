@@ -1,5 +1,6 @@
 "use client";
 
+import '@/assets/css/Slider.css'
 import { ItemCardProps } from "@/types/Types";
 import { Box } from "@mui/material";
 import { SwiperSlide } from "swiper/react";
@@ -14,7 +15,7 @@ const BestSellers = ({ items }: { items: ItemCardProps[] }) => {
         Best Sellers
       </TitleHeadings>
       <Box className="px-0 lg:px-10">
-      <CustomSwiperSlider>
+      <CustomSwiperSlider isCustomSlider>
         {
         items.map((item)=> 
         <SwiperSlide key={item.id}>

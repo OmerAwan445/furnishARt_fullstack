@@ -11,7 +11,6 @@ export class FurnitureItemModel {
     ORDER BY fi.total_sales DESC
     LIMIT 15;
   `;
-
     return bestSeller;
   }
 

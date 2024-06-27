@@ -1,18 +1,21 @@
+import FurnitureItemsSvs from '@/services/FurnitureItems';
+import { AutoCompleteResponse } from '@/types/Types';
 import { Button } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { BiSearch } from 'react-icons/bi';
-import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import FurnitureItemsSvs from '@/services/FurnitureItems';
-import { AutoCompleteResponse } from '@/types/Types';
 import { debounce } from 'lodash';
+import { useRouter } from 'next/navigation';
+import { KeyboardEvent, useEffect, useState } from 'react';
+import { BiSearch } from 'react-icons/bi';
 
 export default function AutoCompleteSearchbar({ selectedCategoryId }: { selectedCategoryId: number }) {
   const [options, setOptions] = useState<AutoCompleteResponse[]>([]);
   const [inputValue, setInputValue] = useState('');
   const { mutate, isPending } = useMutation({mutationFn: FurnitureItemsSvs.fetchSuggestions});
-
+  const [selectedFurnitureId, setSelectedFurnitureId] = useState<number | null>(null);
+  const router = useRouter();
+  
   const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') {
       handleSearch();
@@ -20,8 +23,9 @@ export default function AutoCompleteSearchbar({ selectedCategoryId }: { selected
   };
 
   const handleSearch = () => {
-    console.log('Search button clicked!', inputValue);
-    // Add your search logic here
+    if(selectedFurnitureId){
+     router.push("/furniture/" + selectedFurnitureId);
+    }
   };
 
   const fetchSuggestions = (query: string) => {
@@ -69,10 +73,11 @@ export default function AutoCompleteSearchbar({ selectedCategoryId }: { selected
         className='!rounded-r-none'
         size='small'
         id="free-solo-2-demo"
-        
         disableClearable
         options={options.length > 0 ? options.map((option) => option.name) : ["No Options"] }
-        onInputChange={(event: ChangeEvent<{}>, value: string) => {
+        onInputChange={(event, value) => {
+          const selectedOptionId = options.find(option => option.name === value);
+          setSelectedFurnitureId(selectedOptionId ? Number(selectedOptionId.id) : null);
           setInputValue(value);
         }}
         renderInput={(params) => (

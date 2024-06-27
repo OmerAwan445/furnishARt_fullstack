@@ -10,11 +10,13 @@ import { Swiper } from "swiper/react";
 export interface SliderProps {
     children: ReactNode
     customBreakpoints?: any
+    isCustomSlider?: boolean
   }
 
 const CustomSwiperSlider: FC<SliderProps> = ({
   children,
   customBreakpoints,
+  isCustomSlider = true
 }) => {
 
   return (
@@ -42,7 +44,7 @@ const CustomSwiperSlider: FC<SliderProps> = ({
         navigation={true}
         grabCursor={true}
         modules={[Navigation]}
-        className='custom-Slider mySwiper !static'
+        className={`${isCustomSlider ? 'custom-Slider' : "" } mySwiper !static`}
         >
         {children}
       </Swiper>

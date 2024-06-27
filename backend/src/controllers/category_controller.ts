@@ -10,7 +10,7 @@ export class CategoryController {
   }
 
   getAllCategories = catchAsyncError(async (req, res) => {
-    const allCategories = await this.categoryModel.getCategories()
+    const allCategories = await this.categoryModel.getCategories();
     return res.send(ApiResponse.success(allCategories, "All categories retrieved successfully"));
   });
 }

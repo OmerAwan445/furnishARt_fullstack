@@ -1,5 +1,5 @@
-.swiper-button-prev,
-.swiper-button-next {
+.custom-Slider .swiper-button-prev,
+.custom-Slider .swiper-button-next {
   border: none !important;
   outline: none !important;
   border-radius: 50px !important;
@@ -9,26 +9,26 @@
   height: 45px !important;
   color: rgb(112 112 112) !important;
 }
-.swiper-button-prev::after,
-.swiper-button-next::after {
+.custom-Slider .swiper-button-prev::after,
+.custom-Slider .swiper-button-next::after {
   font-size: 20px !important;
   font-weight: 900 !important;
   opacity: 1 !important;
 }
-.swiper-button-prev {
+.custom-Slider .swiper-button-prev {
   left: -55px !important;
 }
 
-.swiper-button-prev.swiper-button-disabled,
+.custom-Slider .swiper-button-prev.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled {
   opacity: 0.5 !important;
 }
-.swiper-button-next {
+.custom-Slider .swiper-button-next {
   right: -55px !important;
 }
 
 /* For pagination sliders dots */
-.home-banner-slider .swiper-pagination{
+/* .home-banner-slider .swiper-pagination{
   bottom: 85px !important;
 }
 .hide-pagination-dots .swiper-pagination{
@@ -46,18 +46,12 @@
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active{
 background-color: rgb(215 110 45 / var(--tw-bg-opacity)) !important;
-}
+} */
 
-/* --- Dark Mode Arrow */
-.dark-arrow .swiper-button-prev,
-.dark-arrow .swiper-button-next {
-  background-color: #2a2f38 !important;
-  color: black !important;
-}
 
 @media (max-width: 1023.98px) {
-  .swiper-button-prev,
-  .swiper-button-next {
+  .custom-Slider .swiper-button-prev,
+  .custom-Slider .swiper-button-next {
     display: none !important;
   }
 }

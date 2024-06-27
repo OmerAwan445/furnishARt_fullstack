@@ -22,7 +22,7 @@ const FurnitureItemImages = ({ images }: { images: string[] }) => {
 
   return (
     <Box className="!drop-shadow-primary">
-      <SimpleSlider customBreakpoints={customBreakpoints}>
+      <SimpleSlider  customBreakpoints={customBreakpoints}>
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <Box sx={{ maxHeight: 700, overflow: 'hidden', borderRadius: '15px' }}>

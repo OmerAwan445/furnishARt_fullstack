@@ -4,7 +4,7 @@ import { NEXTAUTH_SECRET_KEY } from "@/utils/auth/auth.config";
 
 type ResponseType = NextResponse | null;
 
-const authpages = ["/login", "/signup", "/verify-email", "/forget-password", "/forget-password/set-new-password"];
+const authpages = ["/login", "/signup", "/verify-email", "/forget-password", "/reset-password"];
 
 export class MiddlewareRequestChecker {
   private request: NextRequest;
