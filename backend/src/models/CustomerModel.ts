@@ -1,7 +1,7 @@
 import { prisma } from "@src/db";
-import { prismaExclude } from "../utils/prisma/prismaExclude";
 import { AppError } from "@src/errors/AppError";
 import BcryptSvs from "@src/services/auth/bcryptSvs";
+import { prismaExclude } from "@src/utils/prisma/prismaExclude";
 
 async function checkEmailUniqueAndCreateCustomer(
     first_name: string,

@@ -1,0 +1,39 @@
+services:
+  postgres_db:
+    container_name: furnishart-db
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_USER: admin
+      POSTGRES_DB: furnishart_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  frontend:
+    container_name: furnishart-frontend
+    restart: unless-stopped
+    build: 
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+      
+  backend:
+    container_name: furnishart-backend
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgres://admin:admin123@postgres_db:5432/furnishart_db
+    depends_on:
+      - postgres_db
+volumes:
+  pgdata:
