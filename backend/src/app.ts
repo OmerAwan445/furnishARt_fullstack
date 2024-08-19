@@ -11,8 +11,8 @@ import { getEnv } from "@utils/getEnv";
 import ErrorHandler from "./errors/ErrorHandler";
 import { AppError } from "./errors/AppError";
 import { CustomError } from "./Types";
-const app = express();
 
+const app = express();
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
