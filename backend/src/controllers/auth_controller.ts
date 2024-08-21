@@ -72,6 +72,7 @@ class AuthController {
 
   verifyEmailVerificationToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
     const token = req.query.token as string;
+    console.log(token, "token");
     // 1. check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "EMAIL_VERIFICATION");
     if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));

@@ -17,6 +17,7 @@ export const authOptions: NextAuthOptions = {
       },
       authorize: async (credentials, req) => {
         try {
+          console.log(credentials?.email, credentials?.password, "credentials");
           if (!credentials?.email || !credentials?.password)
             return null;
 
@@ -63,6 +64,7 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials, req) {
               try {
               if (!credentials) return null;
+              console.log(credentials.token, API_BASE_URL, "credentials.token");
 
               const { data } = await axios.get(`${API_BASE_URL!!}${BACKEND_API_ENDPOINTS.verifyEmail}?token=${encodeURIComponent(credentials.token)}`);
               if (data) {
@@ -80,6 +82,7 @@ export const authOptions: NextAuthOptions = {
               
               return null;
               } catch (error:any) {
+                console.error(error, "error");
                 throw new Error(
                   error.response?.data?.message ||
                   error.message ||

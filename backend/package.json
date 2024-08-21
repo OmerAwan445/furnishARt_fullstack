@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:prod": "export NODE_ENV=production && nodemon src/app.ts",
-    "dev": "nodemon src/app.ts",
-    "dev:debug": "export NODE_ENV=development && nodemon --inspect src/app.ts",
+    "start:prod": "export NODE_ENV=production && nodemon -L src/app.ts",
+    "dev": "nodemon -L  src/app.ts",
+    "dev:debug": "nodemon --inspect src/app.ts",
     "start:migrate:prod": "cd src/ && prisma migrate deploy && npx prisma db push && npm run start:prod",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"

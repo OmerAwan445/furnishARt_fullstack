@@ -4,7 +4,7 @@ import FurnitureItemsSvs from "@/services/FurnitureItems";
 import { Container } from "@mui/material";
 
 export default async function Home() {
-  const bestSellerItems = await FurnitureItemsSvs.getBestSellers();
+  const bestSellerItems = await FurnitureItemsSvs.getBestSellersSS();
   // const  data = await getServerSession(authOptions);
   return (
     <Container maxWidth="xl" className="w-full mt-4 pb-10">
