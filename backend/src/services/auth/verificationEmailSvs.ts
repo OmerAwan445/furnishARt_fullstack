@@ -33,7 +33,6 @@ const sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded = async ( em
       statusCode: 409,
     };
   }
-
   const token = CryptoTokenSvs.generateCryptoTokenAndEncryptData<EncryptedDataInToken>({ customer_id });
   if (!token) throw new AppError("Token generation failed", 500);
   const encodedToken = encodeURIComponent(token);

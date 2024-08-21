@@ -8,7 +8,7 @@ import { getFilteredItems } from "@/utils/Itemsfilters&pagination/filteredItems"
 
 
 class FurnitureItemsService {
-    private static BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
+    private static BASE_URL_SS = process.env.BACKEND_API_URL;
 
     
     static async getFurnitureItems(filters?: FiltersSliceState) {
@@ -30,12 +30,13 @@ class FurnitureItemsService {
         return data.data;
     }
 
-    static async getBestSellers() {
-        const { data, error } = await handleApiCall<{ data: GetBestSellerResponse }>(async ()=> await axios.get(`${this.BASE_URL}${BACKEND_API_ENDPOINTS.getBestSellerFurnitureItems}`));
+    static async getBestSellersSS() {
+        const { data, error } = await handleApiCall<{ data: GetBestSellerResponse }>(async ()=> await axios.get(`${this.BASE_URL_SS}${BACKEND_API_ENDPOINTS.getBestSellerFurnitureItems}`));
     
         if (error) return null;
         return data.data;
     }
+
     static async fetchFurnitureItemFromID(id: number) {
         const { data, error } = await handleApiCall<{data: FurnitureItemDetailsResponse}>(async ()=> await apiInstance.get(`${BACKEND_API_ENDPOINTS.getFurnitureItemFromID}/${id}`));
     

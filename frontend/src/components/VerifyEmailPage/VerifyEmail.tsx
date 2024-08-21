@@ -1,6 +1,5 @@
 "use client";
 
-// import { resendVerificationLinkAction, verifyEmailAction } from "@/actions/AuthActions";
 import AuthSvs from "@/services/Auth";
 import { Container, Typography } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -53,15 +53,13 @@ class CryptoTokenSvs {
       token: string,
       tokenType: tokenType,
   ): Promise<{ data: EncryptedDataInToken | null, isValidToken: boolean, errorMsg: string | null }> {
-    const decodeedToken = decodeURIComponent(token);
-    console.log(decodeedToken, "decodeedToken");
-    const data = this.extractDataFromCryptoToken<EncryptedDataInToken>(decodeedToken);
+    const data = this.extractDataFromCryptoToken<EncryptedDataInToken>(token);
     if (!data || !data.customer_id) {
       return { data: null, isValidToken: false, errorMsg: "Invalid token" };
     }
 
     const userToken = await findCustomerToken(data.customer_id, tokenType);
-    if (!userToken || userToken.token !== decodeedToken || userToken.expiry.getTime() < Date.now()) {
+    if (!userToken || userToken.token !== token || userToken.expiry.getTime() < Date.now()) {
       return { data: null, isValidToken: false, errorMsg: "Token is invalid or expired" };
     }
 
