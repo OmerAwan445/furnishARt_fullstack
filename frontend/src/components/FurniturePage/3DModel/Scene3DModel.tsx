@@ -1,71 +1,78 @@
-"use client"
-import { OrbitControls, useGLTF, useHelper } from '@react-three/drei';
-import { useRef } from 'react';
-import { BoxGeometryProps, Canvas, useFrame, Vector3 } from 'react-three-fiber';
-import { DirectionalLightHelper } from 'three';
+"use client";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import { Suspense, useEffect, useRef } from "react";
+import { Box3, Vector3 } from "three";
+import ErrorFallback from "./ErrorFallback";
+import ModelLoading from "./ModelLoading";
+import SceneLightning from "./SceneLightning";
 
-const Models = [
-  { title: 'Chair', url: 'http://localhost:3001/api/furniture-item/3dmodel/1' },
-  { title: 'Study Table', url: 'http://localhost:3001/api/furniture-item/3dmodel/2' },
-  { title: 'Sofa', url: 'http://localhost:3001/api/furniture-item/3dmodel/3' },
-  { title: 'Dining', url: 'http://localhost:3001/api/furniture-item/3dmodel/4' },
-  { title: 'Chair2', url: 'http://localhost:3001/api/furniture-item/3dmodel/5' },
-  { title: 'Bed', url: 'http://localhost:3001/api/furniture-item/3dmodel/7' },
+/* const Models = [
+  { title: "Chair", url: "http://localhost:3001/api/furniture-item/3dmodel/1" },
+  {
+    title: "Study Table",
+    url: "http://localhost:3001/api/furniture-item/3dmodel/2",
+  },
+  { title: "Sofa", url: "http://localhost:3001/api/furniture-item/3dmodel/3" },
+  {
+    title: "Dining Table",
+    url: "http://localhost:3001/api/furniture-item/3dmodel/4",
+  },
+  {
+    title: "Dining Chair" ,
+    url: "http://localhost:3001/api/furniture-item/3dmodel/5",
+  },
+  { title: "Bed", url: "http://localhost:3001/api/furniture-item/3dmodel/6" },
+  { title: "Grey Dining Chair", url: "http://localhost:3001/api/furniture-item/3dmodel/7" },
+  {
+    title: "Simple Chair" ,
+    url: "http://localhost:3001/api/furniture-item/3dmodel/9",
+  },
+]; */
 
-]
-
-export default function Scene3DModel() {
-
+export default function Scene3DModel({ modelUrl }: { modelUrl: string}) {
   return (
-    <div id="canvas-container" className='mt-24 h-screen'>
-    <Canvas >
-        <Scene />
-        <group>
-        <Model
-            url={Models[Models.findIndex((m) => m.title === "Chair")].url}
-          />
-        </group>
-      {/* <Cube pos={[2,0,0]} colors="#5680E9" boxGeometryProps={{ args: [1,1,1]}} /> */}
-      {/* <Cube pos={[0,0,-2]} colors="#8860D0" boxGeometryProps={{args: [3,3,3]}} /> */}
-      <OrbitControls />
-    </Canvas>
+    <div id="" className="h-[600px] bg-black">
+      <ErrorBoundary errorComponent={ErrorFallback}>
+        <Suspense fallback={<ModelLoading />}>
+          <Canvas>
+          <SceneLightning />
+            <Model
+              url={modelUrl}
+            />
+          </Canvas>
+        </Suspense>
+      </ErrorBoundary>
     </div>
-  )
-}
-
-
-function Scene(){
-  const directionalLightRef: any = useRef();
-  useHelper(directionalLightRef, DirectionalLightHelper, 5, 'red');
-  return (
-    <>
-    <ambientLight intensity={5}  color={"white"} position={[0,0,0]}/>
-    {/* <pointLight color="white" intensity={1}  position={[1,2,0]}/> */}
-    </>
-  )
+  );
 }
 
 function Model({ url }: { url: string }) {
-  const { scene } = useGLTF(url)
-  return <primitive object={scene} />
-}
+  const { scene } = useGLTF(url);
+  const controlsRef:any = useRef(null);
 
+  useEffect(() => {
+    const box = new Box3().setFromObject(scene);
+    const size = new Vector3();
+    box.getSize(size);
+    console.log(size, "size");
 
-function Cube(props: { pos: Vector3, colors: string, boxGeometryProps: BoxGeometryProps}) {
-  const ref:any = useRef();
-  
-  useFrame((state, delta)=>{
-    if(!ref.current) return;
-    // ref.current.rotation.x += delta * 2;
-    // ref.current.rotation.y += 0.02;
-    // ref.current.position.z = Math.sin(state.clock.elapsedTime);
-  });
+    const maxAxis = Math.max(size.x, size.y, size.z);
+    const scaleFactor = 4.7; // Increase this value to make the model larger
+    scene.scale.multiplyScalar(scaleFactor / maxAxis);
+    box.getCenter(scene.position).multiplyScalar(-1);
 
-  return (
-    <mesh position={props.pos} ref={ref} >
-      <boxGeometry {...props.boxGeometryProps} />
-      {/* <MeshWobbleMaterial attach="material" factor={1} speed={1} color={props.colors} /> */}
-      <meshStandardMaterial color={props.colors}/>
-    </mesh>
-  )
+    // scene.rotation.set(0, 0, 0); // Example: rotate 90 degrees on X and 180 on Y
+
+    // Set OrbitControls target to the center of the model
+    // controlsRef.current?.target.set(0, -1, 0);
+  }, [scene]);
+
+  console.log(scene, "scene");
+  if (!scene) return null;
+  return <>
+  <primitive className="w-full h-full" object={scene} />
+  <OrbitControls autoRotate ref={controlsRef} />
+</>
 }

@@ -22,7 +22,9 @@ services:
       - "3000:3000"
     environment:
       BACKEND_API_URL: http://backend:3001/api # For Server Side Request (for Server Side Request we need send request to  backend:3001 instead localhost:3001 which refers to forntend container itself)
-      CHOKIDAR_USEPOLLING: true
+      # ASSET_BACKEND_URL: http://asset-backend:3002
+      # ISPRODUCTION: true
+    
     depends_on:
       - backend
     volumes:
@@ -45,5 +47,16 @@ services:
     volumes:
          - ./backend:/app/backend
          - /app/backend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
+  asset-backend:
+    container_name: furnishart-asset-backend
+    build: 
+      context: asset-backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    volumes:
+         - ./asset-backend:/app/asset-backend
+         - /app/asset-backend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
 volumes:
   pgdata:
