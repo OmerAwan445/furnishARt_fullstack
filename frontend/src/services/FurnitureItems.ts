@@ -38,7 +38,7 @@ class FurnitureItemsService {
     }
 
     static async fetchFurnitureItemFromID(id: number) {
-        const { data, error } = await handleApiCall<{data: FurnitureItemDetailsResponse}>(async ()=> await apiInstance.get(`${BACKEND_API_ENDPOINTS.getFurnitureItemFromID}/${id}`));
+        const { data, error } = await handleApiCall<{data: FurnitureItemDetailsResponse}>(async ()=> await axios.get(`${this.BASE_URL_SS}${BACKEND_API_ENDPOINTS.getFurnitureItemFromID}/${id}`));
     
         if (error) return null;
         return data.data;

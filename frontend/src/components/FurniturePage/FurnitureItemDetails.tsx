@@ -1,16 +1,16 @@
 import { FurnitureItemDetailsProps } from '@/types/Types';
 import { Box, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import DefaultButton from '../common/buttons/DefaultButton';
-import ProductImages from './FurnitureItemImages';
+import FurnitureImagesAnd3DModel from './FurnitureImagesAnd3DModel';
 import Scene3DModel from './3DModel/Scene3DModel';
 
 const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => {
-  const { name, price, description, image_urls, total_sales, weight, color, dimension } = item;
+  const { name, price, description, image_urls, total_sales, weight, color, dimension, model_3d_url } = item;
 
   return (
     <Grid container spacing={5}>
       <Grid item xs={12} md={6}>
-        <ProductImages images={image_urls} />
+        <FurnitureImagesAnd3DModel modelUrl={model_3d_url} images={image_urls} />
       </Grid>
       <Grid item xs={12} md={6}>
         <Box>

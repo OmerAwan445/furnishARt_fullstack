@@ -21,7 +21,7 @@ const SimpleSlider: FC<SliderProps> = ({
       <Swiper
         slidesPerView="auto"
         spaceBetween={10}
-        draggable={true}
+        allowTouchMove={false}
         breakpoints={
           customBreakpoints || {
             640: {
@@ -39,7 +39,6 @@ const SimpleSlider: FC<SliderProps> = ({
           }
         }
         navigation={true}
-        grabCursor={true}
         modules={[Navigation]}
         >
         {children}
