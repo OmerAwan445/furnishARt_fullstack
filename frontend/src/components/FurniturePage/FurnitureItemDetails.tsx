@@ -2,6 +2,7 @@ import { FurnitureItemDetailsProps } from '@/types/Types';
 import { Box, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import DefaultButton from '../common/buttons/DefaultButton';
 import ProductImages from './FurnitureItemImages';
+import Scene3DModel from './3DModel/Scene3DModel';
 
 const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => {
   const { name, price, description, image_urls, total_sales, weight, color, dimension } = item;

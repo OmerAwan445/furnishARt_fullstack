@@ -101,7 +101,6 @@ class AuthController {
 
   verifyForgetPasswordToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
     const { token } = req.query;
-    console.log(token, "token received");
 
     // check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token as string, "PASSWORD_RESET");

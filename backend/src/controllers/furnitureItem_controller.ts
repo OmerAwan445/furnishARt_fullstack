@@ -4,6 +4,10 @@ import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
 import { getParsedFilters } from "@src/utils/getParsedFilters";
 import { Request } from "express";
+import path from "path";
+import fs from 'fs';
+
+const modelsDirectory = path.resolve('src/assets/3D-Models');
 
 export class FurnitureItemController {
   private furnitureItemModel: FurnitureItemModel;
@@ -45,5 +49,27 @@ export class FurnitureItemController {
     if (!item) return res.status(404).send(ApiResponse.error("Furniture item not found", 404));
 
     return res.send(ApiResponse.success(item, "Furniture item retrieved successfully"));
+  });
+
+  public getFurnitureItem3DModelFromID = catchAsyncError(async (req: Request<{ id?: string }, any, any>, res) => {
+    const fileName = req.params.id;
+    const glbPath = path.join(modelsDirectory, `${fileName}.glb`);
+    const gltfPath = path.join(modelsDirectory, `${fileName}.gltf`);
+
+    let modelPath = '';
+
+    if (fs.existsSync(glbPath)) {
+      modelPath = glbPath;
+    } else if (fs.existsSync(gltfPath)) {
+      modelPath = gltfPath;
+    }
+    if (modelPath) {
+      res.setHeader('Content-Type', 'model/gltf-binary');
+      res.setHeader('Content-Length', fs.statSync(modelPath).size);
+
+      res.status(200).sendFile(modelPath);
+    } else {
+      res.status(404).send(ApiResponse.error("Model not Found", 404));
+    }
   });
 }
