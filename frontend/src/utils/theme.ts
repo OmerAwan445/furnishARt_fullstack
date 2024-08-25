@@ -1,37 +1,47 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
+import { poppins } from './fontfamily';
 
 declare module '@mui/material/styles' {
   interface TypeBackground {
     black: string;
     brownish: string;
     lightBrown: string;
+    accent: string;
+  }
+  interface Palette {
+    accent: Palette['primary'];
   }
 }
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#754c24',
-      light: '#9c6530',
+      main: '#754c24',    // Rich brown
+      light: '#d18f49',   // Vibrant amber
+      dark: '#4a2b17',    // Deep brown for contrast
     },
     secondary: {
-      main: '#f3f3f3',
-      light: '#fafafa',
+      main: '#f3f3f3',    // Light gray
+      light: '#ffffff',   // Pure white
+      dark: '#cccccc',    // Soft gray for subtlety
     },
     background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
-      black: '#222222',
-      brownish: "#aa9784",
-      lightBrown: "#baab9b",
+      default: '#f0e6dc', // Warm beige
+      paper: '#ffffff',   // Paper white
+      accent: '#ffcf8b',  // Soft peach for highlights
+      black: '#222222',   // Neutral black for depth
+      brownish: "#aa9784", // Muted brown for background elements
+      lightBrown: "#baab9b", // Light brown for subtle background tones
     },
     text: {
-      primary: '#333333',
-      secondary: '#f3f3f3',
+      primary: '#333333', // Dark gray for readability
+      secondary: '#cecece', // Light gray for secondary text
+      // accent: '#d18f49', // Amber for emphasis text
     },
   },
   typography: {
+    fontFamily: poppins.style.fontFamily,
     h1: {
       fontSize: '6rem', // Default font size for h1
       '@media (max-width:1200px)': {

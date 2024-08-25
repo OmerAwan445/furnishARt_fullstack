@@ -4,7 +4,7 @@ import 'swiper/css';
 import '@/assets/css/Slider.css'
 import { FC, ReactNode } from 'react';
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper } from "swiper/react";
 
 export interface SliderProps {
@@ -23,8 +23,9 @@ const CustomSwiperSlider: FC<SliderProps> = ({
     <div className="relative">
       <Swiper
         slidesPerView="auto"
-        spaceBetween={10}
-        draggable={true}
+        spaceBetween={20}
+        autoplay
+        // draggable={true}
         breakpoints={
           customBreakpoints || {
             640: {
@@ -42,9 +43,9 @@ const CustomSwiperSlider: FC<SliderProps> = ({
           }
         }
         navigation={true}
-        grabCursor={true}
-        modules={[Navigation]}
-        className={`${isCustomSlider ? 'custom-Slider' : "" } mySwiper !static`}
+        // grabCursor={true}
+        modules={[Navigation, Autoplay]}
+        className={`${isCustomSlider ? 'custom-Slider' : "" } h-[580px] !pt-7 mySwiper !static`}
         >
         {children}
       </Swiper>

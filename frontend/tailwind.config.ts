@@ -1,83 +1,80 @@
-const flowbite = require("flowbite-react/tailwind");
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
-const config: Config = {
+const config = {
+  darkMode: ["class"],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    flowbite.content(),
-  ],
-  plugins: [
-    // ...
-    flowbite.plugin(),
-  ],
-
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
+  prefix: "",
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      width:{
-        'inherit': 'inherit'
-      },
-      height:{
-        inherit: 'inherit'
-      },
-      fontSize:{
-        "2xs":"10px"
-      }
-      ,
       colors: {
-        "primary-main":"#754c24",
-        "primary-light":"#9c6530",
-        "secondary-main":"#f3f3f3",
-        "secondary-light":"#fafafa",
-        lightBg:"#FAFAFC",
-        lightgray:"#D0D6E5",
-        lightblue: "#F5F8FE",
-        lightcyan: "#ECFCFF",
-        lightgreen:"#FAFFF8",
-        lightBrown: "#baab9b",
-        brightcyan: "#3AD0E6",
-        maincolor: "#D76E2D",
-        CourseTitle: "#1D2733",
-        muted:"#999B9F",
-        'soft-blue': '#99A7C7',
-        'steel-blue': '#485470',
-        frost: '#F5F8FE',
-        maingreen:"#39741F",
-        secondaryGreen:"#83C982",
-        secondarygray:"#7D8CAC",
-        alert:"#EE4E4E",
-        secondaryLightBg:"#f8f9fb",
-        maingray:'#F0F0F0',
-        mainred:"#FC4646",
-
-        // dark color
-        darkcharcoal: "#26282B",
-        darkplum: "#63585E",
-        "jet-gray":"#24292B",
-       "dark-muted":"#CCC0B6",
-      "dark-color1": "#070707",
-      "dark-color2": "#252729",
-      "dark-color3": "#2C313A",
-      "dark-color4": "#363a42",
-      "dark-color5": "#393a3c",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        dropShadow: {
-          'primary': '0 10px 40px rgba(128, 128, 128,0.12)',
-          'secondary': '0 10px 20px rgba(128, 128, 128,0.1)',
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        boxShadow: {
-          'box-shadow-primary': '0 10px 40px rgba(128, 128, 128,0.12)',
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        maxWidth:{
-          "8xl":"90rem"
-        }
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
     },
   },
-};
-export default config;
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config
+
+export default config

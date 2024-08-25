@@ -33,7 +33,7 @@ import SceneLightning from "./SceneLightning";
 
 export default function Scene3DModel({ modelUrl }: { modelUrl: string}) {
   return (
-    <div id="" className="h-[600px] bg-black">
+    <div id="canas-container" className="h-[600px] bg-gradient-to-r from-[#ffffff] via-[#f5f5f5] to-[#e9f1f7] rounded-[15px]">
       <ErrorBoundary errorComponent={ErrorFallback}>
         <Suspense fallback={<ModelLoading />}>
           <Canvas>

@@ -5,7 +5,6 @@ const CartPage = () => {
   return (
     <div>
       Cart Page
-      <Scene3DModel />
    </div>
   )
 }
