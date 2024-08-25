@@ -9,13 +9,33 @@ import CustomSwiperSlider from "../common/Sliders/CustomSwiperSlider";
 import TitleHeadings from "../common/headings/TitleHeadings";
 
 const BestSellers = ({ items }: { items: ItemCardProps[] }) => {
+
+  const customBreakpoints = {
+    640: {
+      slidesPerView: 2,
+      spaceBetween: 25,
+    },
+    800: {
+      slidesPerView: 2,
+      spaceBetween: 35,
+    },
+    1024: {
+      slidesPerView: 2,
+      spaceBetween: 35,
+    },
+    1270: {
+      slidesPerView: 3,
+      spaceBetween: 25,
+    },
+  };
+
   return (
-    <Box mt={4}>
+    <Box my={4}>
       <TitleHeadings>
         Best Sellers
       </TitleHeadings>
       <Box className="px-0 lg:px-10">
-      <CustomSwiperSlider isCustomSlider>
+      <CustomSwiperSlider customBreakpoints={customBreakpoints} isCustomSlider>
         {
         items.map((item)=> 
         <SwiperSlide key={item.id}>

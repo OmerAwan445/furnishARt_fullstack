@@ -1,17 +1,21 @@
 import React from "react";
 import CustomNavbar from "../../Header/CustomNavbar";
 import TopBar from "../../Header/TopBar";
-import { AppBar } from "@mui/material";
+import { AppBar, Box } from "@mui/material";
+import Footer from "@/components/Footer";
 
 const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <Box className="flex flex-col min-h-screen overflow-x-hidden">
       <AppBar sx={{ bgcolor: "white"}} position="sticky">
         <TopBar />
         <CustomNavbar />
       </AppBar>
-      <div className="flex-grow flex">{children}</div>
-    </div>
+      <Box className="flex-grow flex">{children}</Box>
+      <footer>
+        <Footer />
+      </footer> 
+    </Box>
   );
 };
 

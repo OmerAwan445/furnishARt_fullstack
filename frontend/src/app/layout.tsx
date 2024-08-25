@@ -9,6 +9,7 @@ import theme from "@/utils/theme";
 import NavbarLayout from "@/components/common/layouts/NavbarLayout";
 import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
 import StoreProvider from "@/components/providers/StoreProvider";
+import { poppins } from "@/utils/fontfamily";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
-      <body className={`${inter.className} bg-[#fafafa]`}>
+      <body className={`${poppins.className} bg-[#f7f4f7]`}>
         <ReactQueryProviders>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
