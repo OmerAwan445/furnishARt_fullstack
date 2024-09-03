@@ -56,17 +56,17 @@ function Model({ url }: { url: string }) {
     const box = new Box3().setFromObject(scene);
     const size = new Vector3();
     box.getSize(size);
-    console.log(size, "size");
+    // console.log(size, "size");
 
-    const maxAxis = Math.max(size.x, size.y, size.z);
-    const scaleFactor = 4.7; // Increase this value to make the model larger
-    scene.scale.multiplyScalar(scaleFactor / maxAxis);
-    box.getCenter(scene.position).multiplyScalar(-1);
+    // const maxAxis = Math.max(size.x, size.y, size.z);
+    // const scaleFactor = 4.7; // Increase this value to make the model larger
+    // scene.scale.multiplyScalar(scaleFactor / maxAxis);
+    // box.getCenter(scene.position).multiplyScalar(-1);
 
-    // scene.rotation.set(0, 0, 0); // Example: rotate 90 degrees on X and 180 on Y
+    // // scene.rotation.set(0, 0, 0); // Example: rotate 90 degrees on X and 180 on Y
 
-    // Set OrbitControls target to the center of the model
-    // controlsRef.current?.target.set(0, -1, 0);
+    // // Set OrbitControls target to the center of the model
+    // // controlsRef.current?.target.set(0, -1, 0);
   }, [scene]);
 
   console.log(scene, "scene");
