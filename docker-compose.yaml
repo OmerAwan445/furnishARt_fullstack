@@ -19,17 +19,15 @@ services:
       context: frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3003:3000"
     environment:
-      BACKEND_API_URL: http://backend:3001/api # For Server Side Request (for Server Side Request we need send request to  backend:3001 instead localhost:3001 which refers to forntend container itself)
+      BACKEND_API_URL: http://backend:3001/api
+      NEXT_PUBLIC_BACKEND_API_URL: http://localhost:3001/api # For Server Side Request (for Server Side Request we need send request to  backend:3001 instead localhost:3001 which refers to forntend container itself)
       # ASSET_BACKEND_URL: http://asset-backend:3002
       # ISPRODUCTION: true
     
     depends_on:
       - backend
-    volumes:
-         - ./frontend:/app/frontend # container path should be same as specified in DockerFile e-g /app/frontend
-         - /app/frontend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
       
   backend:
     container_name: furnishart-backend
@@ -44,9 +42,7 @@ services:
       # DEV: "true"  # 👈 Add this line for development
     depends_on:
       - postgres_db
-    volumes:
-         - ./backend:/app/backend
-         - /app/backend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
+    
   asset-backend:
     container_name: furnishart-asset-backend
     build: 
@@ -55,8 +51,6 @@ services:
     restart: unless-stopped
     ports:
       - "3002:3002"
-    volumes:
-         - ./asset-backend:/app/asset-backend
-         - /app/asset-backend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
+    
 volumes:
   pgdata:

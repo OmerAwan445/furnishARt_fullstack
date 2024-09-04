@@ -1,14 +1,16 @@
 {
-  "name": "pern_yelp_prac_backend",
+  "name": "furnishart_backend",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:prod": "export NODE_ENV=production && nodemon -L src/app.ts",
+    "build": "tsc",
+    "start:prod": "node dist/src/app.js",
+    "start": "nodemon -L src/app.ts",
     "dev": "nodemon -L  src/app.ts",
     "dev:debug": "nodemon --inspect src/app.ts",
-    "start:migrate:prod": "cd src/ && prisma migrate deploy && npx prisma db push && npm run start:prod",
+    "start:migrate:prod": "cd src/ && prisma migrate deploy && npx prisma db push && npm run start",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },

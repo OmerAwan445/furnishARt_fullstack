@@ -8,7 +8,6 @@ FROM node:20.15.0-alpine
     # Install dependencies (cached if package.json hasn't changed)     
     RUN npm install 
     COPY . .
-    EXPOSE 3001
   #  new migrate and start app script
 # CMD [ "npm", "run", "start:migrate:prod" ]
 
