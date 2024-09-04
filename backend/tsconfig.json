@@ -11,7 +11,11 @@
     "paths": {
       "@src/*": ["src/*"],
       "@routes/*": ["src/routes/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@models/*": ["src/models/*"],
+      "@services/*": ["src/services/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["src/**/*.ts"],
