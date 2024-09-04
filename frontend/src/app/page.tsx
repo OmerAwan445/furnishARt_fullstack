@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Banner from "@/components/HomePage/Banner";
 import BestSellers from "@/components/HomePage/BestSellers";
 import FurnitureItemsSvs from "@/services/FurnitureItems";
