@@ -1,2 +1,3 @@
 node_modules
 db_test_queries.sql
+.env

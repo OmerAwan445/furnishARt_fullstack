@@ -4,3 +4,5 @@ desktop.ini
 .github
 .devcontainer
 .contentlayer
+docker-compose.yaml
+Aws-docker-compose.yaml
