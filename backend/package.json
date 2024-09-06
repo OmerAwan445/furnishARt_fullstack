@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start:prod": "node dist/src/app.js",
-    "start": "nodemon -L src/app.ts",
+    "start": "export NODE_ENV=production && nodemon -L src/app.ts",
     "dev": "nodemon -L  src/app.ts",
     "dev:debug": "nodemon --inspect src/app.ts",
     "start:migrate:prod": "cd src/ && prisma migrate deploy && npx prisma db push && npm run start",

@@ -17,7 +17,7 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", appRoutes);
+app.use("/api/v2", appRoutes);
 
 app.use(
     (
