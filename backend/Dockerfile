@@ -9,9 +9,9 @@ FROM node:20.15.0-alpine
     RUN npm install 
     COPY . .
   #  new migrate and start app script
-# CMD [ "npm", "run", "start:migrate:prod" ]
+CMD [ "npm", "run", "start:migrate:prod" ]
 
-CMD [ "npm", "run", "dev" ]
+# CMD [ "npm", "run", "dev" ]
 
 # Check if in a dev environment; otherwise, start the app normally
 # CMD [ "sh", "-c", "if [ \"$DEV\" = \"true\" ]; then tail -f /dev/null; else npm run start:migrate:prod; fi" ]
