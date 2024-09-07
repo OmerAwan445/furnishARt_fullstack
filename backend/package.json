@@ -11,6 +11,7 @@
     "dev": "nodemon -L  src/app.ts",
     "dev:debug": "nodemon --inspect src/app.ts",
     "start:migrate:prod": "cd src/ && prisma migrate deploy && npx prisma db push && npm run start",
+    "start:migrate:dev": "cd src/ && prisma migrate deploy && npx prisma db push && npm run dev",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
