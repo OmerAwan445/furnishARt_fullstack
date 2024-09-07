@@ -165,7 +165,7 @@ function CustomNavbar() {
             </> 
             :
             <Link href="/login" passHref>
-            <DefaultButton>
+            <DefaultButton className="!px-7">
             Login
             </DefaultButton> 
             </Link> 

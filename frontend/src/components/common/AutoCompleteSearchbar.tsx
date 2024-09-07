@@ -8,6 +8,7 @@ import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
+import DefaultButton from './buttons/DefaultButton';
 
 export default function AutoCompleteSearchbar({ selectedCategoryId }: { selectedCategoryId: number }) {
   const [options, setOptions] = useState<AutoCompleteResponse[]>([]);
@@ -106,16 +107,17 @@ export default function AutoCompleteSearchbar({ selectedCategoryId }: { selected
           />
         )}
       />
-      <Button
+      {/* <Button
         variant="contained"
         className='!m-0 !rounded-l-none'
         color="primary"
-        sx={{ marginLeft: 0 }}
         size="small"
         onClick={handleSearch}
-      >
+      > */}
+      <DefaultButton  className='!m-0 !rounded-l-none' onClick={handleSearch}>
         <BiSearch />
-      </Button>
+      </DefaultButton>
+      {/* </Button> */}
     </>
   );
 }

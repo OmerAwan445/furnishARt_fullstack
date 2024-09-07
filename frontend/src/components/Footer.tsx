@@ -8,8 +8,9 @@ const Footer: React.FC = () => {
 
   return (
     <Box
-    className="h-auto w-full bg-gradient-to-l from-neutral-800 via-neutral-900 to-neutral-950 antialiased z-50"
-      sx={{
+    className="h-auto w-full bg-gradient-to-l from-[#3E362E] via-[#5a4937] to-[#3E362E] antialiased z-50"
+    // className="h-auto w-full bg-gradient-to-r from-[#3E362E] via-[#6B563D] to-[#AC8968] antialiased z-50"
+    sx={{
         position: 'relative',
         width: "100vw",
         py: 3,
@@ -19,11 +20,11 @@ const Footer: React.FC = () => {
       <Container maxWidth={false}>
         <Grid container spacing={2} justifyContent="space-between">
           <Grid item xs={12} sm={12} md={3} alignItems={"center"} justifyItems={"center"} sx={{ my: { 'sm': 1, 'md': 0 } }} >
-          <h1 className="relative !leading-snug z-10 text-4xl bg-clip-text text-transparent bg-gradient-to-b from-[#aa9784] to-[#4a2b17] text-left font-bold">
+          <h1 className="relative !leading-snug z-10 text-4xl bg-clip-text text-transparent bg-gradient-to-b from-[#AC8968] to-[#653f26] text-left font-bold">
         {title}
       </h1>
         {description && <Typography
-          className="!tracking-wide !text-sm !mt-1 !leading-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 via-neutral-100 to-neutral-200"
+          className="!tracking-wide !text-sm !mt-1 !leading-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 via-neutral-200 to-neutral-300"
           fontWeight="500"
         >
           {description}
@@ -32,12 +33,12 @@ const Footer: React.FC = () => {
           
           {footerColumns.map((column, index) =>
             <Grid key={column.title} item xs={6} sm={3} md={2}>
-            <Typography variant="subtitle1" fontWeight={550} color="secondary.light" gutterBottom>
+            <Typography variant="h6" fontWeight={550} color="secondary.light" gutterBottom>
               {column.title}
             </Typography>
             {column.links.map((link, index) =>
               <span key={link.name}>
-              <Link underline={"none"}  href={link.link} sx={{ display: 'inline-block', ':hover' : { color: 'secondary.light'}}} color="text.secondary" display="block">{link.name}</Link>
+              <Link underline={"none"}  href={link.link} sx={{ display: 'inline-block', ':hover' : { color: 'secondary.light'}}} color="background.default" display="block">{link.name}</Link>
               <br/>
               </span>
             )}
@@ -49,7 +50,7 @@ const Footer: React.FC = () => {
             </Typography>
 
            {socials.map(({name, link, SocialIcon}) =>
-           <IconButton key={name} aria-label={name} sx={{ color: "background.lightBrown", ':hover' : { color: 'white'}}} component="a" href={link}>
+           <IconButton key={name} aria-label={name} sx={{ color: "secondary.main", ':hover' : { color: 'white'}}} component="a" href={link}>
               <SocialIcon />
             </IconButton>
            ) 

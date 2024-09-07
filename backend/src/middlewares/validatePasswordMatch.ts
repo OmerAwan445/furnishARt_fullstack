@@ -1,6 +1,6 @@
+import { AppError } from "@src/errors/AppError";
 import { SignupRequestBody } from "@src/Types";
-import ApiResponse from "@src/utils/ApiResponse";
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export const validatePasswordMatch = (
     req: Request<object, object, SignupRequestBody>,
@@ -9,10 +9,7 @@ export const validatePasswordMatch = (
 ) => {
   const { password, confirm_password } = req.body;
   if (password !== confirm_password) {
-    return res.status(400)
-        .send(
-            ApiResponse.error("Password and confirm password don't match", 400),
-        );
+    return next(new AppError("Password and confirm password don't match", 400));
   } else {
     next();
   }

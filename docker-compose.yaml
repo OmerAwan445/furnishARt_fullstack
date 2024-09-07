@@ -21,7 +21,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      BACKEND_API_URL: http://backend:3001/api # For Server Side Request (for Server Side Request we need send request to  backend:3001 instead localhost:3001 which refers to forntend container itself)
+      BACKEND_API_URL: http://backend:3001/api/v2 # For Server Side Request (for Server Side Request we need send request to  backend:3001 instead localhost:3001 which refers to forntend container itself)
       # ASSET_BACKEND_URL: http://asset-backend:3002
       # ISPRODUCTION: true
     
