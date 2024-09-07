@@ -14,30 +14,30 @@ declare module '@mui/material/styles' {
   }
 }
 
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#754c24',    // Rich brown
-      light: '#d18f49',   // Vibrant amber
-      dark: '#4a2b17',    // Deep brown for contrast
+      main: '#865D36',    // Warm brown for primary elements
+      light: '#AC8968',   // Soft beige for light accents
+      dark: '#3E362E',    // Deep brown for contrast and depth
     },
     secondary: {
-      main: '#f3f3f3',    // Light gray
-      light: '#ffffff',   // Pure white
-      dark: '#cccccc',    // Soft gray for subtlety
+      main: '#A69080',    // Muted taupe for secondary elements
+      light: '#FFFFFF',   // Pure white for light contrast
+      dark: '#93785B',    // Rich tan for subtler accents
     },
     background: {
-      default: '#f0e6dc', // Warm beige
-      paper: '#ffffff',   // Paper white
-      accent: '#ffcf8b',  // Soft peach for highlights
-      black: '#222222',   // Neutral black for depth
-      brownish: "#aa9784", // Muted brown for background elements
-      lightBrown: "#baab9b", // Light brown for subtle background tones
+      default: '#F0E6DC', // Warm neutral for main background
+      paper: '#FFFFFF',   // Clean white for cards and surfaces
+      accent: '#A69080',  // Soft taupe for highlights
+      black: '#3E362E',   // Deep brownish-black for depth
+      brownish: "#93785B", // Muted brown for background elements
+      lightBrown: "#AC8968", // Soft beige for subtle background tones
     },
     text: {
-      primary: '#333333', // Dark gray for readability
-      secondary: '#cecece', // Light gray for secondary text
-      // accent: '#d18f49', // Amber for emphasis text
+      primary: '#3E362E', // Deep brown for readability
+      secondary: '#A69080', // Muted taupe for secondary text
     },
   },
   typography: {

@@ -69,7 +69,7 @@ const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?
       emptyIcon={<IoIosStarOutline fontSize="inherit" />}
       sx={{
         "& .MuiRating-iconFilled": {
-          color: "#ffcf8b", // Use a light color for stars to contrast with dark background
+          color: "#f5a623", // Use a light color for stars to contrast with dark background
         },
       }}
     />
@@ -78,10 +78,10 @@ const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?
         ${price}
       </Typography>
       <DefaultButton sx={{
-        background: "linear-gradient(90deg, #ffcf8b 0%, #f5a623 100%)", // Warm gradient for button
+        background: "linear-gradient(90deg, #A69080 0%, #f5a623 100%)", // Warm gradient for button
         color: "#000",
         "&:hover": {
-          background: "linear-gradient(90deg, #f5a623 0%, #ffcf8b 100%)",
+          background: "linear-gradient(90deg, #f5a623 0%, #A69080 100%)",
         },
       }}>
         Add to cart
