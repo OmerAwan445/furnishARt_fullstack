@@ -8,8 +8,8 @@ FROM node:20.15.0-alpine
     # Install dependencies (cached if package.json hasn't changed)     
     RUN npm install 
     COPY . .
-  #  new migrate and start app script
-CMD [ "npm", "run", "start:migrate:prod" ]
+   # new migrate and start app script
+    CMD [ "npm", "run", "start:migrate:prod" ]
 
 # CMD [ "npm", "run", "dev" ]
 

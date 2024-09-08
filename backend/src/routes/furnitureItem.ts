@@ -16,6 +16,4 @@ furntiureItemRoutes.get("/best-sellers", controller.getBestSellerFurnitureItems)
 
 furntiureItemRoutes.get("/:id", checkSchema(getFurnitureFromID, ['params']), validateRequestSchema, controller.getFurnitureItemFromID);
 
-furntiureItemRoutes.get("/3dmodel/:id", checkSchema(getFurnitureFromID, ['params']), validateRequestSchema, controller.getFurnitureItem3DModelFromID);
-
 export default furntiureItemRoutes;

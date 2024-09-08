@@ -1,0 +1,62 @@
+services:
+  postgres_db:
+    container_name: furnishart-db
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_USER: postgres
+      POSTGRES_DB: furnishart_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  frontend:
+    container_name: furnishart-frontend
+    restart: unless-stopped
+    build: 
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      BACKEND_API_URL: http://backend:3001/api/v2 # For Server Side Request (for Server Side Request we need send request to  backend:3001 instead localhost:3001 which refers to forntend container itself)
+      # ASSET_BACKEND_URL: http://asset-backend:3002
+      # ISPRODUCTION: true
+    
+    depends_on:
+      - backend
+    volumes:
+         - ./frontend:/app/frontend # container path should be same as specified in DockerFile e-g /app/frontend
+         - /app/frontend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
+      
+  backend:
+    container_name: furnishart-backend
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgres://admin:admin123@postgres_db:5432/furnishart_db
+      # DEV: "true"  # 👈 Add this line for development
+    depends_on:
+      - postgres_db
+    volumes:
+         - ./backend:/app/backend
+         - /app/backend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
+  asset-backend:
+    container_name: furnishart-asset-backend
+    build: 
+      context: asset-backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    volumes:
+         - ./asset-backend:/app/asset-backend
+         - /app/asset-backend/node_modules # Ensures that the node_modules directory is created in the container and not overridden by the host’s empty node_modules directory
+volumes:
+  pgdata:
