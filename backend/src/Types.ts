@@ -1,4 +1,5 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { Request } from "express";
 
 
 // ======= Global types ==========
@@ -16,7 +17,13 @@ declare global {
         user?: JwtUser; // Define the user property with the appropriate type
   }
 }
-  }
+}
+
+// Define an extended request interface with the user property
+export interface AuthenticatedRequest extends Request {
+    user: JwtUser;
+}
+
 export interface CustomError extends Error {
     statusCode: number;
 }
@@ -87,3 +94,25 @@ export interface VerificationEmailResponse {
 export interface EncryptedDataInToken {
     customer_id: number;
 }
+
+export interface AddCartItemRequestBody {
+    productId: number;
+    quantity: number;
+}
+
+
+/* export interface CartWithItems{
+    id: number;
+    price: Decimal;
+    cartItems: {
+        id: number;
+        quantity: number;
+        furniture_item: {
+            id: number;
+            name: string;
+            price: Decimal;
+            image_urls: string[];
+        }
+    }[];
+}
+ */
