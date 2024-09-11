@@ -11,9 +11,11 @@ declare module "next-auth" {
     is_verified: boolean;
     role: "user" | "admin";
     email: string;
+    accessToken: string;
   }
 
   interface Session {
+    accessToken: string;
     user: {
       id: number;
       username: string;
@@ -38,5 +40,6 @@ declare module "next-auth/jwt" {
       role: "user" | "admin";
       email: string;
     };
+    accessToken: string;
   }
 }

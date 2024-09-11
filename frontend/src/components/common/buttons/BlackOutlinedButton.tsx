@@ -9,10 +9,10 @@ const BlackOutlinedButton = ({ children, ...props }: CustomButtonProps ) => {
     sx={
         {
         ':hover':{
-         backgroundColor: theme.palette.primary.main,
+         backgroundColor: theme.palette.background.black,
          color: "white",
         },
-        border: `2px solid ${theme.palette.primary.main} !important`,
+        border: `2px solid ${theme.palette.background.black} !important`,
         width: "150px"
     }}
     >

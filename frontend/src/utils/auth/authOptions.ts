@@ -38,6 +38,7 @@ export const authOptions: NextAuthOptions = {
               is_verified: data.data.is_verified ?? false,
               role: data.data.is_admin ?? "user",
               email: data.data.email,
+              accessToken: data.data.accessToken,
             };
             return user;
           }
@@ -76,6 +77,7 @@ export const authOptions: NextAuthOptions = {
                   is_verified: data.data.is_verified ?? false,
                   role: data.data.is_admin ?? "user",
                   email: data.data.email,
+                  accessToken: data.data.accessToken,
                 };
                 return user;
               }
@@ -104,6 +106,7 @@ export const authOptions: NextAuthOptions = {
           role: user.role,
           email: user.email,
         };
+        token.accessToken = user.accessToken;
       }
       return token;
     },
@@ -122,6 +125,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.user = token.user;
+        session.accessToken = token.accessToken;
       }
       return session;
     },

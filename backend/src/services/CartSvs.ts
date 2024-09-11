@@ -35,7 +35,23 @@ class CartSvs {
   }
 
   public async getCartItems(userId: number) {
-    return await this.CartModel.getCartItems(userId);
+    const cart = await this.CartModel.getCartItems(userId);
+    // Mapping Prisma data to `GetCartDetailsResponse` format
+    if (!cart) throw new AppError("Cart not found", 404);
+
+    const mappedCart = {
+      cart_id: cart.id,
+      cart_total_price: Number(cart.price),
+      cartItems: cart.cartItems?.map((item) => ({
+        id: item.furniture_item.id,
+        quantity: item.quantity,
+        name: item.furniture_item.name,
+        price: Number(item.furniture_item.price),
+        thumbnail_image: item.furniture_item.image_urls?.[0] || "", // Select first image or fallback to empty string
+      })),
+    };
+
+    return mappedCart;
   }
 
   public async deleteCartItem(userId: number, cartItemId: number) {

@@ -73,7 +73,7 @@ const ResetPasswordForm = ({ token }:{ token: string }) => {
                   : "border-gray-300 focus:border-gray-900 focus:ring-gray-900 caret-gray-900"
               } block w-full px-4 py-4 overflow-hidden text-base font-normal text-gray-900 placeholder-gray-600 transition-all duration-200 border rounded-xl bg-gray-50 outline-none focus:bg-white font-pj"`}
             />
-            <SubmitButton>
+            <SubmitButton disabled={isPending}>
               {isPending ? "Loading..." : "Set New Password"}
             </SubmitButton>
           </form>

@@ -2,6 +2,7 @@ import { CustomError } from "@/utils/error/CustomError"
 import { ButtonProps, TypographyProps } from "@mui/material"
 import { AxiosResponse } from "axios"
 import { ReactNode } from "react"
+import { AxiosRequestConfig } from 'axios';
 
 /* ========= COOKIES ======= */
 export enum CookieKeys {
@@ -44,9 +45,18 @@ export interface CustomToastProps {
   type: "success" | "error";
 }
 
+// ======= Cart Page =======
+export interface CartItemsSummeryProps {
+  total: number
+} 
 
-// ==== API CALLS ====
+
+/* ========= API CALLS ======== */
 export type ApiCall<T> = () => Promise<AxiosResponse<T>>;
+// Modify the ApiCall type to accept AxiosRequestConfig (or similar)
+
+export type AuthApiCall<T> = (config?: AxiosRequestConfig) => Promise<{ data: T }>;
+
 
 interface ApiSuccess<T> {
   data: T;
@@ -75,6 +85,19 @@ export interface AutoCompleteResponse {
 export interface GetCategoriesResponse {
   id: number
   name: string
+}
+
+export interface GetCartDetailsResponse {  
+    cart_id:  number;
+    cart_total_price:  number;
+    cartItems: CartItem[];
+  }
+export interface CartItem {
+    id:         number;
+    quantity:   number;
+    name:       string;
+    price:      number;
+    thumbnail_image: string;
 }
 
 
@@ -159,3 +182,10 @@ export interface FiltersSliceState {
   itemsPerPage: number
   page: number
 }
+
+export interface CartSliceState {  
+  cart_id:  number | null;
+  cart_total_price:  number;
+  cartItems: CartItem[];
+}
+
