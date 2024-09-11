@@ -112,7 +112,7 @@ export interface ResetPassword {
   confirm_password: string;
 }
 
-//  API RESPONSES
+/*  API RESPONSES */
 export interface AutoCompleteResponse {
   name: string
   id: string
@@ -181,7 +181,7 @@ export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
 export type GetBestSellerResponse = ItemCardProps[];
 export type GetFurnitureItems = ItemCardProps[];
 
-// ======= REDUX =======
+/* ======= REDUX ======= */
 export type CategoryInfo = {
   label: string;
   value: number;
@@ -193,9 +193,11 @@ export interface FiltersSliceState {
   page: number
 }
 
-export interface CartSliceState {  
-  cart_id:  number | null;
-  cart_total_price:  number;
-  cartItems: CartItem[];
+export interface SnackBarSliceState {  
+  open:  boolean;
+  type: SnackBarType | null
+  message: string
 }
+export type SnackBarType = "success" | "error"
+
 
