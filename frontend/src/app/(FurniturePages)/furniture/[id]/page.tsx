@@ -1,3 +1,4 @@
+import ClientSideSnackbar from "@/components/common/toasts/ClientSideSnackbar";
 import FurnitureItemDetails from "@/components/FurniturePage/FurnitureItemDetails";
 import TabsSection from "@/components/FurniturePage/TabsSection";
 import FurnitureItemsSvs from "@/services/FurnitureItems";
@@ -17,6 +18,7 @@ const FurniturePage = async ({ params }: { params: { id: string } }) => {
   }
   return <>
     {item === null && <Typography mt={4} textAlign={"center"} variant="h3">Item not found</Typography>}
+    <ClientSideSnackbar />
     {item && <>
     <FurnitureItemDetails item={item}/> 
     <TabsSection item= {item} />
