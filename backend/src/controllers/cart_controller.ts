@@ -25,11 +25,12 @@ export class CartController {
 
     return res.send(ApiResponse.success(cartItems, "Cart items retrieved successfully"));
   });
-  delete_cart_item = catchAsyncError(async (req: Request, res: Response) => {
-    const userId = req.user!.id;
-    const { productId } = req.body;
 
-    await this.cartSvs.deleteCartItem(userId, productId);
+  delete_cart_item = catchAsyncError(async (req: Request<{ productId?: string }, object, object>, res: Response) => {
+    const userId = req.user!.id;
+    const { productId } = req.params;
+
+    await this.cartSvs.deleteCartItem(userId, Number(productId));
 
     return res.send(ApiResponse.success(null, "Item removed", 204));
   });

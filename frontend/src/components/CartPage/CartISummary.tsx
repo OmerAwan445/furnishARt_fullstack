@@ -1,11 +1,9 @@
 import { CartItemsSummeryProps } from "@/types/Types";
-import Link from "next/link";
-import React from "react";
+import { Box, Divider, Typography } from "@mui/material";
 import { FaArrowRight } from "react-icons/fa";
-import { Box, Typography, Divider, Button } from "@mui/material";
 import BlackFilledButton from "../common/buttons/BlackFilledButton";
 
-export default function CartItemsSummary({ total }: CartItemsSummeryProps) {
+export default function CartSummary({ total }: CartItemsSummeryProps) {
   return (
     <Box mx={2.5} mt={2} sx={{ mt: { xl: 3 } }}>
       <Box mb={3} display="flex" flexDirection="column" alignItems="flex-start">

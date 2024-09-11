@@ -1,12 +1,18 @@
 import apiInstance, { apiInstanceSS } from "@/ApiInstance";
-import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
-import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
-import { GetCartDetailsResponse, GetCategoriesResponse } from "@/types/Types";
-import axios from "axios";
+import { GetCartDetailsResponse } from "@/types/Types";
 import { authorizedApiCall } from "@/utils/apiUtils/authorizedApiCall";
+import { CustomError } from "@/utils/error/CustomError";
+import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 
 class CartServices {
-    // private static BASE_URL_SS = process.env.BACKEND_API_URL;
+  static async addCartItem(productId: number, quantity: number) {
+    const { data, error } = await authorizedApiCall<{ message: string }>(async (config) => 
+      await apiInstance.post(BACKEND_API_ENDPOINTS.addCartItem, { productId, quantity }, config)
+    );
+    
+    if (error) throw new CustomError(error.message, error.statusCode);
+    return { data: null, message: data.message };
+  }
 
     static async getCartDetails() {
         const { data, error } = await authorizedApiCall<{ data: GetCartDetailsResponse }>(async (config) => 
@@ -16,6 +22,15 @@ class CartServices {
         if (error) return { data: null, message: error.message };
         return { data: data.data, message: null };
       }
+   
+    static async removeCartItem(cartItemId: number) {
+        const { data, error } = await authorizedApiCall<{ message: string }>(async (config) => 
+          await apiInstance.delete(`${BACKEND_API_ENDPOINTS.removeCartItem}/${cartItemId}`, config)
+        );
+        
+        if (error) throw new CustomError(error.message, error.statusCode);
+        return { data: null, message: data.message };
+    }
 }
 
 export default CartServices;

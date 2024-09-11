@@ -47,22 +47,24 @@ class CartSvs {
         quantity: item.quantity,
         name: item.furniture_item.name,
         price: Number(item.furniture_item.price),
-        thumbnail_image: item.furniture_item.image_urls?.[0] || "", // Select first image or fallback to empty string
+        thumbnail_image: item.furniture_item.image_urls?.[0] || "",
       })),
     };
 
     return mappedCart;
   }
 
-  public async deleteCartItem(userId: number, cartItemId: number) {
+  public async deleteCartItem(userId: number, furniture_item_id: number) {
     const cart = await this.CartModel.findCustomerCart(userId);
 
     if (!cart || !cart.id) throw new AppError("Cart not found", 404);
 
-    const cartItem = await this.CartItemModel.findCartItem(cart.id, cartItemId);
+    const cartItem = await this.CartItemModel.findCartItem(cart.id, furniture_item_id);
     if (!cartItem) throw new AppError("Item not found in cart", 404);
 
-    await this.CartItemModel.deleteCartItem(cart.id, cartItemId);
+    await this.CartItemModel.deleteCartItem(cart.id, furniture_item_id);
+    const updatedPrice = Number(cart.price) - (Number(cartItem.furniture_item.price) * cartItem.quantity);
+    await this.CartModel.updateCartPrice(cart.id, updatedPrice);
   }
 }
 

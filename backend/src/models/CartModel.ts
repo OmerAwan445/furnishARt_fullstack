@@ -91,24 +91,6 @@ export class CartModel {
       data: {
         price: newPrice,
       },
-      select: {
-        id: true,
-        price: true,
-        cartItems: {
-          select: {
-            id: true,
-            quantity: true,
-            furniture_item: {
-              select: {
-                id: true,
-                name: true,
-                price: true,
-                image_urls: true,
-              },
-            },
-          },
-        },
-      },
     });
   }
 
@@ -130,9 +112,8 @@ export class CartModel {
       }
 
       cartPrice = cartPrice + itemPrice * quantity;
-      // 6. Recalculate the total price of the cart
+      // Recalculate the total price of the cart
       await this.updateCartPrice(cartId, cartPrice);
-      // 7. Return the updated cart details
     });
   }
 }

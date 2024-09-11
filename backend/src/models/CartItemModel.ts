@@ -9,6 +9,15 @@ export class CartItemModel {
           furniture_item_id: productId,
         },
       },
+      select: {
+        quantity: true,
+        id: true,
+        furniture_item: {
+          select: {
+            price: true,
+          },
+        },
+      },
     });
   }
 
@@ -32,11 +41,13 @@ export class CartItemModel {
       },
     });
   }
-  async deleteCartItem(cartId: number, cartItemId: number) {
-    return await prisma.cartItem.deleteMany({
+  async deleteCartItem(cartId: number, furniture_item_id: number) {
+    return await prisma.cartItem.delete({
       where: {
-        cart_id: cartId,
-        id: cartItemId,
+        furniture_item_id_cart_id: {
+          cart_id: cartId,
+          furniture_item_id: furniture_item_id,
+        },
       },
     });
   }

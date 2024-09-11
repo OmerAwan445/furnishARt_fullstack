@@ -45,7 +45,42 @@ export interface CustomToastProps {
   type: "success" | "error";
 }
 
-// ======= Cart Page =======
+export interface ItemCardProps {
+  id: number
+  image: string
+  name: string
+  rating: number
+  price: number
+}
+
+export interface FurnitureItemDetailsProps {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  stock_quantity: number;
+  model_3d_url: string | null;
+  image_urls: string[];
+  total_sales: number;
+  color: string;
+  dimension: string;
+  weight: string;
+  category_id: number;
+  createdAt: string;
+  updatedAt: string;
+  reviews: Review[];
+};
+
+
+export interface HorizontalItemCardProps {
+  item: CartItem;
+  hoveringItemId: number | null;
+  mousePosition: { x: number; y: number };
+  handleMouseMove: (e: React.MouseEvent<HTMLDivElement>, itemId: number) => void;
+  setHoveringItemId: (id: number | null) => void;
+  lensSize: number;
+  zoomFactor: number;
+}
 export interface CartItemsSummeryProps {
   total: number
 } 
@@ -101,31 +136,6 @@ export interface CartItem {
 }
 
 
-export interface ItemCardProps {
-  id: number
-  image: string
-  name: string
-  rating: number
-  price: number
-}
-
-export interface FurnitureItemDetailsProps {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  stock_quantity: number;
-  model_3d_url: string | null;
-  image_urls: string[];
-  total_sales: number;
-  color: string;
-  dimension: string;
-  weight: string;
-  category_id: number;
-  createdAt: string;
-  updatedAt: string;
-  reviews: Review[];
-};
 
 export interface Review {
   id: number;

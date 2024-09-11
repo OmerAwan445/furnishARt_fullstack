@@ -1,58 +1,39 @@
 "use client";
 
-import { useAppSelector } from "@/hooks/reduxHooks";
 import Link from "next/link";
-import { Fragment } from "react";
-import { FaArrowRight } from "react-icons/fa";
-// import BriefItemCard from "../commons/CourseCard/BriefItemCard";
-import { CartActions } from "@/store/Slices/CartSlice";
+import { Fragment, useState } from "react";
+import CartSvs from "@/services/Cart";
 import { GetCartDetailsResponse } from "@/types/Types";
-import CartItemsSummary from "./CartItemsSummary";
-import { Box, Container, Typography, Grid, Button } from "@mui/material";
-import { Lens } from "../ui/lens";
+import { removeCartItem } from "@/utils/cart/removeCartItem";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import CartItemsList from "./CartItemsList";
+import CartSummary from "./CartISummary";
 
-function CartSummaryDetails({
-  cartItems,
-  cart_id,
-  cart_total_price,
-}: GetCartDetailsResponse) {
-  const { cartItems: store_CartReducers } = useAppSelector(
-    (state) => state.cart
-  );
-  console.log(store_CartReducers);
-  // const { data } = useFetchCartItems();
-  // const dispatch = useAppDispatch();
-  // const { mutate: deleteCartItem } = useApiMutation();
-  // const { removeCartItem } = CartSummaryActions;
-  const { add_cart_summary_details } = CartActions;
+function CartSummaryDetails(props: { data: GetCartDetailsResponse }) {
+  const [cartData, setCartData] = useState(props.data);
+
+  const { mutate: deleteCartItem } = useMutation({
+    mutationFn: CartSvs.removeCartItem,
+  });
 
   // Inspite of attaching event listener to all cart items attach a single event listener to the parent
-  /*  const handlerCartItems = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handlerCartItems = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
     const deleteButton = target.closest(".delete-button");
     const cartItem = target.closest("[data-cart-item-id]");
     if (deleteButton) {
-      // Handle  delete button click on cart item
       // Access the cart-id from the 'data-cart-item-id' attribute
       const cartItemId = cartItem?.getAttribute("data-cart-item-id");
       if (cartItemId) {
-        const endpoint = `/api/cart/remove-item/${cartItemId}/`;
-        const method = "DELETE";
-        const userData = "";
-        // call delete api to delete the cart item
-        deleteCartItem(
-          { endpoint, method, userData, isPrivateReq: true },
-          {
-            // Update React Query Cache Manually
-            onSuccess: () => {
-              //  dispatch store by removing the cart_item with the same id
-              dispatch(removeCartItem({ cartid: Number(cartItemId) }));
-            },
-          }
-        );
+        deleteCartItem(Number(cartItemId), {
+          onSuccess: () => {
+            setCartData(removeCartItem(cartData, Number(cartItemId)));
+          },
+        });
       }
     }
-  }; */
+  };
 
   return (
     <Fragment>
@@ -64,7 +45,7 @@ function CartSummaryDetails({
           py: 6,
         }}
       >
-        {cartItems.length === 0 ? (
+        {cartData.cartItems.length === 0 ? (
           <Box
             display="grid"
             justifyContent="center"
@@ -86,7 +67,7 @@ function CartSummaryDetails({
             <Typography variant="body2">Browse furniture categories</Typography>
           </Box>
         ) : (
-          <Grid container >
+          <Grid container>
             <Grid
               item
               xs={12}
@@ -96,20 +77,20 @@ function CartSummaryDetails({
                 borderRadius: 2,
                 boxShadow: 3,
                 p: 2,
-                mb: { xs: 3, lg: 0 }, // Adjust margin-bottom for responsiveness
-                mr: { lg: 3 }, // Add margin-right for spacing between grids on large screens          
+                mb: { xs: 3, lg: 0 },
+                mr: { lg: 3 },
               }}
             >
               <Box>
                 <Typography variant="h5" fontWeight="bold" gutterBottom>
-                  Cart items ({cartItems.length})
+                  Cart items ({cartData.cartItems.length})
                 </Typography>
                 <Typography variant="subtitle2" color="textSecondary">
                   Complete your purchase by providing payment details
                 </Typography>
 
                 {/*======= Cart Items List ======= */}
-                <Lens cartItems={cartItems} />
+                <CartItemsList handlerCartItems={handlerCartItems} cartItems={cartData.cartItems}/>
                 <Box
                   sx={{
                     mt: 2,
@@ -134,7 +115,7 @@ function CartSummaryDetails({
                 p: 2,
               }}
             >
-              <CartItemsSummary total={cart_total_price} />
+              <CartSummary total={cartData.cart_total_price} />
             </Grid>
           </Grid>
         )}
