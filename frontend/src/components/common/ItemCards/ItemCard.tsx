@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { IoIosStarOutline } from "react-icons/io";
-import DefaultButton from "../buttons/DefaultButton";
+import AddToCartButton from "../buttons/AddToCartButton";
 
 const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?: number }) => {
   const { id, name, price, rating } = item;
@@ -77,15 +77,7 @@ const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?
       <Typography className="truncate" variant="h6" color="text.secondary">
         ${price}
       </Typography>
-      <DefaultButton sx={{
-        background: "linear-gradient(90deg, #A69080 0%, #f5a623 100%)", // Warm gradient for button
-        color: "#000",
-        "&:hover": {
-          background: "linear-gradient(90deg, #f5a623 0%, #A69080 100%)",
-        },
-      }}>
-        Add to cart
-      </DefaultButton>
+      <AddToCartButton furnitureId={id} />
     </Stack>
   </Stack>
 </CardContent>

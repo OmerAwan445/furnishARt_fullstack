@@ -67,3 +67,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #000000;
+}
+
+.cart-items-shadow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 130px;
+  background: linear-gradient(0deg, #fff 0%, rgb(240 240 246 / 0%) 100%);
+}
+
+.cart-items-custom-scrollbar::-webkit-scrollbar {
+  width: 6px !important;
+  border-radius: 7px !important;
+  background: rgb(214, 214, 214) !important;
+}
+
+.cart-items-custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 7px !important;
+  background-color: rgb(215, 110, 45);
+  height: 40px;
+}

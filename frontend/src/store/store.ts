@@ -6,7 +6,7 @@ export const makeStore = () =>
   configureStore({
     reducer: {
       categories: CategoryReducers,
-      filters: FiltersReducers
+      filters: FiltersReducers,
     },
     // devTools: true,
   })

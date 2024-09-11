@@ -1,12 +1,14 @@
+'use client';
+
 import { FurnitureItemDetailsProps } from '@/types/Types';
 import { Box, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
-import DefaultButton from '../common/buttons/DefaultButton';
+import AddToCartButton from '../common/buttons/AddToCartButton';
 import FurnitureImagesAnd3DModel from './FurnitureImagesAnd3DModel';
-import Scene3DModel from './3DModel/Scene3DModel';
+import { useState } from 'react';
 
 const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => {
-  const { name, price, description, image_urls, total_sales, weight, color, dimension, model_3d_url } = item;
-
+  const { id, name, price, description, image_urls, total_sales, weight, color, dimension, model_3d_url } = item;
+  const [quantity, setQuantity] = useState(1);
   return (
     <Grid container spacing={5}>
       <Grid item xs={12} md={6}>
@@ -28,8 +30,8 @@ const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => 
           </Stack> */}
 
           <Stack direction="row" spacing={2} alignItems="center" mt={3}>
-            <TextField type="number" defaultValue={1} InputProps={{ inputProps: { min: 1 } }} sx={{ width: 100, }} />
-            <DefaultButton>Add To Cart</DefaultButton>
+            <TextField type="number" defaultValue={quantity} onChange={(e)=>setQuantity(Number(e.target.value))} InputProps={{ inputProps: { min: 1 } }} sx={{ width: 100, }} />
+            <AddToCartButton quantity={quantity} furnitureId={id}/>
           </Stack>
         </Box>
       </Grid>

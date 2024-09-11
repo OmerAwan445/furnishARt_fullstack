@@ -75,7 +75,17 @@ export class FurnitureItemModel {
           },
         },
       },
-    },
-    );
+    });
+  }
+
+  async getFurnitureItemPrice(id: number) {
+    return await prisma.furnitureItem.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        price: true,
+      },
+    });
   }
 }

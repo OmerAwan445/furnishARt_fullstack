@@ -16,4 +16,9 @@ export const BACKEND_API_ENDPOINTS = {
 
   // Category
   getCategories: "/category",
+
+  // Cart
+  addCartItem: "/cart/add-item",
+  getCartDetails: "/cart",
+  removeCartItem: "/cart/remove-item",
 }

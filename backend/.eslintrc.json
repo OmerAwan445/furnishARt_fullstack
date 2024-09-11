@@ -25,6 +25,7 @@
       "no-undef": "error",
       "camelcase": "off",
       "quotes": "off",
+      "linebreak-style": "off",
       "require-jsdoc": "off"
     }
   }

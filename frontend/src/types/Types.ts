@@ -2,6 +2,7 @@ import { CustomError } from "@/utils/error/CustomError"
 import { ButtonProps, TypographyProps } from "@mui/material"
 import { AxiosResponse } from "axios"
 import { ReactNode } from "react"
+import { AxiosRequestConfig } from 'axios';
 
 /* ========= COOKIES ======= */
 export enum CookieKeys {
@@ -44,9 +45,53 @@ export interface CustomToastProps {
   type: "success" | "error";
 }
 
+export interface ItemCardProps {
+  id: number
+  image: string
+  name: string
+  rating: number
+  price: number
+}
 
-// ==== API CALLS ====
+export interface FurnitureItemDetailsProps {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  stock_quantity: number;
+  model_3d_url: string | null;
+  image_urls: string[];
+  total_sales: number;
+  color: string;
+  dimension: string;
+  weight: string;
+  category_id: number;
+  createdAt: string;
+  updatedAt: string;
+  reviews: Review[];
+};
+
+
+export interface HorizontalItemCardProps {
+  item: CartItem;
+  hoveringItemId: number | null;
+  mousePosition: { x: number; y: number };
+  handleMouseMove: (e: React.MouseEvent<HTMLDivElement>, itemId: number) => void;
+  setHoveringItemId: (id: number | null) => void;
+  lensSize: number;
+  zoomFactor: number;
+}
+export interface CartItemsSummeryProps {
+  total: number
+} 
+
+
+/* ========= API CALLS ======== */
 export type ApiCall<T> = () => Promise<AxiosResponse<T>>;
+// Modify the ApiCall type to accept AxiosRequestConfig (or similar)
+
+export type AuthApiCall<T> = (config?: AxiosRequestConfig) => Promise<{ data: T }>;
+
 
 interface ApiSuccess<T> {
   data: T;
@@ -77,32 +122,20 @@ export interface GetCategoriesResponse {
   name: string
 }
 
-
-export interface ItemCardProps {
-  id: number
-  image: string
-  name: string
-  rating: number
-  price: number
+export interface GetCartDetailsResponse {  
+    cart_id:  number;
+    cart_total_price:  number;
+    cartItems: CartItem[];
+  }
+export interface CartItem {
+    id:         number;
+    quantity:   number;
+    name:       string;
+    price:      number;
+    thumbnail_image: string;
 }
 
-export interface FurnitureItemDetailsProps {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  stock_quantity: number;
-  model_3d_url: string | null;
-  image_urls: string[];
-  total_sales: number;
-  color: string;
-  dimension: string;
-  weight: string;
-  category_id: number;
-  createdAt: string;
-  updatedAt: string;
-  reviews: Review[];
-};
+
 
 export interface Review {
   id: number;
@@ -159,3 +192,10 @@ export interface FiltersSliceState {
   itemsPerPage: number
   page: number
 }
+
+export interface CartSliceState {  
+  cart_id:  number | null;
+  cart_total_price:  number;
+  cartItems: CartItem[];
+}
+
