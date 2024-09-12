@@ -6,8 +6,6 @@ import useAuth from "@/hooks/useAuth";
 import AuthSvs from "@/services/Auth";
 import { ResetPasswordFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { Formik } from "formik";
-import CustomToast from "../common/toasts/CustomToast";
-import { handleClose } from "@/utils/toastHandleClose";
 import { useRouter } from "next/navigation";
 
 const ResetPasswordForm = ({ token }:{ token: string }) => {
@@ -16,7 +14,7 @@ const ResetPasswordForm = ({ token }:{ token: string }) => {
     confirm_password: "",
   };
   const router = useRouter();
-  const { errorMessage, successMessage, isPending, mutate: resetPassword, clearMessages } = useAuth({ mutationFn: AuthSvs.resetPassword, onSuccess: () => setTimeout(() => router.push("/login"), 3000)});
+  const { isPending, mutate: resetPassword, } = useAuth({ mutationFn: AuthSvs.resetPassword, onSuccess: () =>  router.push("/login")});
 
   async function handleResetPassword(values: typeof initialValues) {
     const { new_password, confirm_password } = values;
@@ -25,17 +23,6 @@ const ResetPasswordForm = ({ token }:{ token: string }) => {
 
   return (
     <>
-    {(errorMessage || successMessage) && (
-      <CustomToast
-        open={!!successMessage || !!errorMessage}
-        type={!!errorMessage ? "error" : "success"}
-        handleClose={(event, reason) =>
-          handleClose(clearMessages, event, reason)
-        }
-      >
-        {successMessage || errorMessage}
-      </CustomToast>
-    )}
     <div  className="w-full flex-grow">
       <div className="text-center">
         <h4 className="xl:text-3xl lg:text-2xl text-2xl font-semibold xl:mt-5 lg:mt-5 mb-7 pb-1 dark:text-white">

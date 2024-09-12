@@ -1,4 +1,5 @@
 import AuthPageLayout from '@/components/common/layouts/AuthPageLayout';
+import ClientSideSnackbar from '@/components/common/toasts/ClientSideSnackbar';
 import { ReactNode } from 'react';
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <AuthPageLayout>
+      <ClientSideSnackbar />
       {children}
     </AuthPageLayout>
   );
