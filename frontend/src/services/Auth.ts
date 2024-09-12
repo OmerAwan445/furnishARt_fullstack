@@ -1,11 +1,10 @@
-import apiInstance from "@/ApiInstance";
+import apiInstance, { apiInstanceSS } from "@/ApiInstance";
 import { ResetPassword, SignupFormData } from "@/types/Types";
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
 import { signIn, signOut } from "next-auth/react";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 import axios from "axios";
 class AuthService {
-  private static BASE_URL_SS = process.env.BACKEND_API_URL;
 
   static async signUpCustomer(formData: SignupFormData) {
     const { data, error } = await handleApiCall<{ message: string }>(
@@ -44,7 +43,7 @@ class AuthService {
   }
   
   static async verifyForgetPasswordToken(token: string) {
-    const { data, error } = await handleApiCall<{ message: string }>(async ()=> await axios.get(`${this.BASE_URL_SS}${BACKEND_API_ENDPOINTS.verifyForgetPasswordToken}?token=${encodeURIComponent(token)}`));
+    const { data, error } = await handleApiCall<{ message: string }>(async ()=> await apiInstanceSS.get(`${BACKEND_API_ENDPOINTS.verifyForgetPasswordToken}?token=${encodeURIComponent(token)}`));
     
     if (error) throw error;
     return data;

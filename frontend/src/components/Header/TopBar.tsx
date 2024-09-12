@@ -86,7 +86,7 @@ const TopBar = () => {
           <AutoCompleteSearchbar selectedCategoryId= {Number(selectedCategory)} />
         </Stack>
         
-        <Link href={"/cart"} passHref>
+        <Link href={"/cart"} prefetch>
         <Box sx={{ display: { xs: 'none', md: 'block', } }}>
           <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
             Cart

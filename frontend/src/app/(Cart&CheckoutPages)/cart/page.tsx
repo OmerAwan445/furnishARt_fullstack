@@ -1,3 +1,6 @@
+export const fetchCache = 'force-no-store'
+export const dynamic = 'force-dynamic'
+
 import CartDetails from '@/components/CartPage/CartDetails';
 import ClientSideSnackbar from '@/components/common/toasts/ClientSideSnackbar';
 import CartSvs from '@/services/Cart';

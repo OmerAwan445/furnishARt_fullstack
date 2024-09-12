@@ -19,22 +19,16 @@ const getToastStyles = (type: string) => {
         borderColor: '#d32f2f',
         boxShadow: '0 0 10px rgba(244, 67, 54, 0.7)',
       };
-    // case 'warning':
-    //   return {
-    //     backgroundColor: '#ff9800', // Orange for warning
-    //     borderColor: '#f57c00',
-    //     boxShadow: '0 0 10px rgba(255, 152, 0, 0.7)',
-    //   };
-    // case 'info':
-    //   return {
-    //     backgroundColor: '#2196f3', // Bright blue for info
-    //     borderColor: '#1976d2',
-    //     boxShadow: '0 0 10px rgba(33, 150, 243, 0.7)',
-    //   };
+    case 'info':
+      return {
+        backgroundColor: 'transparent', // Bright blue for info
+        borderColor: 'transparent',
+        boxShadow: '0 0 10px rgba(33, 150, 243, 0.7)',
+      };
     default:
       return {
-        backgroundColor: '#333', // Default for any other type
-        borderColor: '#222',
+        backgroundColor: 'transparent', // Default for any other type
+        borderColor: 'transparent',
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
       };
   }
