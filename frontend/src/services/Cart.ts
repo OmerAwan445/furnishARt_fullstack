@@ -18,7 +18,7 @@ class CartServices {
         )
     );
 
-    if (error) return { error: true, message: error.message };
+    if (error) return { error: true, message: error.message, statusCode: error.statusCode };
     await revalidateTagAction("Cart");
     return { error: false, message: data.message };
   }

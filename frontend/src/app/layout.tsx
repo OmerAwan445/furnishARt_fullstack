@@ -1,16 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import ReactQueryProviders from "@/components/providers/ReactQueryProviders";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "@/utils/theme";
 import NavbarLayout from "@/components/common/layouts/NavbarLayout";
 import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
+import ReactQueryProviders from "@/components/providers/ReactQueryProviders";
 import StoreProvider from "@/components/providers/StoreProvider";
 import { poppins } from "@/utils/fontfamily";
-const inter = Inter({ subsets: ["latin"] });
+import theme from "@/utils/theme";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "FurnishARt",

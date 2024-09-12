@@ -40,7 +40,7 @@ export default function CartSummary({ total }: CartItemsSummeryProps) {
             component="h6"
             sx={{ fontSize: { lg: "1.125rem" }, fontWeight: "bold", color: "text.primary" }}
           >
-            ${total}
+            ${total.toFixed(2)}
           </Typography>
         </Box>
       </Box>
