@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import DefaultButton from "../common/buttons/DefaultButton";
+import { usePathname } from "next/navigation";
 
 const pages = ["Home", "Shop", "About", "Contact us"];
 const settings = ["Profile", "Account", "Logout"];
@@ -25,7 +26,8 @@ function CustomNavbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { data } = useSession();
-
+  const pathname = usePathname();
+  
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -76,24 +78,35 @@ function CustomNavbar() {
                 onClick={toggleDrawer(false)}
                 onKeyDown={toggleDrawer(false)}
               >
-                <Typography variant="h6" sx={{ my: 2, textAlign: 'center' }}>
+                <Typography variant="h6" sx={{ py: 2, mb:2, textAlign: 'center', color: '#fff', backgroundColor: theme.palette.background.black }}>
                   Menu
                 </Typography>
                 <Divider />
                 <Stack
                   direction="column"
-                  sx={{ p: 2 }}
-                  spacing={2}
                 >
                   {pages.map((page) => (
-                    <Button
-                      color="inherit" 
-                      key={page}
-                      onClick={toggleDrawer(false)}
-                      sx={{ width: '100%' }}
-                    >
-                      {page}
-                    </Button>
+                    <Link key={page} href={`/${page === "Home" ? "" : page.toLowerCase().replace(' ', '-')}`} passHref>
+                      <Button
+                        color="inherit" 
+                        key={page}
+                        onClick={toggleDrawer(false)}
+                        sx={{
+                          width: '100%',
+                          py: 1,
+                          backgroundColor: pathname === `/${page === "Home" ? "" : page.toLowerCase().replace(' ', '-')}` ? theme.palette.background.accent : 'transparent',
+                          color: pathname === `/${page === "Home" ? "" : page.toLowerCase().replace(' ', '-')}` ? theme.palette.primary.contrastText : theme.palette.text.primary,
+                          '&:hover': {
+                            backgroundColor: theme.palette.background.accent,
+                            color: theme.palette.primary.contrastText,
+                          },
+                          borderRadius: 0,
+                        }}
+                      >
+                        {page}
+                      </Button>
+                      <Divider />
+                    </Link>
                   ))}
                 </Stack>
               </Box>
@@ -120,11 +133,13 @@ function CustomNavbar() {
                 {pages.map((page) => (
                   <Link key={page} href={`/${page === "Home" ? "" : page.toLowerCase().replace(' ', '-')}`} >
                     <Typography
-                  className={`relative py-2 text-white hover:text-gray-300 transition-all duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white after:scale-x-0 after:origin-left after:transition-transform after:duration-200 hover:after:scale-x-100 hover:border-white`}
-                >
-                    {page}
-                </Typography>
-                </Link>
+                      className={`relative py-2 text-white hover:text-gray-300 transition-all duration-200 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white after:scale-x-0 after:origin-left after:transition-transform after:duration-200 hover:after:scale-x-100 hover:border-white ${
+                        pathname === `/${page === "Home" ? "" : page.toLowerCase().replace(' ', '-')}` ? 'after:scale-x-100' : ''
+                      }`}
+                    >
+                      {page}
+                    </Typography>
+                  </Link>
                 ))}
               </Stack>
             </Container>

@@ -5,6 +5,7 @@ import { Box, IconButton } from '@mui/material';
 import { BiSearch } from 'react-icons/bi';
 import { BiCart } from "react-icons/bi";
 import theme from '@/utils/theme';
+import Link from 'next/link';
 
 const NavbarMobileIcons = () => {
   return (
@@ -14,9 +15,11 @@ const NavbarMobileIcons = () => {
       <IconButton aria-label="search">
         <BiSearch color={theme.palette.primary.light} />
       </IconButton>
+      <Link href="/cart" passHref>
       <IconButton aria-label="cart">
         <BiCart color={theme.palette.primary.light}/>
       </IconButton>
+      </Link>
     </Box>
   )
 }

@@ -17,7 +17,7 @@ const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?
       className="!rounded-2xl !overflow-hidden"
       sx={{
         maxWidth: {'xs': 335, 'md': 420},
-        minWidth: {'xs': 'fit-content', 'sm': 300},
+        minWidth: {'xs': '100%', 'sm': 300},
         minHeight: 450,
         maxHeight: 550,
         boxShadow: 8,
