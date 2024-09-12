@@ -42,7 +42,7 @@ export interface CustomToastProps {
   children: ReactNode;
   open: boolean;
   handleClose: (event?: React.SyntheticEvent | Event, reason?: string) => void;
-  type: "success" | "error";
+  type: "success" | "error" | "info";
 }
 
 export interface ItemCardProps {
@@ -91,6 +91,8 @@ export type ApiCall<T> = () => Promise<AxiosResponse<T>>;
 // Modify the ApiCall type to accept AxiosRequestConfig (or similar)
 
 export type AuthApiCall<T> = (config?: AxiosRequestConfig) => Promise<{ data: T }>;
+export type AuthFetchApiCall<T> = (config?: RequestInit) => Promise<{ data: T }>;
+
 
 
 interface ApiSuccess<T> {

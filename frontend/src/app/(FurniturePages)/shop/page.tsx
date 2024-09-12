@@ -1,8 +1,8 @@
-import FilterComponent from '@/components/ShopPage/FilterComponent'
-import ItemsPagination from '@/components/ShopPage/ItemsPagination'
+import FilterComponent from '@/components/ShopPage/FilterComponent';
+import ItemsPagination from '@/components/ShopPage/ItemsPagination';
 import TitleHeadings from '@/components/common/headings/TitleHeadings';
-import FurnitureItemsSvs from '@/services/FurnitureItems'
-import { getFilteredItems } from '@/utils/Itemsfilters&pagination/filteredItems';
+import ClientSideSnackbar from '@/components/common/toasts/ClientSideSnackbar';
+import FurnitureItemsSvs from '@/services/FurnitureItems';
 import { Divider } from '@mui/material';
 
 const ShopFurnitureItemPage = async () => {
@@ -10,6 +10,7 @@ const ShopFurnitureItemPage = async () => {
 
   return (
     <>
+    <ClientSideSnackbar />
       <TitleHeadings textAlign={"center"}>
         Shop
       </TitleHeadings>

@@ -2,97 +2,112 @@
 
 import Lens from "@/components/ui/lens"; // Import Lens component
 import { HorizontalItemCardProps } from "@/types/Types";
-import { Box, Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { AiOutlineDelete } from "react-icons/ai";
 
-function HorizontalItemCard({ item, hoveringItemId, mousePosition, handleMouseMove, setHoveringItemId, lensSize, zoomFactor }: HorizontalItemCardProps) {
+function HorizontalItemCard({
+  item,
+  hoveringItemId,
+  mousePosition,
+  handleMouseMove,
+  setHoveringItemId,
+  lensSize,
+  zoomFactor,
+}: HorizontalItemCardProps) {
   return (
-          <Card
-          onMouseLeave={() => setHoveringItemId(null)}
-          // onMouseEnter={(e: any) => handleMouseMove(e, item.id)}
-            // onMouseMove={(e: any) => handleMouseMove(e, item.id)}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              position: "relative",
-              overflow: "hidden",
-              alignItems: "center",
-              height: 160,
-            }}
-          >
-            <Box sx={{ position: "relative", width: 170, height: "90%" }}
-                    onMouseMove={(e: any) => handleMouseMove(e, item.id)}
-                  onMouseEnter={(e: any) => handleMouseMove(e, item.id)}
+    <Card
+      onMouseLeave={() => setHoveringItemId(null)}
+      // onMouseEnter={(e: any) => handleMouseMove(e, item.id)}
+      // onMouseMove={(e: any) => handleMouseMove(e, item.id)}
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        position: "relative",
+        overflow: "hidden",
+        alignItems: "center",
+        height: 160,
+      }}
+    >
+      <Box
+        sx={{ position: "relative", width: 170, height: "90%" }}
+        onMouseMove={(e: any) => handleMouseMove(e, item.id)}
+        onMouseEnter={(e: any) => handleMouseMove(e, item.id)}
+      >
+        <CardMedia
+          component="img"
+          src={item.thumbnail_image}
+          alt={item.name}
+          sx={{ width: "100%", height: "100%" }}
+        />
 
-                    >
-              <CardMedia
-                component="img"
-                src={item.thumbnail_image}
-                alt={item.name}
-                sx={{ width: "100%", height: "100%" }}
-              />
-              
-              {/* Reusable Lens component */}
-              <Lens
-                image={item.thumbnail_image}
-                mousePosition={mousePosition}
-                lensSize={lensSize}
-                zoomFactor={zoomFactor}
-                isHovering={hoveringItemId === item.id}
-              />
-            </Box>
+        {/* Reusable Lens component */}
+        <Lens
+          image={item.thumbnail_image}
+          mousePosition={mousePosition}
+          lensSize={lensSize}
+          zoomFactor={zoomFactor}
+          isHovering={hoveringItemId === item.id}
+        />
+      </Box>
 
-            <CardContent
-              sx={{
-                marginLeft: 2,
-                padding: 2,
-                borderRadius: 2,
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                width: "100%",
-                height: "100%",
-                flex: 1,
-                position: "relative",
-              }}
-            >
-              {/* Delete Icon Positioned Top-Right */}
-              <IconButton
-              data-cart-item-id={item.id}
-                className="delete-button"
-                aria-label="delete"
-                size="small"
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                }}
-              >
-                <AiOutlineDelete className="text-lg md:text-2xl dark:text-white text-gray-500 cursor-pointer" />
-              </IconButton>
+      <CardContent
+        sx={{
+          marginLeft: 2,
+          padding: 2,
+          borderRadius: 2,
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          width: "100%",
+          height: "100%",
+          flex: 1,
+          position: "relative",
+        }}
+      >
+        {/* Delete Icon Positioned Top-Right */}
+        <IconButton
+          data-cart-item-id={item.id}
+          className="delete-button"
+          aria-label="delete"
+          size="small"
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+          }}
+        >
+          <AiOutlineDelete className="text-lg md:text-2xl dark:text-white text-gray-500 cursor-pointer" />
+        </IconButton>
 
-              <Typography
-                gutterBottom
-                variant="h6"
-                component="div"
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "1.25rem",
-                  backgroundImage: "linear-gradient(45deg, #5680E9, #8860D0)",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
-                {item.name}
-              </Typography>
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="div"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1.25rem",
+            backgroundImage: "linear-gradient(45deg, #5680E9, #8860D0)",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+          }}
+        >
+          {item.name}
+        </Typography>
 
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ fontSize: "1rem", fontStyle: "italic" }}
-              >
-                {item.price} - Qty: {item.quantity}
-              </Typography>
-            </CardContent>
-          </Card>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ fontSize: "1rem", fontStyle: "italic" }}
+        >
+          {item.price} - Qty: {item.quantity}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 

@@ -5,28 +5,22 @@ import AuthSvs from "@/services/Auth";
 import { SignupFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { MyPasswordInput } from "../common/FormFields/MyPasswordInput";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import GradientButton from "../common/buttons/GradientButton";
-import CustomToast from "../common/toasts/CustomToast";
 import { ErrorMessageToast } from "../common/toasts/ErrorMessageToast";
-import { handleClose } from "@/utils/toastHandleClose";
 
 const SignupForm = () => {
   const {
-    errorMessage,
-    clearMessages,
-    successMessage,
     isPending,
     mutate: signup,
-    setErrorMessage,
   } = useAuth({
     mutationFn: AuthSvs.signUpCustomer,
-    onSuccess: () => setTimeout(() => router.push("/login"), 3000),
+    onSuccess: () => router.push("/login"),
+    onError: (error) => setErrorMessage(error.message),
   });
-  // const [errorMessage, setErrorMessage] = useState("");
-  // const [successMessage, setSuccessMessage] = useState("");
-  // const { isPending, mutate: signup } = useMutation({ mutationFn: AuthSvs.signUpCustomer})
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const initialValues = {
@@ -55,15 +49,6 @@ const SignupForm = () => {
             setErrorMessage={setErrorMessage}
             errorMessage={errorMessage}
             />
-          <CustomToast
-            open={!!successMessage}
-            handleClose={(event, reason) =>
-              handleClose(clearMessages, event, reason)
-            }
-            type="success"
-          >
-            {successMessage}
-          </CustomToast>
           <div className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <MyTextInput

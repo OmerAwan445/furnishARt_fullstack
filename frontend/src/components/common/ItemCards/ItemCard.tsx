@@ -29,7 +29,7 @@ const ItemCard = ({ item, contentHeight }: { item: ItemCardProps, contentHeight?
         },
       }}
     >
-      <Link href={`/furniture/${id}`} passHref>
+      <Link href={`/furniture/${id}`} passHref legacyBehavior>
         <CardMedia
           sx={{ 
             height: 330,

@@ -8,12 +8,12 @@ const ClientSideSnackbar = () => {
   const dispatch = useAppDispatch();
   const { message, open, type } = useAppSelector((state) => state.snackbar);
   const { closeSnackbar } = SnakcBarActions;
-  
+    
   return (
     <CustomToast
       handleClose={() => dispatch(closeSnackbar())}
       open={open}
-      type={type ?? "success"}
+      type={type ?? "info"}
     >
       {message}
     </CustomToast>

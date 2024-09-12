@@ -1,4 +1,4 @@
-import apiInstance from "@/ApiInstance";
+import apiInstance, { apiInstanceSS } from "@/ApiInstance";
 import { AutoCompleteResponse, FiltersSliceState, FurnitureItemDetailsResponse, GetBestSellerResponse, ReturnFurnitureItems } from "@/types/Types";
 import { makeFiltersQuery } from "@/utils/Itemsfilters&pagination/makeFiltersQuery";
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
@@ -8,9 +8,7 @@ import { getFilteredItems } from "@/utils/Itemsfilters&pagination/filteredItems"
 
 
 class FurnitureItemsService {
-    private static BASE_URL_SS = process.env.BACKEND_API_URL;
-
-    
+   
     static async getFurnitureItems(filters?: FiltersSliceState) {
 
         let filtersQuery = '';
@@ -31,14 +29,14 @@ class FurnitureItemsService {
     }
 
     static async getBestSellersSS() {
-        const { data, error } = await handleApiCall<{ data: GetBestSellerResponse }>(async ()=> await axios.get(`${this.BASE_URL_SS}${BACKEND_API_ENDPOINTS.getBestSellerFurnitureItems}`));
+        const { data, error } = await handleApiCall<{ data: GetBestSellerResponse }>(async ()=> await apiInstanceSS.get(BACKEND_API_ENDPOINTS.getBestSellerFurnitureItems));
     
         if (error) return null;
         return data.data;
     }
 
     static async fetchFurnitureItemFromID(id: number) {
-        const { data, error } = await handleApiCall<{data: FurnitureItemDetailsResponse}>(async ()=> await axios.get(`${this.BASE_URL_SS}${BACKEND_API_ENDPOINTS.getFurnitureItemFromID}/${id}`));
+        const { data, error } = await handleApiCall<{data: FurnitureItemDetailsResponse}>(async ()=> await apiInstanceSS.get(`${BACKEND_API_ENDPOINTS.getFurnitureItemFromID}/${id}`));
     
         if (error) return null;
         return data.data;

@@ -3,24 +3,16 @@
 import useAuth from "@/hooks/useAuth";
 import AuthSvs from "@/services/Auth";
 import { ForgotPasswordFormSchema } from "@/utils/FormValidations/ValidationSchemas";
-import { handleClose } from "@/utils/toastHandleClose";
 import { Formik } from "formik";
 import Link from "next/link";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import SubmitBtn from "../common/FormFields/SubmitBtn";
-import CustomToast from "../common/toasts/CustomToast";
 
 const ForgetPasswordForm = () => {
   const initialValues = {
     email: "",
   };
-  const {
-    mutate: forgetPass,
-    successMessage,
-    errorMessage,
-    clearMessages,
-    isPending,
-  } = useAuth({ mutationFn: AuthSvs.sendForgetPassEmail });
+  const { mutate: forgetPass, isPending } = useAuth({ mutationFn: AuthSvs.sendForgetPassEmail });
 
   function handlerForgetPass(values: typeof initialValues) {
     forgetPass(values.email);
@@ -46,17 +38,6 @@ const ForgetPasswordForm = () => {
         >
           {({ errors, touched, handleSubmit }) => (
             <form onSubmit={handleSubmit} className="space-y-5 mt-4 lg:mt-8">
-              {(errorMessage || successMessage) && (
-                <CustomToast
-                  open={!!successMessage || !!errorMessage}
-                  type={!!errorMessage ? "error" : "success"}
-                  handleClose={(event, reason) =>
-                    handleClose(clearMessages, event, reason)
-                  }
-                >
-                  {successMessage || errorMessage}
-                </CustomToast>
-              )}
               <div className="mb-4 relative">
                 <MyTextInput
                   className={`${
@@ -69,7 +50,7 @@ const ForgetPasswordForm = () => {
                   placeholder="Email address"
                 />
               </div>
-              <SubmitBtn disabled= {isPending}>
+              <SubmitBtn disabled={isPending}>
                 {isPending ? "Sending..." : "Send Reset Link"}
               </SubmitBtn>
             </form>
