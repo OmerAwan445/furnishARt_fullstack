@@ -13,13 +13,13 @@ export class FurnitureItemController {
     this.furnitureItemModel = new FurnitureItemModel();
   }
 
-  public getFurnitureItems = catchAsyncError(async (req: Request<any, any, any, GetFurnitureItemsFiltersReqQuery>, res, next) => {
+  public getFurnitureItems = catchAsyncError(async (req: Request<any, any, any, GetFurnitureItemsFiltersReqQuery>, res) => {
     const { category_id, itemsPerPage, page } = req.query;
     const filters = getParsedFilters({ category_id, itemsPerPage, page });
 
     const items = await this.furnitureItemModel.getAllFurnitureItems(filters);
 
-    if (!items.length) return next(new AppError("No Item Found", 404));
+    if (!items.length) throw new AppError("No Item Found", 404);
 
     return res.send(ApiResponse.success(items, "Furniture items retrieved successfully", 200, items.length));
   });
@@ -38,12 +38,12 @@ export class FurnitureItemController {
     return res.send(ApiResponse.success(items, "Auto complete furniture items retrieved successfully"));
   });
 
-  public getFurnitureItemFromID = catchAsyncError(async (req: Request<{ id?: string }, any, any>, res, next) => {
+  public getFurnitureItemFromID = catchAsyncError(async (req: Request<{ id?: string }, any, any>, res) => {
     const { id } = req.params;
-    if (!id) return next(new AppError("Id is required", 400));
+    if (!id) throw new AppError("Id is required", 400);
 
     const item = await this.furnitureItemModel.getFurnitureItemFromID(parseInt(id));
-    if (!item) return next(new AppError("Furniture item not found", 404));
+    if (!item) throw new AppError("Furniture item not found", 404);
 
     return res.send(ApiResponse.success(item, "Furniture item retrieved successfully"));
   });

@@ -7,6 +7,7 @@ import authRoutes from "./auth";
 import furntiureItemRoutes from "./furnitureItem";
 import categoryRoutes from "./category";
 import cartRoutes from "./cart";
+import paymentRoutes from "./stripePayment";
 
 const appRoutes = expressRouter();
 const protectedRoutes = expressRouter();
@@ -15,6 +16,7 @@ protectedRoutes.use(checkSchema(verifyLoginSchema, ['headers']), validateRequest
 
 // Protected routes(Accessed after login)
 protectedRoutes.use("/cart", cartRoutes);
+protectedRoutes.use("/stripe", paymentRoutes);
 
 // Accessible routes
 appRoutes.use("/auth", authRoutes);

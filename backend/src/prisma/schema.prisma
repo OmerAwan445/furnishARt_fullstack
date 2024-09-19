@@ -20,6 +20,7 @@ model Customer {
   password    String          @db.VarChar(255)
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
+  stripe_customer_id String?
   tokens      CustomerToken[]
   cart        Cart?
   orders      Order[]

@@ -8,6 +8,7 @@ import JwtSvs from '@src/services/auth/jwtSvs';
 import EmailSvs from '@src/services/auth/mailSvs';
 import { sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded } from '@src/services/auth/verificationEmailSvs';
 import ApiResponse from '@src/utils/ApiResponse';
+import { ResponseMessages } from '@src/utils/ResponseMessages';
 import { catchAsyncError } from '@src/utils/catchAsyncError';
 import { isDevEnvironment } from '@src/utils/common/isDevEnvironment';
 import { Request } from 'express';
@@ -21,23 +22,23 @@ class AuthController {
     // Send verification email and save token
     const { msg } = await sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded(customer.email, customer.id);
 
-    return res.send(ApiResponse.success({ ...customer }, 'User created successfully & ' + msg, 201));
+    return res.send(ApiResponse.success({ ...customer }, ResponseMessages.USER_CREATED_SUCCESSFULLY + ' & ' + msg, 201));
   });
 
   // LOGIN controller:
-  authenticateCustomer = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res, next) => {
+  authenticateCustomer = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res) => {
     const { email, password } = req.body;
 
     const customer = await findCustomerByEmail(email);
 
     // if customer exists && password is correct
     if (!customer || !(await BcryptSvs.comparePassword(password, customer.password))) {
-      return next(new AppError("Invalid email or password", 404));
+      throw new AppError(ResponseMessages.INVALID_EMAIL_OR_PASSWORD, 404);
     }
     // if Customer is not verified then don't send access_token
     if (!customer.is_verified) {
       const { msg } = await sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded(customer.email, customer.id);
-      return res.status(403).send(ApiResponse.error('User Email is not verified & ' +
+      return res.status(403).send(ApiResponse.error(ResponseMessages.USER_EMAIL_NOT_VERIFIED + ' & ' +
         msg, 403, { customer_id: customer.id }));
     }
 
@@ -53,73 +54,73 @@ class AuthController {
     );
 
     return res.send(ApiResponse.success({ accessToken, ...customerWithoutPassword },
-        "User logged in successfully", 200));
+        ResponseMessages.USER_LOGGED_IN_SUCCESSFULLY, 200));
   });
 
-  sendVerificationEmail = catchAsyncError(async (req: Request<object, object, { customer_id: number }>, res, next) => {
+  sendVerificationEmail = catchAsyncError(async (req: Request<object, object, { customer_id: number }>, res) => {
     const { customer_id } = req.body;
     const customer = await findCustomerById(customer_id);
 
     if (!customer || customer.is_verified) {
-      return next(new AppError("No User Found Or User is Already Verified", 404));
+      throw new AppError(ResponseMessages.NO_USER_FOUND_OR_ALREADY_VERIFIED, 404);
     }
 
     const { token, msg, error, statusCode } = await sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded( customer.email, customer_id );
 
-    if (error) return next(new AppError(msg, statusCode));
+    if (error) throw new AppError(msg, statusCode);
     return res.send(ApiResponse.success((isDevEnvironment ? { token } : {}), msg, statusCode));
   });
 
-  verifyEmailVerificationToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
+  verifyEmailVerificationToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res) => {
     const token = req.query.token as string;
     console.log(token, "token");
     // 1. check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "EMAIL_VERIFICATION");
-    if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));
+    if (!isValidToken || !data) throw new AppError(errorMsg as string, 401);
     // 2. make user verified and Delete the token from the Db
     const user = await makeCustomerVerifiedAndDeleteToken(data.customer_id);
     const accessToken = await JwtSvs.generateAccessToken({ username: user.username,
       id: user.id, email: user.email, name: user.first_name + user.last_name });
 
-    res.send(ApiResponse.success({ ...user, accessToken }, "User verified successfully", 200));
+    res.send(ApiResponse.success({ ...user, accessToken }, ResponseMessages.USER_VERIFIED_SUCCESSFULLY, 200));
   });
 
-  forgetPassword = catchAsyncError(async (req: Request<object, object, { email: string }>, res, next) => {
+  forgetPassword = catchAsyncError(async (req: Request<object, object, { email: string }>, res) => {
     const { email } = req.body;
     // 1. find customer by email
     const customer = await findCustomerByEmail(email);
-    if (!customer) return next(new AppError("User not found", 404));
+    if (!customer) throw new AppError(ResponseMessages.USER_NOT_FOUND, 404);
     // 2. generate a token and send email with token
     const { token, msg, error, statusCode } = await sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded(
         customer.email,
         customer.id,
     );
     // 3. save token to db with expiry date
-    if (error) return next(new AppError(msg, statusCode)); // token already sent
+    if (error) throw new AppError(msg, statusCode); // token already sent
     return res.send(ApiResponse.success((isDevEnvironment ? { token } : {}), msg, statusCode));
   });
 
-  verifyForgetPasswordToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res, next) => {
+  verifyForgetPasswordToken = catchAsyncError(async (req: Request<any, any, any, { token?: string }>, res) => {
     const { token } = req.query;
 
     // check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token as string, "PASSWORD_RESET");
-    if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));
-    return res.send(ApiResponse.success((isDevEnvironment ? { ...data } : {}), "Token Verified Successfully"));
+    if (!isValidToken || !data) throw new AppError(errorMsg as string, 401);
+    return res.send(ApiResponse.success((isDevEnvironment ? { ...data } : {}), ResponseMessages.TOKEN_VERIFIED_SUCCESSFULLY));
   });
 
-  resetPassword = catchAsyncError(async (req: Request<any, any, ResetPasswordRequestBody>, res, next) => {
+  resetPassword = catchAsyncError(async (req: Request<any, any, ResetPasswordRequestBody>, res) => {
     const { token, password } = req.body;
     // 1. check if token is valid from db and is not expired
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "PASSWORD_RESET");
-    if (!isValidToken || !data) return next(new AppError(errorMsg as string, 401));
+    if (!isValidToken || !data) throw new AppError(errorMsg as string, 401);
 
     // 2. update the password and delete the token from the db
     const { email } = await updatePasswordAndDeleteToken(data.customer_id, await BcryptSvs.hashPassword(password));
 
     // 3. send email to user that password has been changed
     await EmailSvs.sendResetPasswordEmail(email);
-    return res.send(ApiResponse.success({}, "Password changed successfully"));
+    return res.send(ApiResponse.success({}, ResponseMessages.PASSWORD_CHANGED_SUCCESSFULLY));
   });
 }
 
