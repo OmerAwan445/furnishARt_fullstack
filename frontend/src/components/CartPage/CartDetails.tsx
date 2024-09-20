@@ -12,7 +12,7 @@ import CartSummary from "./CartISummary";
 import { SnakcBarActions } from "@/store/Slices/SnackBarSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 
-function CartSummaryDetails(props: { data: GetCartDetailsResponse }) {
+function CartDetails(props: { data: GetCartDetailsResponse }) {
   const [cartData, setCartData] = useState(props.data);
   const dispatch = useAppDispatch();
   const { addMessage } = SnakcBarActions;
@@ -44,6 +44,7 @@ function CartSummaryDetails(props: { data: GetCartDetailsResponse }) {
     <Fragment>
       <Container
         maxWidth="xl"
+        className="max-sm:!px-0"
         sx={{
           overflowY: { sm: "scroll" },
           bgcolor: { md: "transparent" },
@@ -129,4 +130,4 @@ function CartSummaryDetails(props: { data: GetCartDetailsResponse }) {
   );
 }
 
-export default CartSummaryDetails;
+export default CartDetails;

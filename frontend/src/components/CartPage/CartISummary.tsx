@@ -2,6 +2,7 @@ import { CartItemsSummeryProps } from "@/types/Types";
 import { Box, Divider, Typography } from "@mui/material";
 import { FaArrowRight } from "react-icons/fa";
 import BlackFilledButton from "../common/buttons/BlackFilledButton";
+import Link from "next/link";
 
 export default function CartSummary({ total }: CartItemsSummeryProps) {
   return (
@@ -45,13 +46,13 @@ export default function CartSummary({ total }: CartItemsSummeryProps) {
         </Box>
       </Box>
 
-      {/* <Link href="/checkout" passHref> */}
+      <Link href="/checkout" passHref>
         <BlackFilledButton
           endIcon={<FaArrowRight />}
         >
           Proceed to Pay
         </BlackFilledButton>
-      {/* </Link> */}
+      </Link>
     </Box>
   );
 }

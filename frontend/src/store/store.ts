@@ -2,13 +2,16 @@ import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit"
 import CategoryReducers from "./Slices/CategorySlice"
 import FiltersReducers from "./Slices/FiltersSlice"
 import SnackBarReducers from "./Slices/SnackBarSlice"
+import PaymentMethodsReducers from "./Slices/PaymentMethodsSlice"
 
 export const makeStore = () =>
   configureStore({
     reducer: {
+      snackbar: SnackBarReducers,
       categories: CategoryReducers,
       filters: FiltersReducers,
-      snackbar: SnackBarReducers
+      paymentMethods: PaymentMethodsReducers,
+
     },
     // devTools: true,
   })

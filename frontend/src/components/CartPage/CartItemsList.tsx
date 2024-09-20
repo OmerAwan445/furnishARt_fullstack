@@ -1,19 +1,16 @@
-import { CartItem } from "@/types/Types";
+import { CartItemsListProps } from "@/types/Types";
 import { Grid } from "@mui/material";
 import { useState } from "react";
+import HorizontaltemCardWithLensEffect from "../common/ItemCards/HorizontaltemCardWithLensEffect";
 import HorizontalItemCard from "../common/ItemCards/HorizontaltemCard";
-
-interface CartItemsListProps {
-    cartItems: CartItem[];
-    handlerCartItems: (event: React.MouseEvent<HTMLDivElement>) => void;
-  }
 
   const zoomFactor = 1.7;
   const lensSize = 110;
   
   const CartItemsList: React.FC<CartItemsListProps> = ({
     cartItems,
-    handlerCartItems
+    handlerCartItems,
+    isCheckoutCartItems
   }) => {
     const [hoveringItemId, setHoveringItemId] = useState<number | null>(null);
     const [mousePosition, setMousePosition] = useState({ x: 200, y: 150 });
@@ -30,10 +27,13 @@ interface CartItemsListProps {
     };
   
     return (
-      <Grid container spacing={2} onClick={handlerCartItems}>
+      <Grid container spacing={3} onClick={handlerCartItems}>
         {cartItems.map((_item) => (
           <Grid item xs={12} key={_item.id}>
-              <HorizontalItemCard lensSize={lensSize} zoomFactor={zoomFactor} item={_item} handleMouseMove={handleMouseMove} hoveringItemId={hoveringItemId} setHoveringItemId={setHoveringItemId} mousePosition={mousePosition}/>
+              {isCheckoutCartItems ?
+              <HorizontalItemCard item={_item} /> : 
+              <HorizontaltemCardWithLensEffect lensSize={lensSize} zoomFactor={zoomFactor} item={_item} handleMouseMove={handleMouseMove} hoveringItemId={hoveringItemId} setHoveringItemId={setHoveringItemId} mousePosition={mousePosition}/>
+              }
           </Grid>
         ))}
       </Grid>

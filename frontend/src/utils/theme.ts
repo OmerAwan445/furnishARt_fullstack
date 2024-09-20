@@ -8,6 +8,7 @@ declare module '@mui/material/styles' {
     brownish: string;
     lightBrown: string;
     accent: string;
+    green: string;
   }
   interface Palette {
     accent: Palette['primary'];
@@ -34,6 +35,7 @@ const theme = createTheme({
       black: '#3E362E',   // Deep brownish-black for depth
       brownish: "#93785B", // Muted brown for background elements
       lightBrown: "#AC8968", // Soft beige for subtle background tones
+      green: '#4CAF50',   // Green for success messages
     },
     text: {
       primary: '#3E362E', // Deep brown for readability
