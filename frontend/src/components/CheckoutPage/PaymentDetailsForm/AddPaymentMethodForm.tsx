@@ -16,7 +16,6 @@ function AddPaymentMethodForm() {
   const stripe = useStripe()
   const elements = useElements()
   const [saveCard, setSaveCard] = useState(false)
-  const [createPmisLoading, setCreatePmisLoading] = useState(false)
   // const { mutate: payCartCourses, isPending: payCartCourse_isLoading } = usePayCart()
   const [billingDetails, setBillingDetails] = useState({
     cardholderName: "",
@@ -40,7 +39,6 @@ function AddPaymentMethodForm() {
       },
     }
     try {
-      setCreatePmisLoading(true)
       const { error, paymentMethod } = await (stripe as any).createPaymentMethod({
         type: "card",
         card: elements.getElement(CardNumberElement),
@@ -58,10 +56,8 @@ function AddPaymentMethodForm() {
       }
     } catch (backendError) {
       console.error("Error sending Payment Method to backend:", backendError)
-    } finally {
-      setCreatePmisLoading(false)
-    }
   }
+}
 
   const StripeFieldsOptions = {
     style: {
@@ -160,6 +156,7 @@ function AddPaymentMethodForm() {
       </div>
 
         <BlackFilledButton
+        type="submit"
           endIcon={<FaArrowRight />}
         >
           Proceed to Pay
