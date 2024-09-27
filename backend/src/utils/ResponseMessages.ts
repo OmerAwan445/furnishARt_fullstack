@@ -9,4 +9,5 @@ export class ResponseMessages {
   static readonly TOKEN_VERIFIED_SUCCESSFULLY = "Token Verified Successfully";
   static readonly PASSWORD_CHANGED_SUCCESSFULLY = "Password changed successfully";
   static readonly STRIPE_CUSTOMER_CREATED = "Customer created successfully";
+  static readonly STRIPE_Card_Saved = "Payment method saved successfully";
 }
