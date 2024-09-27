@@ -1,4 +1,3 @@
-export const fetchCache = 'force-no-store'
 export const dynamic = 'force-dynamic'
 
 import CartDetails from '@/components/CartPage/CartDetails';

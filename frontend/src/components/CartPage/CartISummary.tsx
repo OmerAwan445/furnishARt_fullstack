@@ -2,6 +2,7 @@ import { CartItemsSummeryProps } from "@/types/Types";
 import { Box, Divider, Typography } from "@mui/material";
 import { FaArrowRight } from "react-icons/fa";
 import BlackFilledButton from "../common/buttons/BlackFilledButton";
+import Link from "next/link";
 
 export default function CartSummary({ total }: CartItemsSummeryProps) {
   return (
@@ -40,18 +41,18 @@ export default function CartSummary({ total }: CartItemsSummeryProps) {
             component="h6"
             sx={{ fontSize: { lg: "1.125rem" }, fontWeight: "bold", color: "text.primary" }}
           >
-            ${total}
+            ${total.toFixed(2)}
           </Typography>
         </Box>
       </Box>
 
-      {/* <Link href="/checkout" passHref> */}
+      <Link href="/checkout" passHref>
         <BlackFilledButton
           endIcon={<FaArrowRight />}
         >
           Proceed to Pay
         </BlackFilledButton>
-      {/* </Link> */}
+      </Link>
     </Box>
   );
 }

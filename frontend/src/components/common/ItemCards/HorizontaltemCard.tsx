@@ -1,59 +1,34 @@
 "use client";
 
-import Lens from "@/components/ui/lens"; // Import Lens component
-import { HorizontalItemCardProps } from "@/types/Types";
+import { CartItem } from "@/types/Types";
 import {
   Box,
   Card,
   CardContent,
   CardMedia,
-  IconButton,
-  Typography,
+  Typography
 } from "@mui/material";
-import { AiOutlineDelete } from "react-icons/ai";
 
 function HorizontalItemCard({
   item,
-  hoveringItemId,
-  mousePosition,
-  handleMouseMove,
-  setHoveringItemId,
-  lensSize,
-  zoomFactor,
-}: HorizontalItemCardProps) {
+}: { item: CartItem } ) {
   return (
     <Card
-      onMouseLeave={() => setHoveringItemId(null)}
-      // onMouseEnter={(e: any) => handleMouseMove(e, item.id)}
-      // onMouseMove={(e: any) => handleMouseMove(e, item.id)}
       sx={{
         display: "flex",
         flexDirection: "row",
         position: "relative",
         overflow: "hidden",
         alignItems: "center",
-        height: 160,
+        height: { xs: 100, sm: 120 },
       }}
     >
-      <Box
-        sx={{ position: "relative", width: 170, height: "90%" }}
-        onMouseMove={(e: any) => handleMouseMove(e, item.id)}
-        onMouseEnter={(e: any) => handleMouseMove(e, item.id)}
-      >
+      <Box sx={{ position: "relative", width: { xs: 100, sm: 150 }, height: "100%" }}>
         <CardMedia
           component="img"
           src={item.thumbnail_image}
           alt={item.name}
           sx={{ width: "100%", height: "100%" }}
-        />
-
-        {/* Reusable Lens component */}
-        <Lens
-          image={item.thumbnail_image}
-          mousePosition={mousePosition}
-          lensSize={lensSize}
-          zoomFactor={zoomFactor}
-          isHovering={hoveringItemId === item.id}
         />
       </Box>
 
@@ -69,32 +44,19 @@ function HorizontalItemCard({
           position: "relative",
         }}
       >
-        {/* Delete Icon Positioned Top-Right */}
-        <IconButton
-          data-cart-item-id={item.id}
-          className="delete-button"
-          aria-label="delete"
-          size="small"
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-          }}
-        >
-          <AiOutlineDelete className="text-lg md:text-2xl dark:text-white text-gray-500 cursor-pointer" />
-        </IconButton>
-
         <Typography
           gutterBottom
           variant="h6"
           component="div"
           sx={{
             fontWeight: "bold",
-            fontSize: "1.25rem",
+            fontSize: { xs: "0.75rem", sm: "1.25rem" },
             backgroundImage: "linear-gradient(45deg, #5680E9, #8860D0)",
             WebkitBackgroundClip: "text",
             color: "transparent",
+            mr: 2,
           }}
+          className="line-clamp-2"
         >
           {item.name}
         </Typography>
@@ -102,7 +64,7 @@ function HorizontalItemCard({
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ fontSize: "1rem", fontStyle: "italic" }}
+          sx={{ fontSize: { xs: "0.75rem", sm: "1rem" }, fontStyle: "italic" }}
         >
           {item.price} - Qty: {item.quantity}
         </Typography>

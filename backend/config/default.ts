@@ -18,6 +18,9 @@ export default {
     port: 3001,
   },
   FRONTEND_URL: "http://localhost:3000",
+  stripe: {
+    secret_key: "",
+  },
   JWT: {
     access_token_secret: "",
     access_token_expiry: "",

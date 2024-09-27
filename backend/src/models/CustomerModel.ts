@@ -98,6 +98,23 @@ async function findCustomerById(customer_id: number) {
   });
 }
 
+async function findStripeCustomerId(customer_id: number) {
+  return await prisma.customer.findUnique({ where: {
+    id: customer_id,
+  },
+  select: {
+    stripe_customer_id: true,
+  },
+  });
+}
+
+async function updateStripeCustomerId(user_id: number, cus_id: string) {
+  return await prisma.customer.update({
+    where: { id: user_id },
+    data: { stripe_customer_id: cus_id },
+  });
+}
+
 export {
   checkCustomerEmailUniqueness,
   checkEmailUniqueAndCreateCustomer,
@@ -105,5 +122,7 @@ export {
   updatePasswordAndDeleteToken,
   findCustomerByEmail,
   findCustomerById,
+  findStripeCustomerId,
+  updateStripeCustomerId,
 };
 

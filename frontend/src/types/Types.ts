@@ -1,12 +1,12 @@
-import { CustomError } from "@/utils/error/CustomError"
-import { ButtonProps, TypographyProps } from "@mui/material"
-import { AxiosResponse } from "axios"
-import { ReactNode } from "react"
-import { AxiosRequestConfig } from 'axios';
+import { CustomError } from "@/utils/error/CustomError";
+import { ButtonProps, TypographyProps } from "@mui/material";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { ReactNode } from "react";
 
 /* ========= COOKIES ======= */
 export enum CookieKeys {
   UserId = "user_id",
+  StripeCustomerId = "stripe_customer_id",
 }
   export type CommonCookieConfig = {
     path?: string
@@ -72,7 +72,7 @@ export interface FurnitureItemDetailsProps {
 };
 
 
-export interface HorizontalItemCardProps {
+export interface HorizontaltemCardWithLensEffectProps {
   item: CartItem;
   hoveringItemId: number | null;
   mousePosition: { x: number; y: number };
@@ -84,7 +84,17 @@ export interface HorizontalItemCardProps {
 export interface CartItemsSummeryProps {
   total: number
 } 
+export interface CartItemsListProps {
+  cartItems: CartItem[];
+  handlerCartItems: (event: React.MouseEvent<HTMLDivElement>) => void;
+  isCheckoutCartItems?: boolean;
+}
 
+export interface PaymentMethodCardProps{
+  checkedCardId:string
+  setCheckedCardId:React.Dispatch<string>
+  cardDetails: PaymentMethods
+}
 
 /* ========= API CALLS ======== */
 export type ApiCall<T> = () => Promise<AxiosResponse<T>>;
@@ -202,4 +212,10 @@ export interface SnackBarSliceState {
 }
 export type SnackBarType = "success" | "error"
 
-
+export interface PaymentMethods {
+  id: string
+  brand: string
+  exp_year: number
+  name: string
+  last4: string
+}

@@ -18,9 +18,12 @@ export function handleApiError(error: any): { data: null, error: CustomError } {
       } else {
         errorMessage = error.message;
       }
-    } else {
+    } else if (error instanceof CustomError) {
+      errorMessage = error.message;
+      statusCode = error.statusCode;
+    }
+     else {
       errorMessage = error.message || "An unknown error occurred";
     }
-  
-    return { data: null, error: new CustomError(errorMessage, statusCode) };
+    return { data: null, error: new CustomError(errorMessage, error.statusCode) };
   }

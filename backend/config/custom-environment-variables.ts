@@ -20,6 +20,9 @@ export default {
     SMTP_SERVICE: "SMTP_SERVICE",
     SMTP_FROM_EMAIL: "SMTP_FROM_EMAIL",
   },
+  stripe: {
+    secret_key: "STRIPE_SECRET_KEY",
+  },
   VerificationTokenSecret: "VERIFICATION_TOKEN_SECRET",
   tokenExpiry: {
     EMAIL_VERIFICATION: "EMAIL_VERIFICATION_TOKEN_EXPIRY",

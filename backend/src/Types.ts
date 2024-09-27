@@ -100,6 +100,16 @@ export interface AddCartItemRequestBody {
     quantity: number;
 }
 
+export interface SavePaymentMethodRequestBody {
+    pm_id: string
+    stripe_cus_id: string
+}
+export interface PayCartRequestBody {
+    pm_id: string
+    stripe_cus_id: string
+    is_pm_save?: boolean
+}
+
 
 /* export interface CartWithItems{
     id: number;

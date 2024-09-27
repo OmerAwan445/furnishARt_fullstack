@@ -23,6 +23,9 @@ export default {
     access_token_secret: "",
     access_token_expiry: "",
   },
+  stripe: {
+    secret_key: "",
+  },
   NODEMAILER: {
     SMTP_PASSWORD: "",
     SMTP_SERVICE: "",

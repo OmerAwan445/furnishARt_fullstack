@@ -21,4 +21,7 @@ export const BACKEND_API_ENDPOINTS = {
   addCartItem: "/cart/add-item",
   getCartDetails: "/cart",
   removeCartItem: "/cart/remove-item",
+
+  // Stripe Payment
+  getStripeCustomerAccountId: "/stripe/customer-account-id",
 }

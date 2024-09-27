@@ -1,6 +1,4 @@
-import { ApiResponse, ApiCall } from "@/types/Types";
-import axios from "axios";
-import { CustomError } from "../error/CustomError";
+import { ApiCall, ApiResponse } from "@/types/Types";
 import { handleApiError } from "./handleApiError";
 
 export async function handleApiCall<T>(

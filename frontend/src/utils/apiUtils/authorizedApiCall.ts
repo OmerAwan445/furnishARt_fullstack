@@ -1,8 +1,8 @@
 import { ApiResponse, AuthApiCall, AuthFetchApiCall } from "@/types/Types";
 import { getSessionServerSide } from "@/utils/auth/getSessionServerSide";
-import axios, { AxiosRequestConfig } from "axios";
-import { CustomError } from "../error/CustomError";
+import { AxiosRequestConfig } from "axios";
 import { getSession } from "next-auth/react";
+import { CustomError } from "../error/CustomError";
 import { handleApiError } from "./handleApiError";
 
 export async function authorizedApiCall<T>(
@@ -41,7 +41,7 @@ export async function authorizedApiCall<T>(
 }
 
 
-/* export async function authorizedFetchApiCall<T>(
+export async function authorizedFetchApiCall<T>(
   apiCall: AuthFetchApiCall<T>
 ): Promise<ApiResponse<T>> {
   try {
@@ -75,4 +75,4 @@ export async function authorizedApiCall<T>(
   } catch (error: any) {
     return handleApiError(error);
   }
-} */
+}
