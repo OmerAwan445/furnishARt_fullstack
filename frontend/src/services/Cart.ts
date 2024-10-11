@@ -4,7 +4,7 @@ import {
   authorizedApiCall
 } from "@/utils/apiUtils/authorizedApiCall";
 import { CustomError } from "@/utils/error/CustomError";
-import { revalidateTagAction } from "../server-actions/revalidatePathAction";
+import { revalidateTagAction } from "../server-actions/revalidateCacheAction";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 
 class CartServices {

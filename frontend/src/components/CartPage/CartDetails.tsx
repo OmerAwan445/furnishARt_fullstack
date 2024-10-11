@@ -9,13 +9,13 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import CartItemsList from "./CartItemsList";
 import CartSummary from "./CartISummary";
-import { SnakcBarActions } from "@/store/Slices/SnackBarSlice";
+import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 
 function CartDetails(props: { data: GetCartDetailsResponse }) {
   const [cartData, setCartData] = useState(props.data);
   const dispatch = useAppDispatch();
-  const { addMessage } = SnakcBarActions;
+  const { addMessage } = SnackBarActions;
 
   const { mutate: deleteCartItem } = useMutation({
     mutationFn: CartSvs.removeCartItem,

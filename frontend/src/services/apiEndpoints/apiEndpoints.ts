@@ -24,4 +24,6 @@ export const BACKEND_API_ENDPOINTS = {
 
   // Stripe Payment
   getStripeCustomerAccountId: "/stripe/customer-account-id",
+  payCart: '/stripe/pay-cart',
+  getAllPaymentMethods: '/stripe/all-payment-methods/'
 }

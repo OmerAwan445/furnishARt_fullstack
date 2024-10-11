@@ -1,9 +1,7 @@
-import React from 'react'
+import MasterCard from "@/assets/Images/payment/master-card.svg";
 import Visa from '@/assets/Images/payment/visa.svg';
-import Image from "next/image";
 import { PaymentMethodCardProps } from '@/types/Types';
-
-
+import Image from "next/image";
 
 export default function PaymentMethodCard({checkedCardId, setCheckedCardId, cardDetails}: PaymentMethodCardProps) {
     return (
@@ -20,7 +18,7 @@ export default function PaymentMethodCard({checkedCardId, setCheckedCardId, card
 
         <div className="w-2/12 border-gray-200 dark:bg-white p-1 border-2 justify-center flex rounded-md xl:m-1 mr-2 lg:mr-0">
             <Image height={0} width={0}
-                className="h-7" src={Visa} alt="" />
+                className="h-7" src={cardDetails.brand === "visa" ? Visa : MasterCard  } alt="Visa" />
         </div>
 
         <div className="xl:w-6/12 w-7/12">

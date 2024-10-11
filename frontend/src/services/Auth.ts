@@ -1,9 +1,10 @@
 import apiInstance, { apiInstanceSS } from "@/ApiInstance";
-import { ResetPassword, SignupFormData } from "@/types/Types";
+import { CookieKeys, ResetPassword, SignupFormData } from "@/types/Types";
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
 import { signIn, signOut } from "next-auth/react";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 import axios from "axios";
+import { deleteCookies } from "@/server-actions/deleteCookies";
 class AuthService {
 
   static async signUpCustomer(formData: SignupFormData) {
@@ -32,6 +33,7 @@ class AuthService {
   }
 
   static async signOutUser() {
+    await deleteCookies([CookieKeys.StripeCustomerId, CookieKeys.UserId]);
     signOut();
   }
 

@@ -1,5 +1,5 @@
 import { SnackBarSliceState } from "@/types/Types"
-import reducers from "../Reducers/SnakcBarReducers"
+import reducers from "../Reducers/SnackBarReducers"
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState: SnackBarSliceState = {
@@ -15,4 +15,4 @@ export const SnakcBarSlice = createSlice({
 })
 
 export default SnakcBarSlice.reducer
-export const SnakcBarActions = SnakcBarSlice.actions
+export const SnackBarActions = SnakcBarSlice.actions
