@@ -1,9 +1,8 @@
 import apiInstance from "@/ApiInstance";
-import { authorizedApiCall, authorizedFetchApiCall } from "@/utils/apiUtils/authorizedApiCall";
-import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 import { getStripeCusId } from "@/server-actions/getStripeCusId";
 import { PaymentMethods } from "@/types/Types";
-import { revalidateTagAction } from "@/server-actions/revalidateCacheAction";
+import { authorizedApiCall, authorizedFetchApiCall } from "@/utils/apiUtils/authorizedApiCall";
+import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 
 class StripeServices {
   private static BASE_URL_SS = process.env.BACKEND_API_URL;
@@ -57,7 +56,6 @@ class StripeServices {
         { stripe_cus_id, pm_id, is_pm_save: is_pm_save ?? false },
         config
       ));
-if(is_pm_save) await revalidateTagAction('checkout')
     if (error || data.status == "Error") throw error;
     return data.status;
   }
