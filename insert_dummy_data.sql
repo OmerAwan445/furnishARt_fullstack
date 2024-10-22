@@ -169,11 +169,11 @@ VALUES
     'Experience the epitome of comfort and luxury with the LuxLounge Sofa. Crafted with high-density foam cushions and wrapped in premium velvet fabric, this sofa offers both style and relaxation. Its sleek design makes it the perfect addition to any modern living room.', 
     899.99, 
     20, 
-    'http://localhost:3001/api/furniture-item/3dmodel/1', 
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/1.glb', 
     ARRAY[
-      'http://localhost:3002/api/assets/images/1/1.png', 
-      'http://localhost:3002/api/assets/images/1/2.png', 
-      'http://localhost:3002/api/assets/images/1/3.png'
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/1.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/2.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/3.png'
     ], 
     5, 
     'Blue', 
@@ -187,11 +187,11 @@ VALUES
     'The TimberRest Bed combines rustic charm with modern comfort. Made from solid pine wood, this bed features a sturdy frame and a classic design that fits seamlessly into any bedroom decor. The headboard and footboard are beautifully crafted, adding a touch of elegance.', 
     1299.99, 
     10, 
-    'http://localhost:3001/api/furniture-item/3dmodel/2', 
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/2.glb', 
     ARRAY[
-      'http://localhost:3002/api/assets/images/2/1.png', 
-      'http://localhost:3002/api/assets/images/2/2.png', 
-      'http://localhost:3002/api/assets/images/2/3.png'
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/1.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/2.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/3.png'
     ], 
     8, 
     'Natural Wood', 
@@ -205,11 +205,11 @@ VALUES
     'The Nexus Modern Dining Table is a perfect blend of contemporary design and functionality. With a tempered glass top and sleek metal legs, this table is both durable and stylish. It comfortably seats six, making it ideal for family dinners or entertaining guests.', 
     749.99, 
     15, 
-    'http://localhost:3001/api/furniture-item/3dmodel/3', 
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/3.glb', 
     ARRAY[
-      'http://localhost:3002/api/assets/images/3/1.png', 
-      'http://localhost:3002/api/assets/images/3/2.png', 
-      'http://localhost:3002/api/assets/images/3/3.png'
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/1.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/2.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/3.png'
     ], 
     12, 
     'Clear Glass', 
@@ -223,11 +223,11 @@ VALUES
     'Add a touch of elegance to your dining area with the Velura Cushion Dining Chair. Upholstered in plush velvet and featuring a cushioned seat, this chair offers both comfort and style. The solid wood frame ensures durability, while the sleek design complements any dining table.', 
     199.99, 
     30, 
-    'http://localhost:3001/api/furniture-item/3dmodel/4', 
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/4.glb', 
     ARRAY[
-      'http://localhost:3002/api/assets/images/4/1.png', 
-      'http://localhost:3002/api/assets/images/4/2.png', 
-      'http://localhost:3002/api/assets/images/4/3.png'
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/1.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/2.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/3.png'
     ], 
     20, 
     'Velvet Green', 
@@ -241,11 +241,11 @@ VALUES
     'The PineCraft Wooden Chair is a classic piece that brings warmth and tradition to any space. Made from high-quality pine wood, this chair is both sturdy and comfortable. Its simple design makes it versatile, perfect for use in dining rooms, kitchens, or as an accent chair.', 
     149.99, 
     25, 
-    'http://localhost:3001/api/furniture-item/3dmodel/5', 
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/5.glb', 
     ARRAY[
-      'http://localhost:3002/api/assets/images/5/1.png', 
-      'http://localhost:3002/api/assets/images/5/2.png', 
-      'http://localhost:3002/api/assets/images/5/3.png'
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/1.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/2.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/3.png'
     ], 
     18, 
     'Natural Wood', 
@@ -259,11 +259,11 @@ VALUES
     'The Wooden Study Table is the perfect blend of functionality and style. Crafted from solid wood, it features a spacious work surface and built-in drawers for storage. This table is ideal for both students and professionals, providing a comfortable and efficient workspace.', 
     399.99, 
     20, 
-    'http://localhost:3001/api/furniture-item/3dmodel/6', 
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/6.glb', 
     ARRAY[
-      'http://localhost:3002/api/assets/images/6/1.png', 
-      'http://localhost:3002/api/assets/images/6/2.png', 
-      'http://localhost:3002/api/assets/images/6/3.png'
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/1.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/2.png', 
+      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/3.png'
     ], 
     10, 
     'Dark Walnut', 

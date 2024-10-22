@@ -70,11 +70,7 @@ The advent of AR technology offers innovative opportunities to enhance e-commerc
   
 
 -  ### 3D Model Demo
-
-<video width="640" height="360" controls>
-  <source src="./assets/demo-web-pages/3D%20Model%20Demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/7f198166-e711-436d-8827-5f3fbc76fcfb
 
 -  ### Home Page:
 
