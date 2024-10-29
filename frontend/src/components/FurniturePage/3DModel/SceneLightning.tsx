@@ -7,7 +7,7 @@ function SceneLightning() {
     useHelper(directionalLightRef, DirectionalLightHelper, 5, "red");
     return (
       <>
-        <ambientLight intensity={3} color={"white"} position={[0, 0, 0]} />
+        <ambientLight intensity={1} color={"white"} position={[0, 0, 0]} />
         {/* <pointLight color="white" intensity={1}  position={[1,2,0]}/> */}
       </>
     );

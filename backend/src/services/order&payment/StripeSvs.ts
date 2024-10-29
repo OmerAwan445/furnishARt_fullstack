@@ -4,16 +4,19 @@ import {
   findStripeCustomerId,
   updateStripeCustomerId,
 } from "@src/models/CustomerModel";
+import OrderModel from "@src/models/OrderModel";
 import { getEnv } from "@src/utils/getEnv";
 import Stripe from "stripe";
 
 export class StripeSvs {
   private readonly stripe: Stripe;
   private readonly CartModel: CartModel;
+  private readonly OrderModel: OrderModel;
 
   constructor() {
     this.stripe = new Stripe(getEnv("stripe.secret_key"));
     this.CartModel = new CartModel();
+    this.OrderModel = new OrderModel();
   }
 
   getExistingOrCreateStripeCustomer = async (
@@ -67,6 +70,7 @@ export class StripeSvs {
       throw new AppError("Cart not found", 404);
     }
     const cartprice = Number(cart.price);
+
     if (cartprice <= 0) {
       throw new AppError("Cart is empty", 400);
     }
@@ -80,7 +84,11 @@ export class StripeSvs {
       return_url: getEnv('FRONTEND_URL'),
     });
 
-    // delete the cart
+    if (payment.status !== "succeeded") {
+      throw new AppError("Payment failed", 400);
+    }
+
+    await this.OrderModel.deleteCartAndAddItemsToOrder(cart, user_id);
     return payment;
   };
 }

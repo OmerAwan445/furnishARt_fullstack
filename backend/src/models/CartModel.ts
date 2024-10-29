@@ -39,7 +39,7 @@ export class CartModel {
       where: {
         customer_id: cusId,
       },
-      select: { id: true, price: true },
+      select: { id: true, price: true, cartItems: true },
     });
   }
 
@@ -62,24 +62,6 @@ export class CartModel {
           ],
         },
       },
-    //   select: {
-    //     id: true,
-    //     price: true,
-    //     cartItems: {
-    //       select: {
-    //         id: true,
-    //         quantity: true,
-    //         furniture_item: {
-    //           select: {
-    //             id: true,
-    //             name: true,
-    //             price: true,
-    //             image_urls: true,
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
     });
   }
 

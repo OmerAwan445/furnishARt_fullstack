@@ -25,9 +25,14 @@ import HorizontalItemCard from "../common/ItemCards/HorizontaltemCard";
       setMousePosition({ x, y });
       setHoveringItemId(itemId);
     };
-  
     return (
-      <Grid container spacing={3} onClick={handlerCartItems}>
+      <Grid sx={{
+        mt: 2,
+        maxHeight: "70vh",
+        overflowY: "auto",
+        p: 2,
+        mb: 4,
+      }} container spacing={3} onClick={handlerCartItems}>
         {cartItems.map((_item) => (
           <Grid item xs={12} key={_item.id}>
               {isCheckoutCartItems ?
