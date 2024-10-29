@@ -1,4 +1,4 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { Decimal, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request } from "express";
 
 
@@ -111,18 +111,16 @@ export interface PayCartRequestBody {
 }
 
 
-/* export interface CartWithItems{
+export interface CartWithItems{
     id: number;
     price: Decimal;
     cartItems: {
         id: number;
         quantity: number;
-        furniture_item: {
-            id: number;
-            name: string;
-            price: Decimal;
-            image_urls: string[];
-        }
-    }[];
+        furniture_item_id: number;
+        cart_id: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }[]
 }
- */
+
