@@ -1,4 +1,4 @@
-import { SnakcBarActions } from '@/store/Slices/SnackBarSlice';
+import { SnackBarActions } from '@/store/Slices/SnackBarSlice';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useAppDispatch } from './reduxHooks';
 
@@ -19,7 +19,7 @@ interface UseAuthReturn<TData, TOutput> {
 const useAuth = <TData, TOutput>({ mutationFn, onSuccess, onError }: UseAuthProps<TData, TOutput>): UseAuthReturn<TData, TOutput> => {
   
   const dispatch = useAppDispatch();
-  const { addMessage } = SnakcBarActions;
+  const { addMessage } = SnackBarActions;
 
 
   const { isPending, mutate } = useMutation<TOutput, any, TData>({

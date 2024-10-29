@@ -49,8 +49,7 @@ model Cart {
   cartItems   CartItem[] 
   created_at  DateTime   @default(now())
   updated_at  DateTime   @updatedAt
-  order       Order?
-  deleted    Boolean    @default(false)
+
   customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
 }
 
@@ -89,7 +88,9 @@ model FurnitureItem {
   category_id    Int
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+
   CartItem       CartItem[]
+  OrderItem      OrderItem[]
   reviews        Review[]
 
   Category Category @relation(fields: [category_id], references: [id])
@@ -100,14 +101,26 @@ model Order {
   order_status  ORDERSTATUS
   total_amount  Decimal       @db.Decimal(10, 2)
   customer_id   Int
-  cart_id       Int           @unique
   created_at    DateTime      @default(now())
   updated_at    DateTime      @updatedAt
   order_address OrderAddress?
 
   customer Customer @relation(fields: [customer_id], references: [id])
-  cart     Cart     @relation(fields: [cart_id], references: [id])
+  orderItems OrderItem []
   payment  Payment?
+}
+
+model OrderItem {
+  id                Int      @id @default(autoincrement())
+  quantity          Int
+  furniture_item_id Int
+  order_id          Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  furniture_item FurnitureItem @relation(fields: [furniture_item_id], references: [id])
+  order           Order          @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  @@unique([furniture_item_id, order_id])
 }
 
 model OrderAddress {

@@ -1,7 +1,8 @@
 import footerContent from '@/content/footer';
-import { Box, Container, Grid, IconButton, Link, Typography } from '@mui/material';
+import { Box, Container, Grid, IconButton, Typography } from '@mui/material';
 import * as React from 'react';
 import { BackgroundBeams } from '@/components/ui/background-beams';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   const {title, description, footerColumns, socials } = footerContent;
@@ -9,7 +10,6 @@ const Footer: React.FC = () => {
   return (
     <Box
     className="h-auto w-full bg-gradient-to-l from-[#3E362E] via-[#5a4937] to-[#3E362E] antialiased z-50"
-    // className="h-auto w-full bg-gradient-to-r from-[#3E362E] via-[#6B563D] to-[#AC8968] antialiased z-50"
     sx={{
         position: 'relative',
         width: "100vw",
@@ -38,7 +38,8 @@ const Footer: React.FC = () => {
             </Typography>
             {column.links.map((link, index) =>
               <span key={link.name}>
-              <Link underline={"none"}  href={link.link} sx={{ display: 'inline-block', ':hover' : { color: 'secondary.light'}}} color="background.default" display="block">{link.name}</Link>
+              <Link  href={link.link} className='inline-block text-white hover:text-[#F0E6DC]'>
+              {link.name}</Link>
               <br/>
               </span>
             )}

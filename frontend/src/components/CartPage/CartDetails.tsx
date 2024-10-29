@@ -1,21 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { Fragment, useState } from "react";
+import { useAppDispatch } from "@/hooks/reduxHooks";
 import CartSvs from "@/services/Cart";
+import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 import { GetCartDetailsResponse } from "@/types/Types";
 import { removeCartItem } from "@/utils/cart/removeCartItem";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import CartItemsList from "./CartItemsList";
+import Link from "next/link";
+import { Fragment, useState } from "react";
 import CartSummary from "./CartISummary";
-import { SnakcBarActions } from "@/store/Slices/SnackBarSlice";
-import { useAppDispatch } from "@/hooks/reduxHooks";
+import CartItemsList from "./CartItemsList";
 
-function CartDetails(props: { data: GetCartDetailsResponse }) {
+function CartDetails(props: { data: GetCartDetailsResponse | null }) {
   const [cartData, setCartData] = useState(props.data);
   const dispatch = useAppDispatch();
-  const { addMessage } = SnakcBarActions;
+  const { addMessage } = SnackBarActions;
 
   const { mutate: deleteCartItem } = useMutation({
     mutationFn: CartSvs.removeCartItem,
@@ -33,7 +33,7 @@ function CartDetails(props: { data: GetCartDetailsResponse }) {
         deleteCartItem(Number(cartItemId), {
           onSuccess: (res) => {
             dispatch(addMessage({ message: res.message, type: res.error ? "error" : "success" }));
-            setCartData(removeCartItem(cartData, Number(cartItemId)));
+            setCartData(removeCartItem(cartData as GetCartDetailsResponse, Number(cartItemId)));
           },
         });
       }
@@ -51,7 +51,7 @@ function CartDetails(props: { data: GetCartDetailsResponse }) {
           py: 6,
         }}
       >
-        {cartData.cartItems.length === 0 ? (
+        {!cartData || cartData.cartItems.length === 0 ? (
           <Box
             display="grid"
             justifyContent="center"
@@ -88,26 +88,20 @@ function CartDetails(props: { data: GetCartDetailsResponse }) {
               }}
             >
               <Box>
+                <Box sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  pb: 2,
+                }}>
                 <Typography variant="h5" fontWeight="bold" gutterBottom>
                   Cart items ({cartData.cartItems.length})
                 </Typography>
                 <Typography variant="subtitle2" color="textSecondary">
                   Complete your purchase by providing payment details
                 </Typography>
+                </Box>
 
                 {/*======= Cart Items List ======= */}
                 <CartItemsList handlerCartItems={handlerCartItems} cartItems={cartData.cartItems}/>
-                <Box
-                  sx={{
-                    mt: 2,
-                    maxHeight: "70vh",
-                    overflowY: "auto",
-                    p: 2,
-                    mb: 4,
-                  }}
-                >
-                  {/* Add your cart items rendering logic here */}
-                </Box>
               </Box>
             </Grid>
 

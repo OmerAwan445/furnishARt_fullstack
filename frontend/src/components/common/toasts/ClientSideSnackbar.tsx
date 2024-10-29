@@ -2,12 +2,12 @@
 
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import CustomToast from "./CustomToast";
-import { SnakcBarActions } from "@/store/Slices/SnackBarSlice";
+import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 
 const ClientSideSnackbar = () => {
   const dispatch = useAppDispatch();
   const { message, open, type } = useAppSelector((state) => state.snackbar);
-  const { closeSnackbar } = SnakcBarActions;
+  const { closeSnackbar } = SnackBarActions;
     
   return (
     <CustomToast

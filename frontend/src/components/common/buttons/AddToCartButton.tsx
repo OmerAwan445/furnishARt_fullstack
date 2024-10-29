@@ -2,13 +2,13 @@ import React from 'react'
 import DefaultButton from './DefaultButton'
 import CartSvs from '@/services/Cart'
 import { useAppDispatch } from '@/hooks/reduxHooks'
-import { SnakcBarActions } from '@/store/Slices/SnackBarSlice'
+import { SnackBarActions } from '@/store/Slices/SnackBarSlice'
 import { useRouter } from 'next/navigation'
 
 const AddToCartButton = ({ quantity = 1, furnitureId }: { furnitureId: number, quantity?: number }) => {
 
   const dispatch = useAppDispatch();
-  const { addMessage } = SnakcBarActions;
+  const { addMessage } = SnackBarActions;
   const router = useRouter();
 
  async function handlerOnClick(){

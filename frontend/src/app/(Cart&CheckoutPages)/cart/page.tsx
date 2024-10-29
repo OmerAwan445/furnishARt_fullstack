@@ -10,10 +10,7 @@ const CartPage = async () => {
   return (
     <Box>
       <ClientSideSnackbar />
-      {cartDetails.data ?
         <CartDetails data={cartDetails.data}/>
-      : <Typography mt={4} textAlign={"center"} variant="h3">{cartDetails.message}</Typography>
-      }
     </Box>
   )
 }

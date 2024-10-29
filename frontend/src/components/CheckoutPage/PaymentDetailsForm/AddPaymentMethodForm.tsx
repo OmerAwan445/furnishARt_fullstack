@@ -1,7 +1,8 @@
 'use client';
 
 import BlackFilledButton from "@/components/common/buttons/BlackFilledButton";
-// import { usePayCart } from "@/hooks/usePayCart"
+import { usePayCart } from "@/hooks/usePayCart";
+import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -9,17 +10,23 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, SetStateAction, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
-function AddPaymentMethodForm() {
+
+function AddPaymentMethodForm({ setShowPaymentForm }: {setShowPaymentForm: React.Dispatch<SetStateAction<boolean>> }) {
   const stripe = useStripe()
   const elements = useElements()
   const [saveCard, setSaveCard] = useState(false)
-  // const { mutate: payCartCourses, isPending: payCartCourse_isLoading } = usePayCart()
+  const { mutate: payCartCourses, isPending: payCartCourse_isLoading } = usePayCart();
+  const { addMessage } = SnackBarActions;
+  const dispatch =  useDispatch();
   const [billingDetails, setBillingDetails] = useState({
     cardholderName: "",
   })
+  
 
   async function handleSubmitCardDetails(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -29,35 +36,22 @@ function AddPaymentMethodForm() {
       return
     }
 
-    const _billingDetails = {
-      name: billingDetails.cardholderName,
-      email: null,
-      address: {
-        line1: null,
-        line2: null,
-        city: null,
-      },
-    }
-    try {
       const { error, paymentMethod } = await (stripe as any).createPaymentMethod({
         type: "card",
         card: elements.getElement(CardNumberElement),
-        billing_details: _billingDetails,
+        billing_details: {
+          name: billingDetails.cardholderName
+        },
       })
       if (error) {
-        throw new Error(error.message)
+        dispatch(addMessage({ message: "Error Creating Payment Method, Try Again!", type: "error"}));
       } else {
-        const { id: pm_id } = paymentMethod
+        const { id: pm_id } = paymentMethod;
         console.log(paymentMethod, "Payment Method ID");
         // Pay cart Amount
-        // if (cart_id && stripe_cus_acc_id && pm_id) {
-        //   payCartCourses({ cart_id, stripe_cus_acc_id, pm_id,is_pm_saved:saveCard })
-        // }
+          payCartCourses({ pm_id, is_pm_save: saveCard });
+        }
       }
-    } catch (backendError) {
-      console.error("Error sending Payment Method to backend:", backendError)
-  }
-}
 
   const StripeFieldsOptions = {
     style: {
@@ -69,6 +63,7 @@ function AddPaymentMethodForm() {
       },
     },
   }
+
   return (
     <form onSubmit={handleSubmitCardDetails}>
       <div className="flex justify-center">
@@ -142,7 +137,7 @@ function AddPaymentMethodForm() {
       </div>
 
       {/* Save Card checkbox */}
-      <div className="mb-5 mt-3 flex items-center">
+      <div className="mb-1 mt-3 flex items-center">
         <input
           type="checkbox"
           id="save-card"
@@ -154,8 +149,9 @@ function AddPaymentMethodForm() {
           Securely save my card for future payments
         </label>
       </div>
-
+         <button onClick={()=> setShowPaymentForm(false)} className="mb-3 text-sm underline text-green-500 hover:text-green-300">Show saved payment methods</button>
         <BlackFilledButton
+        disabled= {payCartCourse_isLoading}
         type="submit"
           endIcon={<FaArrowRight />}
         >

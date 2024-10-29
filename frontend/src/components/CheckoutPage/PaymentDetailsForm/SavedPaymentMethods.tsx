@@ -2,20 +2,28 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import PaymentMethodCard from "./PaymentMethodCard";
+import { PaymentMethods } from "@/types/Types";
+import BlackFilledButton from "@/components/common/buttons/BlackFilledButton";
+import { usePayCart } from "@/hooks/usePayCart";
+import { useDispatch } from "react-redux";
+import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 
 function SavedPaymentMethods({
   showPaymentForm,
+  paymentMethods
 }: {
-  showPaymentForm: React.Dispatch<boolean>;
+  showPaymentForm: React.Dispatch<boolean>,
+  paymentMethods: PaymentMethods[]
 }) {
   const [checkedCardId, setCheckedCardId] = useState("");
-  const paymentMethodsData = useAppSelector((state) => state.paymentMethods);
-  // const {mutate:payCourse, isPending} = usePayCart();
+  const {mutate:payCourse, isPending} = usePayCart();
+  const dispatch = useDispatch();
+  const { addMessage } = SnackBarActions;
 
-  // async function handleProceedPayment(){
-  //     if(!cart_id || !stripe_cus_acc_id || !checkedCardId) return
-  //     payCourse({cart_id,stripe_cus_acc_id,pm_id:checkedCardId});
-  // }
+  async function handleProceedPayment(){
+      if(!checkedCardId) return dispatch(addMessage({ message: "Select a Card", type: 'error' }));
+      payCourse({ pm_id:checkedCardId });
+  }
 
   return (
     <div>
@@ -32,14 +40,14 @@ function SavedPaymentMethods({
             onClick={() => {
               showPaymentForm(true);
             }}
-            className="float-right text-maincolor border border-maincolor rounded-2xl text-sm xl:py-1 xl:px-2 py-1 px-2"
+            className="float-right text-green-500 border border-green-500 hover:bg-green-500 hover:text-white rounded-2xl text-sm xl:py-1 xl:px-2 py-1 px-2"
           >
             + Add New
           </button>
         </div>
       </div>
       <div className="flex flex-wrap">
-        {paymentMethodsData.map((cardData) => (
+        {paymentMethods.map((cardData) => (
           <PaymentMethodCard
             checkedCardId={checkedCardId}
             setCheckedCardId={setCheckedCardId}
@@ -48,17 +56,14 @@ function SavedPaymentMethods({
         ))}
       </div>
       <hr className="xl:mb-5 lg:mt-4 mt-2 mb-3 border" />
-      <button
-        // disabled={isPending }
-        // onClick={handleProceedPayment}
-        className="mt-5 disabled:!bg-blue-gray-600 disabled:cursor-default
-                flex h-12 w-full cursor-pointer items-center justify-between rounded-md bg-maincolor hover:bg-maincolordeep px-7 text-center text-white lg:mt-4 xl:mt-5 xl:text-sm"
-      >
-        <span className="justify-center text-center text-sm">
+      <BlackFilledButton
+        disabled= {isPending}
+      onClick={handleProceedPayment}
+        type="submit"
+          endIcon={<FaArrowRight />}
+        >
           Proceed to Pay
-        </span>
-        <FaArrowRight className="max-h-10 w-6 lg:w-auto xl:pl-12" />
-      </button>
+        </BlackFilledButton>
     </div>
   );
 }
