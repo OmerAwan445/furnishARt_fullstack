@@ -15,7 +15,7 @@ const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => 
         <FurnitureImagesAnd3DModel modelUrl={model_3d_url} images={image_urls} />
       </Grid>
       <Grid item xs={12} md={6}>
-        <Box>
+        <Box component="div">
           <Typography variant="h4" fontWeight={600} gutterBottom>{name}</Typography>
           <Typography variant="h5" fontWeight={600} gutterBottom>${price}</Typography>
           <Typography variant="body1" paragraph>{description}</Typography>

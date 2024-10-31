@@ -23,7 +23,7 @@ function HorizontalItemCard({
         height: { xs: 100, sm: 120 },
       }}
     >
-      <Box sx={{ position: "relative", width: { xs: 100, sm: 150 }, height: "100%" }}>
+      <Box component="div" sx={{ position: "relative", width: { xs: 100, sm: 150 }, height: "100%" }}>
         <CardMedia
           component="img"
           src={item.thumbnail_image}

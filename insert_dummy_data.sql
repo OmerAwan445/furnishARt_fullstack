@@ -37,6 +37,291 @@ VALUES
  
 INSERT INTO "FurnitureItem" (name, description, price, stock_quantity, model_3d_url, image_urls, total_sales, color, dimension, weight, category_id, "updatedAt")
 VALUES
+-- 1. LuxLounge Sofa 
+(
+    'LuxLounge Sofa',
+    'Experience the epitome of comfort and luxury with the LuxLounge Sofa. Crafted with high-density foam cushions and wrapped in premium velvet fabric, this sofa offers both style and relaxation. Its sleek design makes it the perfect addition to any modern living room.',
+    899.99,
+    20,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/1.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/3.png'
+    ],
+    5,
+    'Blue',
+    '30x32x74 inches',
+    45.0,
+    3,
+    NOW()
+),
+-- 2. Solo Comfort Bed
+(
+    'Solo Comfort Bed',
+    'A spacious and stylish bed designed for ultimate relaxation. The Solo Comfort Bed is crafted with a durable wood frame and high-density foam padding to ensure long-lasting comfort and support.',
+    649.99,
+    15,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/2.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/3.png'
+    ],
+    3,
+    'Gray',
+    '39x30x75 inches',
+    70.0,
+    4,
+    NOW()
+),
+-- 3. Velura Cushion Dining Chair
+(
+    'Velura Cushion Dining Chair',
+    'Comfort meets style with the Velura Cushion Dining Chair, featuring soft, upholstered seating and a modern, minimalist frame. Perfect for enhancing any dining space.',
+    199.99,
+    30,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/3.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/3.png'
+    ],
+    7,
+    'Beige',
+    '19x20x45 inches',
+    10.0,
+    1,
+    NOW()
+),
+-- 4. TimberRest Bed
+(
+    'TimberRest Bed',
+    'The TimberRest Bed offers a robust wooden frame and simple design for a warm and cozy bedroom ambiance.',
+    749.99,
+    10,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/4.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/3.png'
+    ],
+    6,
+    'Brown',
+    '72x85x45 inches',
+    60.0,
+    3,
+    NOW()
+),
+-- 5. Nexus Modern Dining Table
+(
+    'Nexus Modern Dining Table',
+    'Elegant dining table with a contemporary glass top and a sturdy metal base. Perfect for family gatherings and dinner parties.',
+    559.99,
+    8,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/5.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/3.png'
+    ],
+    4,
+    'Black',
+    '40x65x30 inches',
+    35.0,
+    2,
+    NOW()
+),
+-- 6. PineCraft Wooden Chair
+(
+    'PineCraft Wooden Chair',
+    'Sturdy wooden chair crafted from high-quality pine, with a rustic charm to complement any room decor.',
+    119.99,
+    50,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/6.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/3.png'
+    ],
+    15,
+    'Natural',
+    '18x15x32 inches',
+    8.0,
+    1,
+    NOW()
+),
+-- 7. Round Table
+(
+    'Round Table',
+    'Compact round table with a minimalist design, ideal for small spaces and coffee corners.',
+    179.99,
+    25,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/7.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/7/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/7/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/7/3.png'
+    ],
+    10,
+    'White',
+    '34x34x33 inches',
+    12.0,
+    2,
+    NOW()
+),
+-- 8. SoftSwirl Cushion Chair
+(
+    'SoftSwirl Cushion Chair',
+    'Sink into the luxurious softness of the SoftSwirl Cushion Chair, perfect for reading or relaxation.',
+    299.99,
+    18,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/8.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/8/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/8/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/8/3.png'
+    ],
+    12,
+    'Green',
+    '37x33x39 inches',
+    15.0,
+    1,
+    NOW()
+),
+-- 9. Cosmo Couch
+(
+    'Cosmo Couch',
+    'A versatile and stylish couch with clean lines and high-quality upholstery, perfect for any modern living space.',
+    799.99,
+    12,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/9.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/9/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/9/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/9/3.png'
+    ],
+    8,
+    'Gray',
+    '38x67x32 incehs',
+    50.0,
+    3,
+    NOW()
+),
+-- 10. VoidFrame Glass Table
+(
+    'VoidFrame Glass Table',
+    'Contemporary glass table with a unique frame design that blends functionality and aesthetics.',
+    499.99,
+    14,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/10.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/10/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/10/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/10/3.png'
+    ],
+    5,
+    'Transparent',
+    '24x4018 inches',
+    20.0,
+    2,
+    NOW()
+),
+-- 11. SleekWood Chair
+(
+    'SleekWood Chair',
+    'An ergonomically designed wooden chair with a sleek finish, combining comfort with modern style.',
+    229.99,
+    30,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/11.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/11/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/11/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/11/3.png'
+    ],
+    9,
+    'Walnut',
+    '19x17x31 incehs',
+    10.0,
+    1,
+    NOW()
+),
+-- 12. Wooden Study Table
+(
+    'Wooden Study Table',
+    'Perfectly sized study table with ample workspace and durable wooden construction.',
+    259.99,
+    20,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/12.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/12/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/12/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/12/3.png'
+    ],
+    7,
+    'Oak',
+    '25x42x23 incehs',
+    25.0,
+    2,
+    NOW()
+),
+-- 13. Comfort Arc Chair
+(
+    'Comfort Arc Chair',
+    'A comfortable chair with an arc backrest design, providing ergonomic support for long hours.',
+    189.99,
+    40,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/13.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/13/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/13/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/13/3.png'
+    ],
+    11,
+    'Red',
+    '19x24x36 inches',
+    12.0,
+    2,
+    NOW()
+),
+-- 14. FlatFrame Steel Bed
+(
+    'FlatFrame Steel Bed',
+    'The FlatFrame Steel Bed combines modern design with durability, featuring a sturdy steel frame and a minimalist aesthetic that fits seamlessly into any bedroom decor.',
+    699.99,
+    15,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/14.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/14/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/14/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/14/3.png'
+    ],
+    10,
+    'Black',
+    '72x35x89 inches',
+    55.0,
+    4,
+    NOW()
+),
+-- 15. Lounge Loft Sofa
+(
+    'Lounge Loft Sofa',
+    'The Lounge Loft Sofa offers a perfect blend of style and comfort, featuring plush seating with modern tufted detailing, ideal for lounging in any contemporary living space.',
+    849.99,
+    20,
+    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/15.glb',
+    ARRAY[
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/15/1.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/15/2.png',
+        'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/15/3.png'
+    ],
+    15,
+    'Gray',
+    '30x74x32 inches',
+    48.0,
+    3,
+    NOW()
+),
   (
     'Costco Center Table (White)', 
     'Stylish and practical, our Costco Table is a modern-day design that adds a soulful ambiance to your home. With a marble decor on top and metal rods in a crisscross arrangement, the table is immaculately designed to uplift your room giving it a sleek outlook. Its striking features include a wide tabletop and sturdy yet sleek metallic legs including glides to prevent any scratches on the floor.', 
@@ -163,115 +448,5 @@ VALUES
     45.0, 
     3, 
     NOW()
-  ),
-	(
-    'LuxLounge Sofa', 
-    'Experience the epitome of comfort and luxury with the LuxLounge Sofa. Crafted with high-density foam cushions and wrapped in premium velvet fabric, this sofa offers both style and relaxation. Its sleek design makes it the perfect addition to any modern living room.', 
-    899.99, 
-    20, 
-    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/1.glb', 
-    ARRAY[
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/1.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/2.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/1/3.png'
-    ], 
-    5, 
-    'Blue', 
-    '220x90x85 cm', 
-    45.0, 
-    3, 
-    NOW()
-  ),
-  (
-    'TimberRest Bed', 
-    'The TimberRest Bed combines rustic charm with modern comfort. Made from solid pine wood, this bed features a sturdy frame and a classic design that fits seamlessly into any bedroom decor. The headboard and footboard are beautifully crafted, adding a touch of elegance.', 
-    1299.99, 
-    10, 
-    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/2.glb', 
-    ARRAY[
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/1.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/2.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/2/3.png'
-    ], 
-    8, 
-    'Natural Wood', 
-    '210x160x110 cm', 
-    70.0, 
-    4, 
-    NOW()
-  ),
-  (
-    'Nexus Modern Dining Table', 
-    'The Nexus Modern Dining Table is a perfect blend of contemporary design and functionality. With a tempered glass top and sleek metal legs, this table is both durable and stylish. It comfortably seats six, making it ideal for family dinners or entertaining guests.', 
-    749.99, 
-    15, 
-    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/3.glb', 
-    ARRAY[
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/1.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/2.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/3/3.png'
-    ], 
-    12, 
-    'Clear Glass', 
-    '180x90x75 cm', 
-    50.0, 
-    2, 
-    NOW()
-  ),
-  (
-    'Velura Cushion Dining Chair', 
-    'Add a touch of elegance to your dining area with the Velura Cushion Dining Chair. Upholstered in plush velvet and featuring a cushioned seat, this chair offers both comfort and style. The solid wood frame ensures durability, while the sleek design complements any dining table.', 
-    199.99, 
-    30, 
-    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/4.glb', 
-    ARRAY[
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/1.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/2.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/4/3.png'
-    ], 
-    20, 
-    'Velvet Green', 
-    '50x55x85 cm', 
-    10.0, 
-    1, 
-    NOW()
-  ),
-  (
-    'PineCraft Wooden Chair', 
-    'The PineCraft Wooden Chair is a classic piece that brings warmth and tradition to any space. Made from high-quality pine wood, this chair is both sturdy and comfortable. Its simple design makes it versatile, perfect for use in dining rooms, kitchens, or as an accent chair.', 
-    149.99, 
-    25, 
-    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/5.glb', 
-    ARRAY[
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/1.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/2.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/5/3.png'
-    ], 
-    18, 
-    'Natural Wood', 
-    '45x50x90 cm', 
-    15.0, 
-    1, 
-    NOW()
-  ),
-  (
-    'Wooden Study Table', 
-    'The Wooden Study Table is the perfect blend of functionality and style. Crafted from solid wood, it features a spacious work surface and built-in drawers for storage. This table is ideal for both students and professionals, providing a comfortable and efficient workspace.', 
-    399.99, 
-    20, 
-    'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/3D-Models/6.glb', 
-    ARRAY[
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/1.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/2.png', 
-      'https://pub-196d36b0dfa74c35a0c00ac9bd0f227a.r2.dev/furniture-images/6/3.png'
-    ], 
-    10, 
-    'Dark Walnut', 
-    '120x60x75 cm', 
-    40.0, 
-    2, 
-    NOW()
   );
-
-
   

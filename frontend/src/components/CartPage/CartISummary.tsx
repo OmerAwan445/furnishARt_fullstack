@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function CartSummary({ total }: CartItemsSummeryProps) {
   return (
-    <Box mx={2.5} mt={2} sx={{ mt: { xl: 3 } }}>
-      <Box mb={3} display="flex" flexDirection="column" alignItems="flex-start">
+    <Box component="div" mx={2.5} mt={2} sx={{ mt: { xl: 3 } }}>
+      <Box component="div" mb={3} display="flex" flexDirection="column" alignItems="flex-start">
         <Typography
           variant="h4"
           component="h4"
@@ -25,8 +25,8 @@ export default function CartSummary({ total }: CartItemsSummeryProps) {
 
       <Divider sx={{ my: 2 }} />
 
-      <Box display="flex" flexWrap="wrap">
-        <Box flexGrow={1}>
+      <Box component="div" display="flex" flexWrap="wrap">
+        <Box component="div" flexGrow={1}>
           <Typography
             variant="h6"
             component="h6"
@@ -35,7 +35,7 @@ export default function CartSummary({ total }: CartItemsSummeryProps) {
             Total
           </Typography>
         </Box>
-        <Box flexGrow={1} display="flex" justifyContent="flex-end">
+        <Box component="div" flexGrow={1} display="flex" justifyContent="flex-end">
           <Typography
             variant="h6"
             component="h6"

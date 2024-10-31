@@ -22,11 +22,11 @@ const FurnitureImagesAnd3DModel = ({ images, modelUrl } : { modelUrl  : string |
   };
 
   return (
-    <Box className="!drop-shadow-primary">
+    <Box component="div" className="!drop-shadow-primary">
       <SimpleSlider  customBreakpoints={customBreakpoints}>
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <Box sx={{ height: 600, overflow: 'hidden', borderRadius: '15px' }}>
+            <Box component="div" sx={{ height: 600, overflow: 'hidden', borderRadius: '15px' }}>
               <Card sx={{ height: 600,
                 // filter: 'brightness(0.98)',
                 // transition: 'filter 0.3s',

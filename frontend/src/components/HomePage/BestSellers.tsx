@@ -30,11 +30,11 @@ const BestSellers = ({ items }: { items: ItemCardProps[] }) => {
   };
 
   return (
-    <Box my={4}>
+    <Box component="div" my={4}>
       <TitleHeadings>
         Best Sellers
       </TitleHeadings>
-      <Box className="px-0 lg:px-10">
+      <Box component="div" className="px-0 lg:px-10">
       <CustomSwiperSlider customBreakpoints={customBreakpoints} isCustomSlider>
         {
         items.map((item)=> 

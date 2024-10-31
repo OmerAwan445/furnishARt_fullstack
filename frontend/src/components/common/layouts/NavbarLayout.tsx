@@ -6,12 +6,12 @@ import Footer from "@/components/Footer";
 
 const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Box className="flex flex-col min-h-screen overflow-x-hidden">
+    <Box component="div" className="flex flex-col min-h-screen overflow-x-hidden">
       <AppBar sx={{ bgcolor: "white"}} position="sticky">
         <TopBar />
         <CustomNavbar />
       </AppBar>
-      <Box className="flex-grow flex">{children}</Box>
+      <Box component="div" className="flex-grow flex">{children}</Box>
       <footer>
         <Footer />
       </footer> 

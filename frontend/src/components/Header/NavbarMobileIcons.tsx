@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 const NavbarMobileIcons = () => {
   return (
-    <Box sx={{ display: {
+    <Box component="div" sx={{ display: {
         xs: 'flex', md: 'none'
         }, alignItems: 'center' }}>
       <IconButton aria-label="search">

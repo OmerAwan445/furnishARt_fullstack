@@ -31,7 +31,7 @@ function a11yProps(index: number) {
         aria-labelledby={`simple-tab-${index}`}
         {...other}
       >
-        {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+        {value === index && <Box component="div" sx={{ p: 3 }}>{children}</Box>}
       </div>
     );
   }
@@ -44,8 +44,8 @@ function a11yProps(index: number) {
     };
   
     return (
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box component="div" sx={{ width: '100%' }}>
+        <Box component="div" sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             {tabs.map((tab, index) => (
               <Tab className={ value === index ? "!text-primary-main" : "!text-lightBrown"} key={index} label={tab.label} {...a11yProps(index)} />

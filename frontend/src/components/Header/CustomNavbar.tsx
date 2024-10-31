@@ -49,10 +49,10 @@ function CustomNavbar() {
   };
 
   return (
-      <Box sx={{ height: "65px", width: "100%", bgcolor: theme.palette.primary.main }}>
+      <Box component="div" sx={{ height: "65px", width: "100%", bgcolor: theme.palette.primary.main }}>
       <Container  maxWidth="xl">
         <Toolbar disableGutters >
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="menu"
@@ -72,7 +72,7 @@ function CustomNavbar() {
                 },
               }}
             >
-              <Box
+              <Box component="div"
                 sx={{ width: 250 }}
                 role="presentation"
                 onClick={toggleDrawer(false)}
@@ -113,7 +113,7 @@ function CustomNavbar() {
             </Drawer>
           </Box>
 
-          <Box sx={{ flexGrow: 1, alignItems: "center", display: { xs: "none", md: "flex" } }}>
+          <Box component="div" sx={{ flexGrow: 1, alignItems: "center", display: { xs: "none", md: "flex" } }}>
             <Container fixed>
               <Stack
                 direction={{ sm: "row" }}
@@ -145,7 +145,7 @@ function CustomNavbar() {
             </Container>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box component="div" sx={{ flexGrow: 0 }}>
             { data ? 
             <>
             <Tooltip title="Open settings">

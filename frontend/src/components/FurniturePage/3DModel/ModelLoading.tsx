@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 const ModelLoading = () => {
   return (
-    <Box
+    <Box component="div"
       display="flex"
       flexDirection="column"
       alignItems="center"

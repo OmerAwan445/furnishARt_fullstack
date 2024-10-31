@@ -18,7 +18,7 @@ const TabsSection = ({ item }: { item: FurnitureItemDetailsProps}) => {
     ];
 
   return (
-    <Box my={4}>
+    <Box component="div" my={4}>
       <SimpleTabs tabs={tabsData} />
     </Box>
   )
