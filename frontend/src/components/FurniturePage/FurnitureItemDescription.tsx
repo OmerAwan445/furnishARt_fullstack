@@ -14,7 +14,7 @@ const FurnitureItemDescription = ({ item }: { item: FurnitureItemDetailsProps })
     } = item;
   
     return (
-      <Box sx={{ maxWidth: 800, }}>
+      <Box component="div" sx={{ maxWidth: 800, }}>
         <Typography variant="h4" gutterBottom>Title</Typography>
         {name && (
           <Typography variant="body1" paragraph>

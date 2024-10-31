@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import CheckoutItemsDetails from "@/components/CheckoutPage/CheckoutItemsDetails";
 import PaymentDetailsCard from "@/components/CheckoutPage/PaymentDetailsForm/PaymentDetailsCard";
 import ClientSideSnackbar from "@/components/common/toasts/ClientSideSnackbar";
@@ -10,9 +13,9 @@ const CheckoutPage = async () => {
   return (
     <>
       <ClientSideSnackbar />
-      <Box className="lg:flex xl:flex-wrap justify-center g-0">
+      <Box component="div" className="lg:flex xl:flex-wrap justify-center g-0">
         {!cartDetails.data || cartDetails.data?.cart_total_price === 0 ? (
-          <Box
+          <Box component="div"
             display="grid"
             justifyContent="center"
             textAlign="center"

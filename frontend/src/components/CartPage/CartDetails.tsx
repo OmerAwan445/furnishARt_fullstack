@@ -52,7 +52,7 @@ function CartDetails(props: { data: GetCartDetailsResponse | null }) {
         }}
       >
         {!cartData || cartData.cartItems.length === 0 ? (
-          <Box
+          <Box component="div"
             display="grid"
             justifyContent="center"
             textAlign="center"
@@ -87,8 +87,8 @@ function CartDetails(props: { data: GetCartDetailsResponse | null }) {
                 mr: { lg: 3 },
               }}
             >
-              <Box>
-                <Box sx={{
+              <Box component="div">
+                <Box component="div" sx={{
                   borderBottom: "1px solid #e0e0e0",
                   pb: 2,
                 }}>

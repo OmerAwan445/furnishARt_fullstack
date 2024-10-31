@@ -5,7 +5,7 @@ import bannerImg from '@/assets/Images/banner.png'; // Adjust the path to your i
 
 const Banner = () => {
   return (
-    <Box
+    <Box component="div"
       position="relative"
       width="100%"
       height={{ xs: '400px', sm: '500px', md: '700px' }}

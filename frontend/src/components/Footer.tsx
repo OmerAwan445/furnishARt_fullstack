@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
   const {title, description, footerColumns, socials } = footerContent;
 
   return (
-    <Box
+    <Box component="div"
     className="h-auto w-full bg-gradient-to-l from-[#3E362E] via-[#5a4937] to-[#3E362E] antialiased z-50"
     sx={{
         position: 'relative',

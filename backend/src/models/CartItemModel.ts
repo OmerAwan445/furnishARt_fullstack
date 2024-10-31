@@ -41,6 +41,7 @@ export class CartItemModel {
       },
     });
   }
+
   async deleteCartItem(cartId: number, furniture_item_id: number) {
     return await prisma.cartItem.delete({
       where: {

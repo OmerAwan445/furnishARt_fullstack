@@ -5,12 +5,12 @@ import { IoIosStarOutline } from 'react-icons/io';
 
 const Reviews = ({ reviews }: { reviews: Review[] }) => {
   return (
-    <Box >
+    <Box component="div" >
       {reviews.map((review, index) => {
         const customerFullName = review.customer.first_name + " " + review.customer.last_name;
         return (
         <>
-          <Box key={index} sx={{ mb: 2.5 }}>
+          <Box component="div" key={index} sx={{ mb: 2.5 }}>
               <Stack direction="row" spacing={2}>
                   <Avatar
                     {...stringAvatar(customerFullName)}

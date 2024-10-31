@@ -33,7 +33,7 @@ function HorizontaltemCardWithLensEffect({
         height: {'xs': 110, 'sm': 160 },
       }}
     >
-      <Box
+      <Box component="div"
         sx={{ position: "relative", width: {'xs': 100, 'sm': 170 }, height: "90%" }}
         onMouseMove={(e: any) => handleMouseMove(e, item.id)}
         onMouseEnter={(e: any) => handleMouseMove(e, item.id)}

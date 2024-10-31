@@ -87,7 +87,7 @@ const TopBar = () => {
         </Stack>
         
         <Link href={"/cart"} prefetch>
-        <Box sx={{ display: { xs: 'none', md: 'block', } }}>
+        <Box component="div" sx={{ display: { xs: 'none', md: 'block', } }}>
           <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
             Cart
           </BlackOutlinedButton>
