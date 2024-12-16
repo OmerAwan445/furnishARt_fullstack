@@ -23,7 +23,7 @@ class AuthService {
       password,
       redirect: false,
     });
-
+    console.log(response, "response");
     if (response?.ok) {
       return response;
     } else {

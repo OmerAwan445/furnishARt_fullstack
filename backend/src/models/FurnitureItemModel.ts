@@ -45,11 +45,23 @@ export class FurnitureItemModel {
             customer: {
               select: {
                 id: true,
-                username: true,
-                first_name: true,
-                last_name: true,
+                User: {
+                  select: {
+                    username: true,
+                    first_name: true,
+                    last_name: true,
+                  },
+                },
               },
             },
+            // user: {
+            //   select: {
+            //     id: true,
+            //     username: true,
+            //     first_name: true,
+            //     last_name: true,
+            //   },
+            // },
           },
           take: 10,
         },

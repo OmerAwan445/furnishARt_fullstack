@@ -5,23 +5,25 @@ import { LoginFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IoAt } from "react-icons/io5";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { MyPasswordInput } from "../common/FormFields/MyPasswordInput";
 import { MyTextInput } from "../common/FormFields/MyTextInput";
 import GradientButton from "../common/buttons/GradientButton";
+import { getSession, useSession } from "next-auth/react";
 
 const LoginForm = () => {
   const saerchParams = useSearchParams();
+  const router = useRouter();
   const initialValues = {
     email: "",
     password: "",
   };
 
   const [errorMessage, setErrorMessage] = useState("");
-  const callbackUrl = saerchParams?.get("callbackUrl");
+  let callbackUrl = saerchParams?.get("callbackUrl");
   const { mutate, isPending } = useMutation({ mutationFn: AuthSvs.signinUser });
 
   const handlerLogin = async (values: typeof initialValues) => {
@@ -29,8 +31,12 @@ const LoginForm = () => {
     mutate(
       { email, password },
       {
-        onSuccess: (statusCode) => {
-          window.location.href = callbackUrl || "/";
+        onSuccess: async (statusCode) => {
+          if(!callbackUrl){
+            const session = await getSession();
+            callbackUrl = session?.user.role === "ADMIN" ? "/dashboard" : "/";
+          }
+          router.push(callbackUrl);
         },
         onError: (error) => {
           setErrorMessage(error.message);

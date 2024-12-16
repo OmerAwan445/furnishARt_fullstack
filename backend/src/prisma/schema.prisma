@@ -7,41 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Make Schema for Customer, CustomerToken, Furniture, Cateogory
+model User {
+  id          Int       @id @default(autoincrement())
+  username    String    @unique @db.VarChar(100)
+  email       String    @unique @db.VarChar(100)
+  first_name  String    @db.VarChar(100)
+  last_name   String    @db.VarChar(100)
+  password    String    @db.VarChar(255)
+  role        Role      @default(USER)
+  is_verified Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  tokens      UserToken[]
 
-model Customer {
-  id          Int             @id @default(autoincrement())
-  username    String          @unique @db.VarChar(100)
-  email       String          @unique @db.VarChar(100)
-  first_name  String          @db.VarChar(100)
-  last_name   String          @db.VarChar(100)
-  address     String?         @db.VarChar(255)
-  is_verified Boolean         @default(false)
-  password    String          @db.VarChar(255)
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  stripe_customer_id String?
-  tokens      CustomerToken[]
-  cart        Cart?
-  orders      Order[]
-  payments    Payment[]
-  reviews     Review[]
+  // Relation fields for specific roles
+  customer    Customer?
+  admin       Admin?
+
+  @@index([role])
 }
 
-model CustomerToken {
+model Customer {
+  id                Int           @id @default(autoincrement())
+  address           String?       @db.VarChar(255)
+  stripe_customer_id String?
+  user_id           Int           @unique // One-to-one relation with User
+  cart              Cart?
+  orders            Order[]
+  payments          Payment[]
+  reviews           Review[]
+
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Admin {
+  id      Int  @id @default(autoincrement())
+  user_id Int  @unique // One-to-one relation with User
+
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model UserToken {
   id          Int       @id @default(autoincrement())
   tokenType   tokenType
   token       String
   expiry      DateTime
-  customer_id Int
+  user_id     Int
   updated_at  DateTime  @updatedAt
   created_at  DateTime  @default(now())
 
-  Customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  @@unique([customer_id, tokenType])
+  @@unique([user_id, tokenType])
 }
-
 model Cart {
   id          Int        @id @default(autoincrement())
   price       Decimal    @db.Decimal(10, 2)
@@ -161,6 +179,12 @@ model Review {
   furniture FurnitureItem @relation(fields: [furniture_id], references: [id])
 }
 
+// Enums
+enum Role {
+  USER
+  ADMIN
+}
+
 enum ORDERSTATUS {
   PENDING
   DELIVERED
@@ -171,3 +195,4 @@ enum tokenType {
   EMAIL_VERIFICATION
   PASSWORD_RESET
 }
+

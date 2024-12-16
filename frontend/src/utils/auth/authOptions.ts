@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
               first_name: data.data.first_name,
               last_name: data.data.last_name,
               is_verified: data.data.is_verified ?? false,
-              role: data.data.is_admin ?? "user",
+              role: data.data.role ?? "USER",
               email: data.data.email,
               accessToken: data.data.accessToken,
             };
@@ -75,7 +75,7 @@ export const authOptions: NextAuthOptions = {
                   first_name: data.data.first_name,
                   last_name: data.data.last_name,
                   is_verified: data.data.is_verified ?? false,
-                  role: data.data.is_admin ?? "user",
+                  role: data.data.role ?? "USER",
                   email: data.data.email,
                   accessToken: data.data.accessToken,
                 };

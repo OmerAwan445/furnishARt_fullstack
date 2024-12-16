@@ -1,7 +1,6 @@
 import { Decimal, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request } from "express";
 
-
 // ======= Global types ==========
 declare module "jsonwebtoken" {
     export interface JwtPayload {
@@ -36,6 +35,7 @@ export interface JwtUser {
     email: string;
     name: string;
     username: string
+    role: "ADMIN" | "USER";
 }
 
 

@@ -51,13 +51,13 @@ apiInstance.interceptors.request.use(
   }
 );
 
-// TOCHECK: If the error is 401 or 403 on server side request, sign out the user
+// TOCHECK: If the error is 401 on server side request, sign out the user
 // check if the backend error is 401 and redirect to login page.
 apiInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const status = error.response?.status;
-    if (status !== 401 && status !== 403) return Promise.reject(error); // Pass the error to be handled by the calling function
+    if (status !== 401) return Promise.reject(error); // Pass the error to be handled by the calling function
     
     if (typeof window !== "undefined") {
       // CLIENT SIDE

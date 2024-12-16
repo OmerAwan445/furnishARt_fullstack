@@ -12,7 +12,7 @@ async function checkEmailUniqueAndCreateCustomer(
     address: string | undefined,
 ) {
   return await prisma.$transaction(async (tx) => {
-    const existingCustomer = await tx.customer.findFirst({
+    const existingCustomer = await tx.user.findFirst({
       where: {
         OR: [
           { email },
@@ -28,57 +28,61 @@ async function checkEmailUniqueAndCreateCustomer(
 
     const hashedPassword = await BcryptSvs.hashPassword(password);
 
-    return await tx.customer.create({
+    return await tx.user.create({
       data: {
         first_name,
         last_name,
         email,
         username,
-        address,
+        customer: {
+          create: {
+            address,
+          },
+        },
         password: hashedPassword,
       },
-      select: prismaExclude("Customer", ["password"]),
+      select: prismaExclude("User", ["password"]),
     });
   });
 }
 
-async function makeCustomerVerifiedAndDeleteToken(customer_id: number) {
+async function makeUserVerifiedAndDeleteTokenen(user_id: number) {
   return await prisma.$transaction(async (tx) => {
-    await tx.customerToken.delete({
+    await tx.userToken.delete({
       where: {
-        customer_id_tokenType: {
-          customer_id, tokenType: "EMAIL_VERIFICATION",
+        user_id_tokenType: {
+          user_id, tokenType: "EMAIL_VERIFICATION",
         },
       },
     });
-    return await tx.customer.update({
-      where: { id: customer_id },
+    return await tx.user.update({
+      where: { id: user_id },
       data: { is_verified: true },
-      select: prismaExclude("Customer", ["password"]),
+      select: prismaExclude("User", ["password"]),
     });
   });
 }
 
-async function updatePasswordAndDeleteToken(customer_id: number, password: string) {
+async function updatePasswordAndDeleteToken(user_id: number, password: string) {
   return await prisma.$transaction(async (tx)=> {
-    await tx.customerToken.delete({
+    await tx.userToken.delete({
       where: {
-        customer_id_tokenType: {
-          customer_id,
+        user_id_tokenType: {
+          user_id,
           tokenType: "PASSWORD_RESET",
         },
       },
     });
-    return await tx.customer.update({
+    return await tx.user.update({
       data: { password },
-      where: { id: customer_id },
+      where: { id: user_id },
       select: { email: true },
     });
   });
 }
 
 async function checkCustomerEmailUniqueness(email: string) {
-  const isEmailUnique = await prisma.customer.findUnique({
+  const isEmailUnique = await prisma.user.findUnique({
     where: {
       email,
     },
@@ -86,21 +90,21 @@ async function checkCustomerEmailUniqueness(email: string) {
   return isEmailUnique == null;
 }
 
-async function findCustomerByEmail(email: string) {
-  return await prisma.customer.findUnique({
+async function findUserByEmail(email: string) {
+  return await prisma.user.findUnique({
     where: { email },
   });
 }
 
-async function findCustomerById(customer_id: number) {
-  return await prisma.customer.findUnique({
-    where: { id: customer_id },
+async function findUserById(user_id: number) {
+  return await prisma.user.findUnique({
+    where: { id: user_id },
   });
 }
 
-async function findStripeCustomerId(customer_id: number) {
+async function findStripeCustomerId(user_id: number) {
   return await prisma.customer.findUnique({ where: {
-    id: customer_id,
+    id: user_id,
   },
   select: {
     stripe_customer_id: true,
@@ -118,10 +122,10 @@ async function updateStripeCustomerId(user_id: number, cus_id: string) {
 export {
   checkCustomerEmailUniqueness,
   checkEmailUniqueAndCreateCustomer,
-  makeCustomerVerifiedAndDeleteToken,
+  makeUserVerifiedAndDeleteTokenen,
   updatePasswordAndDeleteToken,
-  findCustomerByEmail,
-  findCustomerById,
+  findUserByEmail,
+  findUserById,
   findStripeCustomerId,
   updateStripeCustomerId,
 };

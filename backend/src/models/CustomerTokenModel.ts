@@ -2,11 +2,11 @@ import { tokenType } from "@prisma/client";
 import { prisma } from "@src/db";
 import { getEnv } from "@src/utils/getEnv";
 
-async function deleteTokenFromDb(customer_id: number, tokenType: tokenType) {
-  await prisma.customerToken.delete({
+async function deleteTokenFromDb(user_id: number, tokenType: tokenType) {
+  await prisma.userToken.delete({
     where: {
-      customer_id_tokenType: {
-        customer_id,
+      user_id_tokenType: {
+        user_id,
         tokenType,
       },
     },
@@ -15,7 +15,7 @@ async function deleteTokenFromDb(customer_id: number, tokenType: tokenType) {
 
 async function saveTokenToDbIfExistUpdate(
     token: string,
-    customer_id: number,
+    user_id: number,
     tokenType: tokenType,
 ) {
   let expiryTime: Date;
@@ -29,33 +29,33 @@ async function saveTokenToDbIfExistUpdate(
       );
       break;
   }
-  return await prisma.customerToken.upsert({
+  return await prisma.userToken.upsert({
     create: {
       token,
-      customer_id,
+      user_id,
       tokenType,
       expiry: expiryTime,
     },
     update: {
       token,
-      customer_id,
+      user_id,
       tokenType,
       expiry: expiryTime,
     },
     where: {
-      customer_id_tokenType: {
-        customer_id,
+      user_id_tokenType: {
+        user_id,
         tokenType,
       },
     },
   });
 }
 
-async function findCustomerToken(customer_id: number, tokenType: tokenType) {
-  return await prisma.customerToken.findUnique({
+async function findCustomerToken(user_id: number, tokenType: tokenType) {
+  return await prisma.userToken.findUnique({
     where: {
-      customer_id_tokenType: {
-        customer_id,
+      user_id_tokenType: {
+        user_id,
         tokenType,
       },
     },
