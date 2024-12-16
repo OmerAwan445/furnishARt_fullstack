@@ -171,7 +171,7 @@ function CustomNavbar() {
             >
               <Stack direction={"column"} gap={1}>
               {settings.map((setting) => (
-                <Button key={setting} variant="text" sx={{ px: "20px" }} onClick={setting === "Logout" ? AuthSvs.signOutUser : undefined}>
+                <Button key={setting} variant="text" sx={{ px: "20px" }} onClick={setting === "Logout" ? ()=>AuthSvs.signOutUser() : undefined}>
                 <Typography textAlign="center">{setting}</Typography>
                 </Button>
               ))}

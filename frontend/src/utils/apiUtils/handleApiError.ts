@@ -4,7 +4,7 @@ import { CustomError } from "../error/CustomError";
 export function handleApiError(error: any): { data: null, error: CustomError } {
     let errorMessage = "An unknown error occurred";
     let statusCode = 500;
-  
+    console.log("error", error);
     if (axios.isAxiosError(error)) {
       if (error.response) {
         errorMessage =
