@@ -13,9 +13,11 @@ export const BACKEND_API_ENDPOINTS = {
   getBestSellerFurnitureItems: "/furniture-item/best-sellers",
   getFurnitureItemFromID: "/furniture-item",
   getFurnitureItems: "/furniture-item",
+  addFurnitureItems: "/furniture-item",
 
   // Category
   getCategories: "/category",
+  addCategory: "/category",
 
   // Cart
   addCartItem: "/cart/add-item",

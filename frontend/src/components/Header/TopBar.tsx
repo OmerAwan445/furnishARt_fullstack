@@ -1,12 +1,6 @@
 "use client";
 import LOGO from "@/assets/logo/logo.svg";
-import {
-  Box,
-  Container,
-  MenuItem,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Container, MenuItem, Stack, TextField } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
@@ -18,7 +12,6 @@ import CategorySvs from "@/services/Category";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { CategoryActions } from "@/store/Slices/CategorySlice";
 
-
 /* const categories = [
   { value: "all", label: "All categories" },
   { value: "Table", label: "Table" },
@@ -29,33 +22,32 @@ import { CategoryActions } from "@/store/Slices/CategorySlice";
 
 const TopBar = () => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector(store => store.categories );
+  const categories = useAppSelector((store) => store.categories);
   const { AddCategories } = CategoryActions;
   const [selectedCategory, setSelectedCategory] = React.useState(0);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const handleCategoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleCategoryChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
     setSelectedCategory(event.target.value as number);
     console.log(`Searching for ${searchQuery} in category ${selectedCategory}`);
   };
 
-  // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearchQuery(event.target.value);
-  // };
-
-  // const handleSearch = () => {
-  //   // Add your search logic here
-  // };
-
   useEffect(() => {
     (async () => {
-        const data = await CategorySvs.getCategories();
-        if (!data) return;
-        dispatch(AddCategories([{ value: 0, label: "All categories" }, ...data.map((cat) => ({ value: cat.id, label: cat.name }))]));
+      const data = await CategorySvs.getCategories();
+      if (!data) return;
+      dispatch(
+        AddCategories([
+          { value: 0, label: "All categories" },
+          ...data.map((cat) => ({ value: cat.id, label: cat.name })),
+        ])
+      );
     })();
   }, []);
 
   return (
-    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px", }}>
+    <Container maxWidth={"xl"} sx={{ p: "7px", height: "60px" }}>
       <Stack
         sx={{ width: "100%" }}
         direction="row"
@@ -64,10 +56,12 @@ const TopBar = () => {
         <Link href="/" className="self-center">
           <Image src={LOGO} className="w-36" alt="Logo" />
         </Link>
-
         <Stack
-          sx={{ display: { xs: 'none', md: 'flex' } }}
-          direction="row" flex={1} justifyContent={"center"}>
+          sx={{ display: { xs: "none", md: "flex" } }}
+          direction="row"
+          flex={1}
+          justifyContent={"center"}
+        >
           <TextField
             select
             onChange={handleCategoryChange}
@@ -83,17 +77,20 @@ const TopBar = () => {
             ))}
           </TextField>
 
-          <AutoCompleteSearchbar selectedCategoryId= {Number(selectedCategory)} />
+          <AutoCompleteSearchbar
+            selectedCategoryId={Number(selectedCategory)}
+          />
         </Stack>
-        
         <Link href={"/cart"} prefetch>
-        <Box component="div" sx={{ display: { xs: 'none', md: 'block', } }}>
-          <BlackOutlinedButton className="!text-black hover:!text-white" startIcon={<BiCart />}>
-            Cart
-          </BlackOutlinedButton>
-        </Box>
+          <Box component="div" sx={{ display: { xs: "none", md: "block" } }}>
+            <BlackOutlinedButton
+              className="!text-black hover:!text-white"
+              startIcon={<BiCart />}
+            >
+              Cart
+            </BlackOutlinedButton>
+          </Box>
         </Link>
-
         <NavbarMobileIcons /> {/* shown below the md screen */}
       </Stack>
     </Container>
@@ -101,4 +98,3 @@ const TopBar = () => {
 };
 
 export default TopBar;
-

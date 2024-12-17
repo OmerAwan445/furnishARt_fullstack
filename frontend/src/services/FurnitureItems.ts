@@ -1,5 +1,5 @@
 import apiInstance from "@/ApiInstance";
-import { AutoCompleteResponse, FiltersSliceState, FurnitureItemDetailsResponse, GetBestSellerResponse, ReturnFurnitureItems } from "@/types/Types";
+import { AddFurnitureItemRequest, AutoCompleteResponse, FiltersSliceState, FurnitureItemDetailsResponse, GetBestSellerResponse, ReturnFurnitureItems } from "@/types/Types";
 import { getFilteredItems } from "@/utils/Itemsfilters&pagination/filteredItems";
 import { makeFiltersQuery } from "@/utils/Itemsfilters&pagination/makeFiltersQuery";
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
@@ -39,6 +39,18 @@ class FurnitureItemsService {
     
         if (error) return null;
         return data.data;
+    }
+    
+    static async addFurnitureItem(formData: AddFurnitureItemRequest ) {
+        const { data, error } = await handleApiCall<{ message: string, error: string }>(async ()=> await apiInstance.post(`${BACKEND_API_ENDPOINTS.addFurnitureItems}`, {
+            ...formData
+        },
+        {
+            isPrivateReq: true
+        }
+    ));
+    if (error) return { message: error.message, error: true };
+    return { message: data.message, error: false };
     }
 }
 

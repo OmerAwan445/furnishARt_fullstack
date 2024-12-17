@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { FurnitureItemModelFilters } from "@src/Types";
 import { prisma } from "@src/db";
 
@@ -98,6 +99,12 @@ export class FurnitureItemModel {
       select: {
         price: true,
       },
+    });
+  }
+
+  async addFurnitureItem(data: Prisma.FurnitureItemCreateInput) {
+    return await prisma.furnitureItem.create({
+      data,
     });
   }
 }

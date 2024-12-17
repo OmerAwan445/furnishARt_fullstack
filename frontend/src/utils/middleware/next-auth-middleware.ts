@@ -10,12 +10,10 @@ export default withAuth(
     let pathname = req.nextUrl.pathname;
     let userRole = req.nextauth.token?.user.role;
 
-    console.log(pathname);
     // if user tries to access admin pages
     if(userRole === ROLES.USER && adminPages.includes(pathname)){
       return NextResponse.redirect(new URL('/denied', req.url));
     }
-    console.log(!adminPages.includes(pathname), "pathanme");
     // if admin tries to access user pages
     if(userRole === ROLES.ADMIN && !adminPages.includes(pathname)){
       return NextResponse.redirect(new URL('/denied', req.url));

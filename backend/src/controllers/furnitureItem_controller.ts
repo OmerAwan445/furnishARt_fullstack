@@ -1,4 +1,4 @@
-import { GetFurnitureItemsFiltersReqQuery } from "@src/Types";
+import { AddFurnitureItemRequestBody, GetFurnitureItemsFiltersReqQuery } from "@src/Types";
 import { AppError } from "@src/errors/AppError";
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
 import ApiResponse from "@src/utils/ApiResponse";
@@ -46,5 +46,14 @@ export class FurnitureItemController {
     if (!item) throw new AppError("Furniture item not found", 404);
 
     return res.send(ApiResponse.success(item, "Furniture item retrieved successfully"));
+  });
+
+  public addFurnitureItem = catchAsyncError(async (req: Request<object, object, AddFurnitureItemRequestBody>, res) => {
+    const { name, stock_quantity, color, dimension, weight, category_id, price, description } = req.body;
+    const newItem = await this.furnitureItemModel.addFurnitureItem({ name, stock_quantity, color, dimension, description, weight, Category: {
+      connect: { id: category_id },
+    }, price: price });
+
+    return res.send(ApiResponse.success(newItem, "Furniture item added successfully", 201));
   });
 }

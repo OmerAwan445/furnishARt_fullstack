@@ -124,6 +124,18 @@ export interface ResetPassword {
   confirm_password: string;
 }
 
+/*  API REQUEST */
+export interface AddFurnitureItemRequest {
+  name: string;
+  price: number;
+  stock_quantity: number;
+  category_id: number;
+  dimension?: string;
+  description?: string;
+  color?: string;
+  weight?: number;
+}
+
 /*  API RESPONSES */
 export interface AutoCompleteResponse {
   name: string
@@ -139,6 +151,7 @@ export interface GetCartDetailsResponse {
     cart_total_price:  number;
     cartItems: CartItem[];
   }
+
 export interface CartItem {
     id:         number;
     quantity:   number;
@@ -146,7 +159,6 @@ export interface CartItem {
     price:      number;
     thumbnail_image: string;
 }
-
 
 
 export interface Review {

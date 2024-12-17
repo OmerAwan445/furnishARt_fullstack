@@ -60,6 +60,10 @@ export interface ResetPasswordRequestBody {
     confirm_password: string;
 }
 
+export interface AddCategoryRequestBody {
+    name: string
+}
+
 export interface GetFurnitureItemsFiltersReqQuery {
     category_id?: string
     itemsPerPage?: string
@@ -69,6 +73,17 @@ export interface GetFurnitureItemsFilters {
     category_id?: number[]
     itemsPerPage?: number
     page?: number
+}
+
+export interface AddFurnitureItemRequestBody {
+    name: string;
+    price: Decimal;
+    stock_quantity: number;
+    category_id: number;
+    dimension?: string;
+    description?: string;
+    color?: string;
+    weight?: Decimal;
 }
 
 export interface FurnitureItemModelFilters {
