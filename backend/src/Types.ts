@@ -1,5 +1,6 @@
 import { Decimal, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request } from "express";
+import "express-serve-static-core";
 
 // ======= Global types ==========
 declare module "jsonwebtoken" {
@@ -8,12 +9,24 @@ declare module "jsonwebtoken" {
     }
 }
 
+
 // eslint-disable-next-line
+declare namespace Multer {
+    export interface File {
+      fieldname: string;
+      originalname: string;
+      encoding: string;
+      mimetype: string;
+      size: number;
+      buffer: Buffer;
+    }
+  }
 declare global {
     // eslint-disable-next-line
     namespace Express {
         interface Request {
         user?: JwtUser; // Define the user property with the appropriate type
+        files?: Multer.File[];
   }
 }
 }

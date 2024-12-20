@@ -1,10 +1,12 @@
 import { AddFurnitureItemRequestBody, GetFurnitureItemsFiltersReqQuery } from "@src/Types";
 import { AppError } from "@src/errors/AppError";
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
+import { cloudflareService } from "@src/services/cloudflare/CloudflareService";
 import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
 import { getParsedFilters } from "@src/utils/getParsedFilters";
 import { Request } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 export class FurnitureItemController {
   private furnitureItemModel: FurnitureItemModel;
@@ -55,5 +57,13 @@ export class FurnitureItemController {
     }, price: price });
 
     return res.send(ApiResponse.success(newItem, "Furniture item added successfully", 201));
+  });
+
+  public uploadFiles = catchAsyncError(async (req, res) => {
+    const folderName = `furniture-images/${uuidv4()}`;
+    const uploadedUrls = await cloudflareService.uploadFiles(req.files, folderName);
+    // TODO: save urls in db
+
+    return res.send(ApiResponse.success(uploadedUrls, "Files uploaded successfully", 200));
   });
 }

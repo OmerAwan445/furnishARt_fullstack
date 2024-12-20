@@ -33,8 +33,8 @@ const Sidebar = () => {
     { label: "Dashboard", icon: <RiDashboardLine />, path: "/dashboard" },
     { label: "Categories", icon: <RiFileList3Line />, path: "/categories" },
     { label: "Add Category", icon: <RiAddFill />, path: "/categories/add" },
-    { label: "Products", icon: <IoIosLaptop />, path: "/products" },
-    { label: "Add Product", icon: <RiAddFill />, path: "/products/add" },
+    { label: "All Furniture Items", icon: <IoIosLaptop />, path: "/products" },
+    { label: "Add Furniture Item", icon: <RiAddFill />, path: "/products/add" },
     { label: "Orders", icon: <RiShoppingCart2Line />, path: "/orders" },
     { label: "Users", icon: <RiUser3Line />, path: "/users" },
   ];
