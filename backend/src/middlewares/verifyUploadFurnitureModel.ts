@@ -7,26 +7,26 @@ import { fileSettings } from "@src/utils/constants/FileSettings";
 // Configure Multer
 const storage = multer.memoryStorage();
 
-const multerImageUpload = multer({
+const multerModelUpload = multer({
   storage,
   limits: {
-    fileSize: fileSettings["image"].maxSizeInBytes,
+    fileSize: fileSettings["model"].maxSizeInBytes,
   },
   fileFilter: (req, file, cb) => {
-    const allowedMimeTypes = fileSettings["image"].acceptedTypes;
-    if (!allowedMimeTypes.includes(file.mimetype)) {
-      return cb( new AppError(fileSettings["image"].errorMessage, 400));
+    const allowedMimeTypes = fileSettings["model"].acceptedTypes;
+    const fileExtension = file.originalname.split('.').pop()?.toLowerCase();
+    if (!allowedMimeTypes.includes(fileExtension || file.mimetype)) {
+      return cb( new AppError(fileSettings["model"].errorMessage, 400));
     }
     cb(null, true);
   },
-}).array("files", 5);
+}).array("files", 1);
 
 // Middleware Function
-export const verifyUploadFurnitureImages = catchAsyncError(
+export const verifyUploadFurnitureModel = catchAsyncError(
     async (req: Request, res: Response, next: NextFunction) => {
-      multerImageUpload(req, res, (err: any) => {
+      multerModelUpload(req, res, (err: any) => {
         if (err) {
-          // Handle Multer-specific errors
           return next(err);
         }
         if (!req.files || !Array.isArray(req.files)) {

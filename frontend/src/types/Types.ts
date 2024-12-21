@@ -136,6 +136,12 @@ export interface AddFurnitureItemRequest {
   weight?: number;
 }
 
+export interface UploadMediaReq {
+  files: any, 
+  itemId: number, 
+  mediaType: "image" | "model"
+}
+
 /*  API RESPONSES */
 export interface AutoCompleteResponse {
   name: string

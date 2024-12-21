@@ -107,4 +107,27 @@ export class FurnitureItemModel {
       data,
     });
   }
+
+  async updateFurnitureImageUrls(itemId:number, urls: string[]) {
+    return await prisma.furnitureItem.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        image_urls: {
+          set: urls,
+        },
+      },
+    });
+  }
+  async updateFurnitureModelUrl(itemId:number, url: string) {
+    return await prisma.furnitureItem.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        model_3d_url: url,
+      },
+    });
+  }
 }

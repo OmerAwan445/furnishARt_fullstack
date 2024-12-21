@@ -36,8 +36,9 @@ const FileUploadField: React.FC<FileUploadProps> = ({
     const previews: PreviewFile[] = [];
 
     Array.from(selectedFiles).forEach((file) => {
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
       if (
-        acceptedTypes.includes(file.type) &&
+        (acceptedTypes.includes(file.type) || (fileExtension && acceptedTypes.includes(fileExtension))) &&
         file.size <= maxSizeInBytes
       ) {
         validFiles.push(file);

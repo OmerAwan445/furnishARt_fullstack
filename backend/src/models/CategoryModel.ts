@@ -11,4 +11,21 @@ export class CategoryModel {
       },
     });
   }
+  async deleteCategory(categoryId: number) {
+    return await prisma.category.delete({
+      where: {
+        id: categoryId,
+      },
+    });
+  }
+  async editCategory(categoryId: number, categoryName: string) {
+    return await prisma.category.update({
+      where: {
+        id: categoryId,
+      },
+      data: {
+        name: categoryName,
+      },
+    });
+  }
 }

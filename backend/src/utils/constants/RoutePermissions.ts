@@ -5,6 +5,7 @@ export const routePermissions = Object.freeze({
   stripe: [ROLES.USER],
   category: {
     add: [ROLES.ADMIN],
+    edit: [ROLES.ADMIN],
   },
   furnitureItem: {
     add: [ROLES.ADMIN],

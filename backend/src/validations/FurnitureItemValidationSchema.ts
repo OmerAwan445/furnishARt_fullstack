@@ -106,3 +106,13 @@ export const addFurnitureItemSchema: Schema = {
     },
   },
 };
+
+export const uploadMediaSchema: Schema = {
+  itemId: {
+    notEmpty: true,
+    isInt: {
+      errorMessage: "Item ID must be a number",
+    },
+    errorMessage: "Item ID is required",
+  },
+};

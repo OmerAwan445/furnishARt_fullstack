@@ -5,7 +5,7 @@ import { validateRequestSchema } from "@src/middlewares/validate-request-schema"
 import verifyLogin from "@src/middlewares/verifyLogin";
 import { routePermissions } from "@src/utils/constants/RoutePermissions";
 import { verifyLoginSchema } from "@src/validations/AuthValidationSchemas";
-import { addCategory } from "@src/validations/CategoryValidationSchemas";
+import { addCategory, deleteCategory, editCategory } from "@src/validations/CategoryValidationSchemas";
 import { Router as expressRouters } from "express";
 import { checkSchema } from "express-validator";
 
@@ -17,6 +17,9 @@ protectedCategoryRoutes.use(checkSchema(verifyLoginSchema, ['headers']), validat
 
 categoryRoutes.get("/", controller.getAllCategories);
 protectedCategoryRoutes.post("/", validate(addCategory, ["body"]), checkAllowedRole(routePermissions.category.add), controller.addCategory);
+
+protectedCategoryRoutes.put("/", validate(editCategory, ["body"]), checkAllowedRole(routePermissions.category.edit), controller.editCategory);
+protectedCategoryRoutes.delete("/", validate(deleteCategory, ["query"]), checkAllowedRole(routePermissions.category.edit), controller.deleteCategory);
 
 categoryRoutes.use(protectedCategoryRoutes);
 

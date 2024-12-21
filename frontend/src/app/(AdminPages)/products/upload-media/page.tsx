@@ -3,8 +3,13 @@
 import GradientButton from "@/components/common/buttons/GradientButton";
 import FileUploadField from "@/components/common/FileUploadField";
 import TitleHeadings from "@/components/common/headings/TitleHeadings";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import FurnitureItemsSvs from "@/services/FurnitureItems";
+import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
+import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { FormEvent, useState } from "react";
 
 
 const fileSettings = {
@@ -14,11 +19,10 @@ const fileSettings = {
         errorMessage: "Only PNG, JPEG files under 2MB are allowed." 
     },
     model: {
-        acceptedTypes: ["model/gltf+json", "model/gltf-binary"],
+        acceptedTypes: ["glb", "model/gltf-binary"],
         maxSizeInBytes: 10 * 1024 * 1024, // 10 MB
         errorMessage: "Only GLTF files under 10MB are allowed."
     }
-
 }
 
 function UploadMediaPage() {
@@ -26,19 +30,47 @@ function UploadMediaPage() {
   const searchParams = useSearchParams();
   const itemId = searchParams.get("itemId");
   const mediaType = searchParams.get("mediaType") as "image" | "model";
+  const { addMessage } = SnackBarActions;
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: FurnitureItemsSvs.uploadMedia,
+    onSettled(data) {
+      dispatch(
+        addMessage({
+          message: data?.message ?? "",
+          type: data?.error ? "error" : "success",
+        })
+      );
+      setFiles([]);
+    },
+    onSuccess: () => {
+      if(mediaType === "image") {
+        router.push(`/products/upload-media?itemId=${itemId}&mediaType=model`);
+      }
+    }
+  });
 
   if(mediaType !== "image" && mediaType !== "model") {
     return <p>Invalid media type</p>
   }
 
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if(!itemId) {
+      return;
+    }
+
+    mutate({files, itemId: parseInt(itemId), mediaType});
+    
+  }
+
   return (
     <div>
-      <h1>Upload Media</h1>
-      <p>Item ID: {itemId}</p>
-      <p>Media Type: {mediaType}</p>
       {mediaType === "image" && <TitleHeadings>Upload Image</TitleHeadings>}
       {mediaType === "model" && <TitleHeadings>Upload 3D Model</TitleHeadings>}
-      <form>
+      <form onSubmit={handleSubmit}>
         <FileUploadField
           files={files}
           setFiles={setFiles}
@@ -51,7 +83,7 @@ function UploadMediaPage() {
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <GradientButton type="submit">Add Furniture</GradientButton>
+          <GradientButton disabled={isPending} type="submit">Add Furniture</GradientButton>
         </div>
       </form>
     </div>

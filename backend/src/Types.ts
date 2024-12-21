@@ -99,6 +99,10 @@ export interface AddFurnitureItemRequestBody {
     weight?: Decimal;
 }
 
+export interface UploadMediaReqQuery {
+    itemId?: string
+}
+
 export interface FurnitureItemModelFilters {
     whereClause: {
         category_id?: {

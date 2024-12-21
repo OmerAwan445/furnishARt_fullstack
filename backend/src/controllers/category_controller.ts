@@ -21,4 +21,18 @@ export class CategoryController {
 
     return res.send(ApiResponse.success([], "Category add successfully"));
   });
+
+  editCategory = catchAsyncError(async (req: Request<object, object, {id: string, name: string}>, res) => {
+    const { id, name } = req.body;
+    await this.categoryModel.editCategory(Number(id), name);
+
+    return res.send(ApiResponse.success([], "Category Edited successfully"));
+  });
+
+  deleteCategory = catchAsyncError(async (req: Request<object, object, AddCategoryRequestBody, {id?: string}>, res) => {
+    const { id } = req.query;
+    await this.categoryModel.deleteCategory(Number(id));
+
+    return res.send(ApiResponse.success([], "Category Updated successfully"));
+  });
 }

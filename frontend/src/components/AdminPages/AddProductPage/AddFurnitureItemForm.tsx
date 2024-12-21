@@ -11,13 +11,15 @@ import { AddFurnitureItemFormSchema } from "@/utils/FormValidations/ValidationSc
 import { MenuItem, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const AddFurnitureItemForm = () => {
   const categories = useAppSelector((store) => store.categories);
   const dispatch = useAppDispatch();
   const { AddCategories } = CategoryActions;
   const { addMessage } = SnackBarActions;
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationFn: FurnitureItemsSvs.addFurnitureItem,
     onSettled(data) {
@@ -27,6 +29,9 @@ const AddFurnitureItemForm = () => {
           type: data?.error ? "error" : "success",
         })
       );
+      if(!data?.error){
+        router.push(`/products/upload-media?itemId=${data?.id}&mediaType=image`)
+      }
     },
   });
 
@@ -245,15 +250,6 @@ const AddFurnitureItemForm = () => {
                 } block !placeholder:text-gray-300 w-full mt-1 rounded-md border p-2 focus:outline-none`}
               />
             </div>
-            {/* <FileUploadField  
-              files={files}
-              setFiles={setFiles}
-              acceptedTypes={["image/png", "image/jpeg"]}
-              maxSizeInBytes={2 * 1024 * 1024} // 2 MB
-              multiple={true}
-              onFilesSelected={(files) => console.log(files)}
-              errorMessage="Only PNG, JPEG files under 2MB are allowed." /> */}
-
             {/* Submit Button */}
             <div className="flex justify-end">
               <GradientButton disabled={isPending} type="submit">

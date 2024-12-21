@@ -6,11 +6,13 @@ import {
   FurnitureItemDetailsResponse,
   GetBestSellerResponse,
   ReturnFurnitureItems,
+  UploadMediaReq,
 } from "@/types/Types";
 import { getFilteredItems } from "@/utils/Itemsfilters&pagination/filteredItems";
 import { makeFiltersQuery } from "@/utils/Itemsfilters&pagination/makeFiltersQuery";
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
+import { headers } from "next/headers";
 
 class FurnitureItemsService {
   static async getFurnitureItems(filters?: FiltersSliceState) {
@@ -83,6 +85,7 @@ class FurnitureItemsService {
     const { data, error } = await handleApiCall<{
       message: string;
       error: string;
+      data: { id: number };
     }>(
       async () =>
         await apiInstance.post(
@@ -93,6 +96,24 @@ class FurnitureItemsService {
           }
         )
     );
+    if (error) return { message: error.message, error: true };
+    return { message: data.message, error: false,  id: data.data.id };
+  }
+
+  static async uploadMedia(reqData: UploadMediaReq) {
+    const { mediaType, files, itemId } = reqData;
+    const formData = new FormData();
+      Object.keys(files).forEach((key) => {
+        formData.append("files", files[key]); // Append each file to the FormData object
+      });
+    const {data, error} = await handleApiCall<{message: string, error: string}>(async () => await apiInstance.post(`${mediaType === "image" ? BACKEND_API_ENDPOINTS.uploadFurnitureImages : BACKEND_API_ENDPOINTS.uploadFurnitureModel}?itemId=${itemId}`, formData, 
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      isPrivateReq: true
+    }));
+    
     if (error) return { message: error.message, error: true };
     return { message: data.message, error: false };
   }

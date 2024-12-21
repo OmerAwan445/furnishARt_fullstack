@@ -3,11 +3,13 @@ import { checkAllowedRole } from "@src/middlewares/checkAllowedRoles";
 import { validateRequestSchema } from "@src/middlewares/validate-request-schema";
 import verifyLogin from "@src/middlewares/verifyLogin";
 import { verifyUploadFurnitureImages } from "@src/middlewares/verifyUploadFurnitureImages";
+import { verifyUploadFurnitureModel } from "@src/middlewares/verifyUploadFurnitureModel";
 import { routePermissions } from "@src/utils/constants/RoutePermissions";
 import { verifyLoginSchema } from "@src/validations/AuthValidationSchemas";
 import {
   addFurnitureItemSchema, autoCompleteFurnitureItems,
   getFurnitureFromID, getFurnitureItems,
+  uploadMediaSchema,
 } from "@src/validations/FurnitureItemValidationSchema";
 import { Router as expressRouters } from "express";
 import { checkSchema } from "express-validator";
@@ -27,10 +29,15 @@ furntiureItemRoutes.get("/auto-complete", checkSchema(autoCompleteFurnitureItems
 furntiureItemRoutes.get("/best-sellers", controller.getBestSellerFurnitureItems);
 
 furntiureItemRoutes.get("/:id", checkSchema(getFurnitureFromID, ['params']), validateRequestSchema, controller.getFurnitureItemFromID);
-furntiureItemRoutes.post("/upload", verifyUploadFurnitureImages, controller.uploadFiles);
 
-protectedFurntiureItemRoutes.post("/", checkSchema(addFurnitureItemSchema, ['body']),
+protectedFurntiureItemRoutes.post("/", checkSchema(addFurnitureItemSchema, ['body']), validateRequestSchema,
     checkAllowedRole(routePermissions.furnitureItem.add), controller.addFurnitureItem);
+
+protectedFurntiureItemRoutes.post("/upload-images", checkSchema(uploadMediaSchema, ['query']), validateRequestSchema,
+    verifyUploadFurnitureImages, controller.uploadImageFiles);
+
+protectedFurntiureItemRoutes.post("/upload-model", checkSchema(uploadMediaSchema, ['query']), validateRequestSchema,
+    verifyUploadFurnitureModel, controller.uploadModelFiles);
 
 furntiureItemRoutes.use(protectedFurntiureItemRoutes);
 

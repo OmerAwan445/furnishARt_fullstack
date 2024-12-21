@@ -37,7 +37,7 @@ class CloudflareService {
     }
   }
 
-  public async uploadFiles(files: any, folderName: string): Promise<string[]> {
+  public async uploadImageFiles(files: any, folderName: string): Promise<string[]> {
     const urls: string[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -48,6 +48,13 @@ class CloudflareService {
     }
 
     return urls;
+  }
+
+  public async uploadModelFile(file: any, folderName: string, itemId: number): Promise<string> {
+    const originalExtension = file.originalname.split(".").pop();
+    const key = `${folderName}/${itemId}.${originalExtension}`;
+    const url = await this.uploadFile(file.buffer, key, file.mimetype);
+    return url;
   }
 }
 

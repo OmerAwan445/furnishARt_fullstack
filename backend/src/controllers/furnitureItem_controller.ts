@@ -1,4 +1,4 @@
-import { AddFurnitureItemRequestBody, GetFurnitureItemsFiltersReqQuery } from "@src/Types";
+import { AddFurnitureItemRequestBody, GetFurnitureItemsFiltersReqQuery, UploadMediaReqQuery } from "@src/Types";
 import { AppError } from "@src/errors/AppError";
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
 import { cloudflareService } from "@src/services/cloudflare/CloudflareService";
@@ -6,7 +6,6 @@ import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
 import { getParsedFilters } from "@src/utils/getParsedFilters";
 import { Request } from "express";
-import { v4 as uuidv4 } from "uuid";
 
 export class FurnitureItemController {
   private furnitureItemModel: FurnitureItemModel;
@@ -59,11 +58,20 @@ export class FurnitureItemController {
     return res.send(ApiResponse.success(newItem, "Furniture item added successfully", 201));
   });
 
-  public uploadFiles = catchAsyncError(async (req, res) => {
-    const folderName = `furniture-images/${uuidv4()}`;
-    const uploadedUrls = await cloudflareService.uploadFiles(req.files, folderName);
-    // TODO: save urls in db
+  public uploadImageFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {
+    const { itemId } = req.query;
+    const folderName = `furniture-images/${itemId}`;
+    const uploadedUrls = await cloudflareService.uploadImageFiles(req.files, folderName);
+    await this.furnitureItemModel.updateFurnitureImageUrls(Number(itemId), uploadedUrls);
 
     return res.send(ApiResponse.success(uploadedUrls, "Files uploaded successfully", 200));
+  });
+
+  public uploadModelFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {
+    const { itemId } = req.query;
+    const folderName = `3D-Models`;
+    const uploadedUrl = await cloudflareService.uploadModelFile(req.files![0], folderName, Number(itemId));
+    await this.furnitureItemModel.updateFurnitureModelUrl(Number(itemId), uploadedUrl);
+    return res.send(ApiResponse.success(uploadedUrl, "Files uploaded successfully", 200));
   });
 }
