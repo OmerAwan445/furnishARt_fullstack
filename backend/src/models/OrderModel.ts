@@ -1,3 +1,4 @@
+import { ORDERSTATUS } from "@prisma/client";
 import { prisma } from "@src/db";
 import { CartWithItems } from "@src/Types";
 
@@ -7,7 +8,7 @@ class OrderModel {
       userId: number,
   ) {
     await prisma.$transaction(async (tx) => {
-      // Add items to order before deleting the cart
+      // Add items to the order
       await tx.order.create({
         data: {
           customer_id: userId,
@@ -22,6 +23,22 @@ class OrderModel {
         },
       });
 
+      // Update stock quantities and total sales in bulk
+      await Promise.all(
+          cart.cartItems.map((item) =>
+            tx.furnitureItem.update({
+              where: { id: item.furniture_item_id },
+              data: {
+                stock_quantity: {
+                  decrement: item.quantity,
+                },
+                total_sales: {
+                  increment: item.quantity,
+                },
+              },
+            }),
+          ),
+      );
       // Empty cart items
       await tx.cartItem.deleteMany({
         where: {
@@ -35,6 +52,29 @@ class OrderModel {
           id: cart.id,
         },
       });
+    });
+  }
+
+  public async updateOrderStatus(order_id: number, status: ORDERSTATUS) {
+    await prisma.order.update({
+      where: {
+        id: order_id,
+      },
+      data: {
+        order_status: status,
+      },
+    });
+  }
+
+  public async getOrders() {
+    return prisma.order.findMany({
+      include: {
+        orderItems: {
+          include: {
+            furniture_item: true,
+          },
+        },
+      },
     });
   }
 }

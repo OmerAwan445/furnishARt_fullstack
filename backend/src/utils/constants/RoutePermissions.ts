@@ -10,4 +10,5 @@ export const routePermissions = Object.freeze({
   furnitureItem: {
     add: [ROLES.ADMIN],
   },
+  order: [ROLES.ADMIN],
 });

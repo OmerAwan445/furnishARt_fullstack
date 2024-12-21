@@ -10,6 +10,7 @@ import cartRoutes from "./cart";
 import categoryRoutes from "./category";
 import furntiureItemRoutes from "./furnitureItem";
 import paymentRoutes from "./stripePayment";
+import orderRoutes from "./order";
 
 const appRoutes = expressRouter();
 const protectedRoutes = expressRouter();
@@ -19,6 +20,7 @@ protectedRoutes.use(checkSchema(verifyLoginSchema, ['headers']), validateRequest
 // Protected routes(Accessed after login)
 protectedRoutes.use("/cart", checkAllowedRole(routePermissions.cart), cartRoutes);
 protectedRoutes.use("/stripe", checkAllowedRole(routePermissions.stripe), paymentRoutes);
+protectedRoutes.use("/orders", checkAllowedRole(routePermissions.order), orderRoutes);
 
 // Accessible routes
 appRoutes.use("/auth", authRoutes);

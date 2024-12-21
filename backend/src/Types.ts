@@ -102,6 +102,10 @@ export interface AddFurnitureItemRequestBody {
 export interface UploadMediaReqQuery {
     itemId?: string
 }
+export interface updateOrderStatusReqBody {
+    order_id: number
+    status: "PENDING" | "DELIVERED" | "CANCELLED";
+}
 
 export interface FurnitureItemModelFilters {
     whereClause: {
