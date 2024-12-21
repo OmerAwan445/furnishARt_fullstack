@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { customMiddleware } from "./utils/middleware/customMiddleware";
 import nextAuthMiddleware from "./utils/middleware/next-auth-middleware";
+import { privatePathname } from "./utils/constants/PrivatePages";
 
-export const privatePathname = [ "/checkout", "/cart"];
 
 // Combine both middlewares
 export async function middleware(request: NextRequest) {

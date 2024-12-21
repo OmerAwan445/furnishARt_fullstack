@@ -1,6 +1,7 @@
-import { GetFurnitureItemsFiltersReqQuery } from "@src/Types";
+import { AddFurnitureItemRequestBody, GetFurnitureItemsFiltersReqQuery, UploadMediaReqQuery } from "@src/Types";
 import { AppError } from "@src/errors/AppError";
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
+import { cloudflareService } from "@src/services/cloudflare/CloudflareService";
 import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
 import { getParsedFilters } from "@src/utils/getParsedFilters";
@@ -46,5 +47,31 @@ export class FurnitureItemController {
     if (!item) throw new AppError("Furniture item not found", 404);
 
     return res.send(ApiResponse.success(item, "Furniture item retrieved successfully"));
+  });
+
+  public addFurnitureItem = catchAsyncError(async (req: Request<object, object, AddFurnitureItemRequestBody>, res) => {
+    const { name, stock_quantity, color, dimension, weight, category_id, price, description } = req.body;
+    const newItem = await this.furnitureItemModel.addFurnitureItem({ name, stock_quantity, color, dimension, description, weight, Category: {
+      connect: { id: category_id },
+    }, price: price });
+
+    return res.send(ApiResponse.success(newItem, "Furniture item added successfully", 201));
+  });
+
+  public uploadImageFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {
+    const { itemId } = req.query;
+    const folderName = `furniture-images/${itemId}`;
+    const uploadedUrls = await cloudflareService.uploadImageFiles(req.files, folderName);
+    await this.furnitureItemModel.updateFurnitureImageUrls(Number(itemId), uploadedUrls);
+
+    return res.send(ApiResponse.success(uploadedUrls, "Files uploaded successfully", 200));
+  });
+
+  public uploadModelFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {
+    const { itemId } = req.query;
+    const folderName = `3D-Models`;
+    const uploadedUrl = await cloudflareService.uploadModelFile(req.files![0], folderName, Number(itemId));
+    await this.furnitureItemModel.updateFurnitureModelUrl(Number(itemId), uploadedUrl);
+    return res.send(ApiResponse.success(uploadedUrl, "Files uploaded successfully", 200));
   });
 }

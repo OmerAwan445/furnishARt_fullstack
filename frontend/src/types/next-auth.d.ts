@@ -9,7 +9,7 @@ declare module "next-auth" {
     first_name: string;
     last_name: string;
     is_verified: boolean;
-    role: "user" | "admin";
+    role: "USER" | "ADMIN";
     email: string;
     accessToken: string;
   }
@@ -22,7 +22,7 @@ declare module "next-auth" {
       first_name: string;
       last_name: string;
       is_verified: boolean;
-      role: "user" | "admin";
+      role: "USER" | "ADMIN";
       email: string;
     };
   }
@@ -37,7 +37,7 @@ declare module "next-auth/jwt" {
       first_name: string;
       last_name: string;
       is_verified: boolean;
-      role: "user" | "admin";
+      role: "USER" | "ADMIN";
       email: string;
     };
     accessToken: string;

@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { FurnitureItemModelFilters } from "@src/Types";
 import { prisma } from "@src/db";
 
@@ -45,11 +46,23 @@ export class FurnitureItemModel {
             customer: {
               select: {
                 id: true,
-                username: true,
-                first_name: true,
-                last_name: true,
+                User: {
+                  select: {
+                    username: true,
+                    first_name: true,
+                    last_name: true,
+                  },
+                },
               },
             },
+            // user: {
+            //   select: {
+            //     id: true,
+            //     username: true,
+            //     first_name: true,
+            //     last_name: true,
+            //   },
+            // },
           },
           take: 10,
         },
@@ -85,6 +98,35 @@ export class FurnitureItemModel {
       },
       select: {
         price: true,
+      },
+    });
+  }
+
+  async addFurnitureItem(data: Prisma.FurnitureItemCreateInput) {
+    return await prisma.furnitureItem.create({
+      data,
+    });
+  }
+
+  async updateFurnitureImageUrls(itemId:number, urls: string[]) {
+    return await prisma.furnitureItem.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        image_urls: {
+          set: urls,
+        },
+      },
+    });
+  }
+  async updateFurnitureModelUrl(itemId:number, url: string) {
+    return await prisma.furnitureItem.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        model_3d_url: url,
       },
     });
   }

@@ -34,6 +34,13 @@ export default {
     EMAIL_VERIFICATION: "",
     PASSWORD_RESET: "",
   },
+  Cloudflare: {
+    endpoint: "",
+    accessKey: "",
+    secretKey: "",
+    bucket_name: "",
+    bucket_public_url: "",
+  },
   VerificationTokenSecret: "",
   RESEND_VERIFICATION_EMAIL_TIME: 600, // 10 minutes in seconds (60*10)
   RESEND_FORGET_PASS_EMAIL_TIME: 600, // 10 minutes in seconds (60*10)

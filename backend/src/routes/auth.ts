@@ -12,7 +12,7 @@ const controller = new AuthController();
 authRoutes.route('/signup').post(checkSchema(signupSchema, ['body']), validateRequestSchema,
     validatePasswordMatch, controller.createCustomerAndSendVerification);
 
-authRoutes.route('/login').post(checkSchema(loginSchema, ['body']), validateRequestSchema, controller.authenticateCustomer);
+authRoutes.route('/login').post(checkSchema(loginSchema, ['body']), validateRequestSchema, controller.authenticateUser);
 
 authRoutes.route('/send-verification-email').
     post(checkSchema(sendVerificationEmailSchema, ['body']), validateRequestSchema, controller.sendVerificationEmail);

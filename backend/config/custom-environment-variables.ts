@@ -28,4 +28,11 @@ export default {
     EMAIL_VERIFICATION: "EMAIL_VERIFICATION_TOKEN_EXPIRY",
     PASSWORD_RESET: "PASSWORD_RESET_TOKEN_EXPIRY",
   },
+  Cloudflare: {
+    endpoint: "CLOUDFLARE_ENDPOINT",
+    accessKey: "CLOUDFLARE_R2_ACCESS_KEY",
+    secretKey: "CLOUDFLARE_R2_SECRET_KEY",
+    bucket_name: "CLOUDFLARE_R2_BUCKET_NAME",
+    bucket_public_url: "CLOUDFLARE_R2_BUCKET_PUBLIC_URL",
+  },
 };

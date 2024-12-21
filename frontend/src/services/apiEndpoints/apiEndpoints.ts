@@ -13,9 +13,15 @@ export const BACKEND_API_ENDPOINTS = {
   getBestSellerFurnitureItems: "/furniture-item/best-sellers",
   getFurnitureItemFromID: "/furniture-item",
   getFurnitureItems: "/furniture-item",
+  addFurnitureItems: "/furniture-item",
+  uploadFurnitureImages: "/furniture-item/upload-images",
+  uploadFurnitureModel: "/furniture-item/upload-model",
 
   // Category
   getCategories: "/category",
+  addCategory: "/category",
+  editCategory: "/category",
+  deleteCategory: "/category",
 
   // Cart
   addCartItem: "/cart/add-item",
@@ -25,5 +31,9 @@ export const BACKEND_API_ENDPOINTS = {
   // Stripe Payment
   getStripeCustomerAccountId: "/stripe/customer-account-id",
   payCart: '/stripe/pay-cart',
-  getAllPaymentMethods: '/stripe/all-payment-methods/'
+  getAllPaymentMethods: '/stripe/all-payment-methods/',
+
+  // Orders
+  getOrders: "/orders",
+  updateOrderStatus: "/orders/update-status",
 }

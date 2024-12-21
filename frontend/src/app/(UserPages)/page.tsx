@@ -9,10 +9,12 @@ export default async function Home() {
   const bestSellerItems = await FurnitureItemsSvs.getBestSellersSS();
   
   return (
+    <>
+    <ClientSideSnackbar />
     <Container maxWidth="xl" className="px-0 sm:px-auto w-full mt-4 pb-10">
-      <ClientSideSnackbar />
       <Banner />
       {bestSellerItems && <BestSellers items={bestSellerItems} />}
     </Container>
+    </>
   );
 }

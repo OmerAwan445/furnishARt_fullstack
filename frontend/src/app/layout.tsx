@@ -32,7 +32,7 @@ export default function RootLayout({
               <CssBaseline />
               <AuthSessionProvider>
               <StoreProvider>
-                <NavbarLayout>{children}</NavbarLayout>
+                  {children}
               </StoreProvider>
               </AuthSessionProvider>
             </ThemeProvider>

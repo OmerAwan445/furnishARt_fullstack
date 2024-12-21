@@ -1,7 +1,8 @@
 import apiInstance from "@/ApiInstance";
 import { getStripeCusId } from "@/server-actions/getStripeCusId";
 import { PaymentMethods } from "@/types/Types";
-import { authorizedApiCall, authorizedFetchApiCall } from "@/utils/apiUtils/authorizedApiCall";
+import { authorizedFetchApiCall } from "@/utils/apiUtils/authorizedApiCall";
+import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 
 class StripeServices {
@@ -30,14 +31,15 @@ class StripeServices {
   }
 
   static async getPaymentMethods() {
-    const { data, error } = await authorizedApiCall<{
+    const { data, error } = await handleApiCall<{
       cards: PaymentMethods[];
-    }>(async (config) => {
+    }>(async () => {
       const stripe_cus_id = await getStripeCusId();
       const data = await apiInstance.get(
-        process.env.NEXT_PUBLIC_BACKEND_API_URL + BACKEND_API_ENDPOINTS.getAllPaymentMethods + stripe_cus_id,
-        config
-      )
+        process.env.NEXT_PUBLIC_BACKEND_API_URL + BACKEND_API_ENDPOINTS.getAllPaymentMethods + stripe_cus_id
+      ,{
+        isPrivateReq: true
+      })
       return data.data;
   });
 
@@ -48,13 +50,15 @@ class StripeServices {
   static async payCart(pmData: { pm_id: string, is_pm_save?: boolean }) {
     const { pm_id, is_pm_save } = pmData;
     const stripe_cus_id = await getStripeCusId();
-    const { data, error } = await authorizedApiCall<{
+    const { data, error } = await handleApiCall<{
       status: 'Success' | 'Error'
-    }>( async (config) =>
+    }>( async () =>
       await apiInstance.post(
         BACKEND_API_ENDPOINTS.payCart,
         { stripe_cus_id, pm_id, is_pm_save: is_pm_save ?? false },
-        config
+        {
+          isPrivateReq: true
+        }
       ));
     if (error || data.status == "Error") throw error;
     return data.status;

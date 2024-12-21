@@ -124,6 +124,24 @@ export interface ResetPassword {
   confirm_password: string;
 }
 
+/*  API REQUEST */
+export interface AddFurnitureItemRequest {
+  name: string;
+  price: number;
+  stock_quantity: number;
+  category_id: number;
+  dimension?: string;
+  description?: string;
+  color?: string;
+  weight?: number;
+}
+
+export interface UploadMediaReq {
+  files: any, 
+  itemId: number, 
+  mediaType: "image" | "model"
+}
+
 /*  API RESPONSES */
 export interface AutoCompleteResponse {
   name: string
@@ -139,6 +157,7 @@ export interface GetCartDetailsResponse {
     cart_total_price:  number;
     cartItems: CartItem[];
   }
+
 export interface CartItem {
     id:         number;
     quantity:   number;
@@ -146,7 +165,6 @@ export interface CartItem {
     price:      number;
     thumbnail_image: string;
 }
-
 
 
 export interface Review {
@@ -186,6 +204,30 @@ export interface ReturnFurnitureItems {
       rating: number;
   }[];
 }
+
+export interface OrderItem {
+  id: number;
+  quantity: number;
+  furniture_item_id: number;
+  order_id: number;
+  furniture_item: {
+    name: string;
+    price: string;
+    image_urls: string[];
+  };
+}
+
+export interface Order {
+  id: number;
+  order_status: string;
+  total_amount: string;
+  customer_id: number;
+  created_at: string;
+  updated_at: string;
+  orderItems: OrderItem[];
+}
+
+
 
 export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
 

@@ -34,3 +34,39 @@ export const LoginFormSchema = Yup.object({
 });
 
 
+
+export const AddFurnitureItemFormSchema = Yup.object({
+    name: Yup.string().required("Title is required"),
+    price: Yup.string()
+    .required("Price is required")
+    .test("is-numeric", "Price must be a number without units (e.g., '49.99')", (value) => {
+      if (!value) return false; // Ensure value exists
+      return !isNaN(Number(value)) && /^\d+(\.\d+)?$/.test(value); // Allow only numbers and decimals
+    }),
+    stock_quantity: Yup.number()
+      .required("Stock quantity is required")
+      .integer("Must be an integer")
+      .min(0),
+    category_id: Yup.number().required("Category ID is required").integer(),
+    dimension: Yup.string(),
+    description: Yup.string(),
+    color: Yup.string(),
+    weight: Yup.string()
+    .required("Weight is required")
+    .test("is-numeric", "Weight must be a number without units (e.g., '12.2')", (value) => {
+      if (!value) return false; // Ensure value exists
+      return !isNaN(Number(value)) && /^\d+(\.\d+)?$/.test(value); // Allow only numbers and decimals
+    }),
+  });
+
+ export const AddCategoryFormSchema = Yup.object({
+    name: Yup.string()
+      .required("Category name is required")
+      .max(100, "Category name cannot exceed 100 characters")
+      .matches(
+        /^[a-zA-Z0-9 ]+$/,
+        "Category name must only contain letters, numbers, and spaces"
+      ),
+  });
+
+

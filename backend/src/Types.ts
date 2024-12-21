@@ -1,6 +1,6 @@
 import { Decimal, PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request } from "express";
-
+import "express-serve-static-core";
 
 // ======= Global types ==========
 declare module "jsonwebtoken" {
@@ -9,12 +9,24 @@ declare module "jsonwebtoken" {
     }
 }
 
+
 // eslint-disable-next-line
+declare namespace Multer {
+    export interface File {
+      fieldname: string;
+      originalname: string;
+      encoding: string;
+      mimetype: string;
+      size: number;
+      buffer: Buffer;
+    }
+  }
 declare global {
     // eslint-disable-next-line
     namespace Express {
         interface Request {
         user?: JwtUser; // Define the user property with the appropriate type
+        files?: Multer.File[];
   }
 }
 }
@@ -36,6 +48,7 @@ export interface JwtUser {
     email: string;
     name: string;
     username: string
+    role: "ADMIN" | "USER";
 }
 
 
@@ -60,6 +73,10 @@ export interface ResetPasswordRequestBody {
     confirm_password: string;
 }
 
+export interface AddCategoryRequestBody {
+    name: string
+}
+
 export interface GetFurnitureItemsFiltersReqQuery {
     category_id?: string
     itemsPerPage?: string
@@ -69,6 +86,25 @@ export interface GetFurnitureItemsFilters {
     category_id?: number[]
     itemsPerPage?: number
     page?: number
+}
+
+export interface AddFurnitureItemRequestBody {
+    name: string;
+    price: Decimal;
+    stock_quantity: number;
+    category_id: number;
+    dimension?: string;
+    description?: string;
+    color?: string;
+    weight?: Decimal;
+}
+
+export interface UploadMediaReqQuery {
+    itemId?: string
+}
+export interface updateOrderStatusReqBody {
+    order_id: number
+    status: "PENDING" | "DELIVERED" | "CANCELLED";
 }
 
 export interface FurnitureItemModelFilters {

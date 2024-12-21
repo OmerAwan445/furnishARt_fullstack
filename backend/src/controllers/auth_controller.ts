@@ -1,6 +1,6 @@
 import { LoginRequestBody, ResetPasswordRequestBody, SignupRequestBody } from '@src/Types';
 import { AppError } from '@src/errors/AppError';
-import { checkEmailUniqueAndCreateCustomer, findCustomerByEmail, findCustomerById, makeCustomerVerifiedAndDeleteToken, updatePasswordAndDeleteToken } from '@src/models/CustomerModel'; // eslint-disable-line
+import { checkEmailUniqueAndCreateCustomer, findUserByEmail, findUserById, makeUserVerifiedAndDeleteTokenen, updatePasswordAndDeleteToken } from '@src/models/CustomerModel'; // eslint-disable-line
 import BcryptSvs from '@src/services/auth/bcryptSvs';
 import CryptoTokenSvs from '@src/services/auth/cryptoTokenSvs'; // eslint-disable-line
 import { sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded } from '@src/services/auth/forgetPasswordSvs';
@@ -26,30 +26,31 @@ class AuthController {
   });
 
   // LOGIN controller:
-  authenticateCustomer = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res) => {
+  authenticateUser = catchAsyncError(async (req: Request<object, object, LoginRequestBody>, res) => {
     const { email, password } = req.body;
 
-    const customer = await findCustomerByEmail(email);
+    const user = await findUserByEmail(email);
 
     // if customer exists && password is correct
-    if (!customer || !(await BcryptSvs.comparePassword(password, customer.password))) {
+    if (!user || !(await BcryptSvs.comparePassword(password, user.password))) {
       throw new AppError(ResponseMessages.INVALID_EMAIL_OR_PASSWORD, 404);
     }
     // if Customer is not verified then don't send access_token
-    if (!customer.is_verified) {
-      const { msg } = await sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded(customer.email, customer.id);
+    if (!user.is_verified) {
+      const { msg } = await sendVerificationEmailAndSaveTokenIfResendTimeLimitNotExceeded(user.email, user.id);
       return res.status(403).send(ApiResponse.error(ResponseMessages.USER_EMAIL_NOT_VERIFIED + ' & ' +
-        msg, 403, { customer_id: customer.id }));
+        msg, 403, { customer_id: user.id }));
     }
 
-    const { password: _, ...customerWithoutPassword } = customer; // eslint-disable-line
+    const { password: _, ...customerWithoutPassword } = user; // eslint-disable-line
     // generate access_token
     const accessToken = await JwtSvs.generateAccessToken(
         {
-          id: customer.id,
-          username: customer.username,
-          email: customer.email,
-          name: customer.first_name + ' ' + customer.last_name,
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          name: user.first_name + ' ' + user.last_name,
+          role: user.role,
         },
     );
 
@@ -59,7 +60,7 @@ class AuthController {
 
   sendVerificationEmail = catchAsyncError(async (req: Request<object, object, { customer_id: number }>, res) => {
     const { customer_id } = req.body;
-    const customer = await findCustomerById(customer_id);
+    const customer = await findUserById(customer_id);
 
     if (!customer || customer.is_verified) {
       throw new AppError(ResponseMessages.NO_USER_FOUND_OR_ALREADY_VERIFIED, 404);
@@ -78,9 +79,11 @@ class AuthController {
     const { data, isValidToken, errorMsg } = await CryptoTokenSvs.checkTokenValidityAndExtractData(token, "EMAIL_VERIFICATION");
     if (!isValidToken || !data) throw new AppError(errorMsg as string, 401);
     // 2. make user verified and Delete the token from the Db
-    const user = await makeCustomerVerifiedAndDeleteToken(data.customer_id);
+    const user = await makeUserVerifiedAndDeleteTokenen(data.customer_id);
     const accessToken = await JwtSvs.generateAccessToken({ username: user.username,
-      id: user.id, email: user.email, name: user.first_name + user.last_name });
+      id: user.id, email: user.email, name: user.first_name + user.last_name,
+      role: user.role,
+    });
 
     res.send(ApiResponse.success({ ...user, accessToken }, ResponseMessages.USER_VERIFIED_SUCCESSFULLY, 200));
   });
@@ -88,7 +91,7 @@ class AuthController {
   forgetPassword = catchAsyncError(async (req: Request<object, object, { email: string }>, res) => {
     const { email } = req.body;
     // 1. find customer by email
-    const customer = await findCustomerByEmail(email);
+    const customer = await findUserByEmail(email);
     if (!customer) throw new AppError(ResponseMessages.USER_NOT_FOUND, 404);
     // 2. generate a token and send email with token
     const { token, msg, error, statusCode } = await sendForgetPassEmailAndSaveTokenIfResendTimeLimitNotExceeded(
