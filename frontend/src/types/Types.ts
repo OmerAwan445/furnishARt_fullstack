@@ -205,6 +205,30 @@ export interface ReturnFurnitureItems {
   }[];
 }
 
+export interface OrderItem {
+  id: number;
+  quantity: number;
+  furniture_item_id: number;
+  order_id: number;
+  furniture_item: {
+    name: string;
+    price: string;
+    image_urls: string[];
+  };
+}
+
+export interface Order {
+  id: number;
+  order_status: string;
+  total_amount: string;
+  customer_id: number;
+  created_at: string;
+  updated_at: string;
+  orderItems: OrderItem[];
+}
+
+
+
 export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
 
 
