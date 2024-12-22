@@ -237,7 +237,7 @@ const AddFurnitureItemForm = () => {
               >
                 Description
               </label>
-              <TextField
+              <MyTextInput
                 multiline
                 rows={4} // Number of visible rows
                 id="description"

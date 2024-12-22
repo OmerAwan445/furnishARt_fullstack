@@ -98,10 +98,22 @@ export interface AddFurnitureItemRequestBody {
     color?: string;
     weight?: Decimal;
 }
+export interface EditFurnitureItemRequestBody {
+    id: number;
+    name?: string;
+    price?: Decimal;
+    stock_quantity?: number;
+    category_id?: number;
+    dimension?: string;
+    description?: string;
+    color?: string;
+    weight?: Decimal;
+}
 
 export interface UploadMediaReqQuery {
     itemId?: string
 }
+export interface UpdateStocksReqBody { itemId: number, quantity: number }
 export interface updateOrderStatusReqBody {
     order_id: number
     status: "PENDING" | "DELIVERED" | "CANCELLED";

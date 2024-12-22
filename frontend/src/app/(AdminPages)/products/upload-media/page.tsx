@@ -7,9 +7,8 @@ import { useAppDispatch } from "@/hooks/reduxHooks";
 import FurnitureItemsSvs from "@/services/FurnitureItems";
 import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 import { useMutation } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import React, { FormEvent, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 
 const fileSettings = {
@@ -48,6 +47,7 @@ function UploadMediaPage() {
     onSuccess: () => {
       if(mediaType === "image") {
         router.push(`/products/upload-media?itemId=${itemId}&mediaType=model`);
+        setFiles([]);
       }
     }
   });

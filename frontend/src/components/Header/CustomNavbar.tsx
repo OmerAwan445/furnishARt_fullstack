@@ -154,7 +154,7 @@ function CustomNavbar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "45px", zIndex: 100 }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -170,6 +170,13 @@ function CustomNavbar() {
               onClose={handleCloseUserMenu}
             >
               <Stack direction={"column"} gap={1}>
+                {data.user.role === "ADMIN" && 
+                <Link href="/dashboard" passHref>
+                <Button variant="text" sx={{ px: "20px" }}>
+                <Typography textAlign="center">Dashbord</Typography>
+                </Button>
+                </Link>
+                }
               {settings.map((setting) => (
                 <Button key={setting} variant="text" sx={{ px: "20px" }} onClick={setting === "Logout" ? ()=>AuthSvs.signOutUser() : undefined}>
                 <Typography textAlign="center">{setting}</Typography>

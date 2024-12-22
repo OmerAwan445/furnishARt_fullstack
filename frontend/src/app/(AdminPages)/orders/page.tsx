@@ -19,6 +19,7 @@ import OrderSvs from "@/services/Order";
 import { Order } from "@/types/Types";
 import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
+import TitleHeadings from "@/components/common/headings/TitleHeadings";
 
 const OrdersPage: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -60,10 +61,10 @@ const OrdersPage: React.FC = () => {
   }
 
   return (
-    <div className="p-8">
-      <Typography variant="h4" className="mb-4 text-gray-800 font-semibold">
+    <div className="p-4">
+      <TitleHeadings>
         Admin Orders Panel
-      </Typography>
+      </TitleHeadings>
       <TableContainer component={Paper} className="shadow-md">
         <Table>
           <TableHead className="bg-gray-200">

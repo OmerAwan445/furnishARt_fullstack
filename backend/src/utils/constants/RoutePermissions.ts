@@ -9,6 +9,10 @@ export const routePermissions = Object.freeze({
   },
   furnitureItem: {
     add: [ROLES.ADMIN],
+    edit: [ROLES.ADMIN],
+    delete: [ROLES.ADMIN],
+    upload_media: [ROLES.ADMIN],
+    update_stocks: [ROLES.ADMIN],
   },
   order: [ROLES.ADMIN],
 });

@@ -125,7 +125,7 @@ const FileUploadField: React.FC<FileUploadProps> = ({
               <img
                 src={preview.previewUrl}
                 alt={preview.file.name}
-                className="w-full h-full max-h-48 object-cover rounded-md"
+                className="w-full h-full object-cover rounded-md"
               />
             ) : (
               <div className="flex items-center justify-center w-full h-32 bg-gray-200 text-gray-700">

@@ -1,6 +1,8 @@
-import { AddFurnitureItemRequestBody, GetFurnitureItemsFiltersReqQuery, UploadMediaReqQuery } from "@src/Types";
+import { AddFurnitureItemRequestBody, EditFurnitureItemRequestBody,
+  GetFurnitureItemsFiltersReqQuery, UpdateStocksReqBody, UploadMediaReqQuery } from "@src/Types";
 import { AppError } from "@src/errors/AppError";
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
+import FurnitureItemSvs from "@src/services/FurnitureItemSvs";
 import { cloudflareService } from "@src/services/cloudflare/CloudflareService";
 import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
@@ -9,9 +11,11 @@ import { Request } from "express";
 
 export class FurnitureItemController {
   private furnitureItemModel: FurnitureItemModel;
+  private furitureItemSvs: FurnitureItemSvs;
 
   constructor() {
     this.furnitureItemModel = new FurnitureItemModel();
+    this.furitureItemSvs = new FurnitureItemSvs();
   }
 
   public getFurnitureItems = catchAsyncError(async (req: Request<any, any, any, GetFurnitureItemsFiltersReqQuery>, res) => {
@@ -56,6 +60,25 @@ export class FurnitureItemController {
     }, price: price });
 
     return res.send(ApiResponse.success(newItem, "Furniture item added successfully", 201));
+  });
+
+  public editFurnitureItems = catchAsyncError(async (req: Request<object, object, EditFurnitureItemRequestBody>, res) => {
+    const updatedItem = await this.furitureItemSvs.editFurnitureItems(req.body);
+    return res.send(ApiResponse.success(updatedItem, "Furniture item updated successfully", 200));
+  });
+
+  public deleteFurnitureItem = catchAsyncError(async (req: Request<{ id?: string }, any, any>, res) => {
+    const { id } = req.params;
+
+    await this.furnitureItemModel.deleteFurnitureItem(Number(id));
+    return res.send(ApiResponse.success(null, "Furniture item deleted successfully", 200));
+  });
+
+  public updateStocks = catchAsyncError(async (req: Request<object, object, UpdateStocksReqBody>, res) => {
+    const { itemId, quantity } = req.body;
+    await this.furnitureItemModel.updateStocks(itemId, quantity);
+
+    return res.send(ApiResponse.success(null, "Stocks updated successfully", 200));
   });
 
   public uploadImageFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {

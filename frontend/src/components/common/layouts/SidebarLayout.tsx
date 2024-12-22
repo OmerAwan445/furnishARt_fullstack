@@ -23,7 +23,7 @@ import {
     RiFileList3Line,
   } from "react-icons/ri";
 import { IoIosLaptop } from 'react-icons/io';
-import { BiLeftArrow, BiMenu, BiRightArrow } from 'react-icons/bi';
+import { BiHome, BiLeftArrow, BiMenu, BiRightArrow } from 'react-icons/bi';
 import { usePathname } from 'next/navigation';
 import { Avatar, Button, Menu, Stack, Tooltip } from '@mui/material';
 import { stringAvatar } from '@/utils/others/avatarColor';
@@ -119,7 +119,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const SidebarLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const location = usePathname();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const { data } = useSession();
@@ -147,6 +147,7 @@ const SidebarLayout = ({ children }: { children: React.ReactNode }) => {
       { label: "Add Furniture Item", icon: <RiAddFill />, path: "/products/add" },
       { label: "Orders", icon: <RiShoppingCart2Line />, path: "/orders" },
       { label: "Users", icon: <RiUser3Line />, path: "/users" },
+      { label: "Home", icon: <BiHome />, path: "/" },
     ];
 
   return (

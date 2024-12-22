@@ -108,6 +108,34 @@ export class FurnitureItemModel {
     });
   }
 
+  async updateFurnitureItem(id: number, data: Prisma.FurnitureItemUpdateInput) {
+    return await prisma.furnitureItem.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
+
+  async deleteFurnitureItem(id: number) {
+    return await prisma.furnitureItem.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async updateStocks(itemId: number, stock_quantity: number) {
+    return await prisma.furnitureItem.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        stock_quantity,
+      },
+    });
+  }
+
   async updateFurnitureImageUrls(itemId:number, urls: string[]) {
     return await prisma.furnitureItem.update({
       where: {
