@@ -10,6 +10,12 @@ export class OrderController {
     this.orderSvs = new OrderSvs();
   }
 
+  getUserOrders = catchAsyncError(async (req: Request<{id?: string}, object, object>, res) => {
+    const { id } = req.user!;
+    const orders = await this.orderSvs.getUserOrders(id);
+    res.send(ApiResponse.success(orders, "Orders retrieved successfully"));
+  });
+
   getOrders = catchAsyncError(async (req, res) => {
     // Get orders
     const orders = await this.orderSvs.getOrders();

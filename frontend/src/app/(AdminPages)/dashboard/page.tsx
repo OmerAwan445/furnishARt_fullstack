@@ -1,12 +1,8 @@
-import React from "react";
-import { Box, Grid, Typography, Card } from "@mui/material";
-import { RiShoppingCart2Line, RiUser3Line } from "react-icons/ri";
-import { IoIosLaptop } from "react-icons/io";
-import { BiRupee } from "react-icons/bi";
+import { Card, Grid, Typography } from "@mui/material";
+import Link from "next/link";
 import { BsViewList } from "react-icons/bs";
 import { FaLaptopMedical } from "react-icons/fa";
-import Sidebar from "@/components/Header/Sidebar";
-import Link from "next/link";
+import { IoIosLaptop } from "react-icons/io";
 
 const Dashboard = () => {
   return (

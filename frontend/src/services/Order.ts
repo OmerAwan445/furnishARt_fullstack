@@ -11,14 +11,23 @@ class OrderService {
   
       if (error) return null;
       return data.data;
-}
-static async updateOrderStatus(order_id: number, status: string) {
-    const { data, error } =  await handleApiCall<{ message: string }>(
+    }
+    static async updateOrderStatus(order_id: number, status: string) {
+      const { data, error } =  await handleApiCall<{ message: string }>(
         async () => await apiInstance.put( `${BACKEND_API_ENDPOINTS.updateOrderStatus}`, { order_id, status }, { isPrivateReq: true})
       );
   
       if (error) return { error: true, message: error.message };
       return { error: false, message: data.message };
+}
+static async getUserOrders() {
+  const { data, error } =  await handleApiCall<{ data: Order[] }>(
+      async () => await apiInstance.get( BACKEND_API_ENDPOINTS.getUserOrders, { isPrivateReq: true})
+    );
+
+    if (error) return null;
+    return data.data;
+  
 }
 }
 

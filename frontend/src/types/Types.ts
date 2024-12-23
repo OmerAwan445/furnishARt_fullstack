@@ -249,8 +249,6 @@ export interface Order {
   orderItems: OrderItem[];
 }
 
-
-
 export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
 
 export type GetBestSellerResponse = ItemCardProps[];

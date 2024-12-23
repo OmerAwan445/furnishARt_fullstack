@@ -77,6 +77,21 @@ class OrderModel {
       },
     });
   }
+
+  public async getUserOrders(id: number) {
+    return prisma.order.findMany({
+      where: {
+        customer_id: id,
+      },
+      include: {
+        orderItems: {
+          include: {
+            furniture_item: true,
+          },
+        },
+      },
+    });
+  }
 }
 
 export default OrderModel;

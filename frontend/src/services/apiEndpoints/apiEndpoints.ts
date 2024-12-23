@@ -37,5 +37,6 @@ export const BACKEND_API_ENDPOINTS = {
 
   // Orders
   getOrders: "/orders",
+  getUserOrders: "/orders/user",
   updateOrderStatus: "/orders/update-status",
 }

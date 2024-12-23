@@ -15,6 +15,10 @@ class OrderSvs {
   async getOrders() {
     return this.OrderModel.getOrders();
   }
+
+  async getUserOrders(id: number) {
+    return this.OrderModel.getUserOrders(id);
+  }
 }
 
 export default OrderSvs;

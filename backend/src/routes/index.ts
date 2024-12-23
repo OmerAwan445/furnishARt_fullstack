@@ -20,7 +20,7 @@ protectedRoutes.use(checkSchema(verifyLoginSchema, ['headers']), validateRequest
 // Protected routes(Accessed after login)
 protectedRoutes.use("/cart", checkAllowedRole(routePermissions.cart), cartRoutes);
 protectedRoutes.use("/stripe", checkAllowedRole(routePermissions.stripe), paymentRoutes);
-protectedRoutes.use("/orders", checkAllowedRole(routePermissions.order), orderRoutes);
+protectedRoutes.use("/orders", orderRoutes);
 
 // Accessible routes
 appRoutes.use("/auth", authRoutes);
