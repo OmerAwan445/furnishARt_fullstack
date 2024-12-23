@@ -2,12 +2,10 @@
 
 import { FurnitureItemDetailsProps } from '@/types/Types';
 import { Box, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
-import AddToCartButton from '../common/buttons/AddToCartButton';
-import FurnitureImagesAnd3DModel from './FurnitureImagesAnd3DModel';
 import { useState } from 'react';
-import GradientButton from '../common/buttons/GradientButton';
-import Link from 'next/link';
+import AddToCartButton from '../common/buttons/AddToCartButton';
 import DeepLinkButton from '../common/DeepLinkButton';
+import FurnitureImagesAnd3DModel from './FurnitureImagesAnd3DModel';
 
 const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => {
   const { id, name, price, description, image_urls, total_sales, weight, color, dimension, model_3d_url } = item;
@@ -35,7 +33,7 @@ const FurnitureItemDetails = ({ item }: { item: FurnitureItemDetailsProps }) => 
           <Stack direction="row" spacing={2} alignItems="center" mt={3}>
             <TextField type="number" defaultValue={quantity} onChange={(e)=>setQuantity(Number(e.target.value))} InputProps={{ inputProps: { min: 1 } }} sx={{ width: 100, }} />
             <AddToCartButton quantity={quantity} furnitureId={id}/>
-            <DeepLinkButton id={id}/>
+            {model_3d_url && <DeepLinkButton id={id}/>}
           </Stack>
         </Box>
       </Grid>

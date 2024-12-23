@@ -35,7 +35,7 @@ export const LoginFormSchema = Yup.object({
 
 
 
-export const AddFurnitureItemFormSchema = Yup.object({
+export const FurnitureItemFormSchema = Yup.object({
     name: Yup.string().required("Title is required"),
     price: Yup.string()
     .required("Price is required")
@@ -49,7 +49,7 @@ export const AddFurnitureItemFormSchema = Yup.object({
       .min(0),
     category_id: Yup.number().required("Category ID is required").integer(),
     dimension: Yup.string(),
-    description: Yup.string().required("Description is required"),
+    description: Yup.string(),
     color: Yup.string(),
     weight: Yup.string()
     .required("Weight is required")

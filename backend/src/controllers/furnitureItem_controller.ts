@@ -3,7 +3,6 @@ import { AddFurnitureItemRequestBody, EditFurnitureItemRequestBody,
 import { AppError } from "@src/errors/AppError";
 import { FurnitureItemModel } from "@src/models/FurnitureItemModel";
 import FurnitureItemSvs from "@src/services/FurnitureItemSvs";
-import { cloudflareService } from "@src/services/cloudflare/CloudflareService";
 import ApiResponse from "@src/utils/ApiResponse";
 import { catchAsyncError } from "@src/utils/catchAsyncError";
 import { getParsedFilters } from "@src/utils/getParsedFilters";
@@ -11,11 +10,11 @@ import { Request } from "express";
 
 export class FurnitureItemController {
   private furnitureItemModel: FurnitureItemModel;
-  private furitureItemSvs: FurnitureItemSvs;
+  private furnitureItemSvs: FurnitureItemSvs;
 
   constructor() {
     this.furnitureItemModel = new FurnitureItemModel();
-    this.furitureItemSvs = new FurnitureItemSvs();
+    this.furnitureItemSvs = new FurnitureItemSvs();
   }
 
   public getFurnitureItems = catchAsyncError(async (req: Request<any, any, any, GetFurnitureItemsFiltersReqQuery>, res) => {
@@ -63,14 +62,14 @@ export class FurnitureItemController {
   });
 
   public editFurnitureItems = catchAsyncError(async (req: Request<object, object, EditFurnitureItemRequestBody>, res) => {
-    const updatedItem = await this.furitureItemSvs.editFurnitureItems(req.body);
+    const updatedItem = await this.furnitureItemSvs.editFurnitureItems(req.body);
     return res.send(ApiResponse.success(updatedItem, "Furniture item updated successfully", 200));
   });
 
   public deleteFurnitureItem = catchAsyncError(async (req: Request<{ id?: string }, any, any>, res) => {
     const { id } = req.params;
 
-    await this.furnitureItemModel.deleteFurnitureItem(Number(id));
+    await this.furnitureItemSvs.deleteFurnitureItem(Number(id));
     return res.send(ApiResponse.success(null, "Furniture item deleted successfully", 200));
   });
 
@@ -83,18 +82,14 @@ export class FurnitureItemController {
 
   public uploadImageFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {
     const { itemId } = req.query;
-    const folderName = `furniture-images/${itemId}`;
-    const uploadedUrls = await cloudflareService.uploadImageFiles(req.files, folderName);
-    await this.furnitureItemModel.updateFurnitureImageUrls(Number(itemId), uploadedUrls);
+    const uploadedUrl = await this.furnitureItemSvs.uploadFurnitureImages(Number(itemId), req.files);
 
-    return res.send(ApiResponse.success(uploadedUrls, "Files uploaded successfully", 200));
+    return res.send(ApiResponse.success(uploadedUrl, "Files uploaded successfully", 200));
   });
 
   public uploadModelFiles = catchAsyncError(async (req: Request<any, any, any, UploadMediaReqQuery>, res) => {
     const { itemId } = req.query;
-    const folderName = `3D-Models`;
-    const uploadedUrl = await cloudflareService.uploadModelFile(req.files![0], folderName, Number(itemId));
-    await this.furnitureItemModel.updateFurnitureModelUrl(Number(itemId), uploadedUrl);
+    const uploadedUrl = await this.furnitureItemSvs.uploadFurnitureModel(req.files![0], Number(itemId));
     return res.send(ApiResponse.success(uploadedUrl, "Files uploaded successfully", 200));
   });
 }

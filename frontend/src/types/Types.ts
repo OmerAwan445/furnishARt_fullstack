@@ -71,6 +71,17 @@ export interface FurnitureItemDetailsProps {
   reviews: Review[];
 };
 
+export interface EditFurnitureItemFormData {
+  id: number
+  name: string;
+  description: string;
+  price: number;
+  stock_quantity: number;
+  color: string;
+  dimension: string;
+  weight: number;
+  category_id: number;
+};
 
 export interface HorizontaltemCardWithLensEffectProps {
   item: CartItem;
@@ -126,6 +137,17 @@ export interface ResetPassword {
 
 /*  API REQUEST */
 export interface AddFurnitureItemRequest {
+  name: string;
+  price: number;
+  stock_quantity: number;
+  category_id: number;
+  dimension?: string;
+  description?: string;
+  color?: string;
+  weight?: number;
+}
+export interface EditFurnitureItemRequest {
+  id: number;
   name: string;
   price: number;
   stock_quantity: number;
@@ -230,7 +252,6 @@ export interface Order {
 
 
 export type FurnitureItemDetailsResponse = FurnitureItemDetailsProps;
-
 
 export type GetBestSellerResponse = ItemCardProps[];
 export type GetFurnitureItems = ItemCardProps[];

@@ -2,26 +2,28 @@
 import GradientButton from "@/components/common/buttons/GradientButton";
 import FileUploadField from "@/components/common/FileUploadField";
 import { MyTextInput } from "@/components/common/FormFields/MyTextInput";
+import TitleHeadings from "@/components/common/headings/TitleHeadings";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import CategorySvs from "@/services/Category";
 import FurnitureItemsSvs from "@/services/FurnitureItems";
 import { CategoryActions } from "@/store/Slices/CategorySlice";
 import { SnackBarActions } from "@/store/Slices/SnackBarSlice";
-import { AddFurnitureItemFormSchema } from "@/utils/FormValidations/ValidationSchemas";
+import { EditFurnitureItemFormData } from "@/types/Types";
+import { FurnitureItemFormSchema } from "@/utils/FormValidations/ValidationSchemas";
 import { MenuItem, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const AddFurnitureItemForm = () => {
+const FurnitureItemForm = ({ type, item }: { type?: "edit" | "add", item?: EditFurnitureItemFormData }) => {
   const categories = useAppSelector((store) => store.categories);
   const dispatch = useAppDispatch();
   const { AddCategories } = CategoryActions;
   const { addMessage } = SnackBarActions;
   const router = useRouter();
   const { mutate, isPending } = useMutation({
-    mutationFn: FurnitureItemsSvs.addFurnitureItem,
+    mutationFn: type =="edit" ?  FurnitureItemsSvs.editFurnitureItem : FurnitureItemsSvs.addFurnitureItem,
     onSettled(data) {
       dispatch(
         addMessage({
@@ -30,20 +32,23 @@ const AddFurnitureItemForm = () => {
         })
       );
       if(!data?.error){
+        if(type === "edit")
+          router.push(`/furniture/${data?.id}`);
+          else
         router.push(`/products/upload-media?itemId=${data?.id}&mediaType=image`)
       }
     },
   });
 
   const initialValues = {
-    name: "",
-    price: 0,
-    stock_quantity: 1,
-    category_id: 0,
-    color: "",
-    weight: 0,
-    dimension: "",
-    description: "",
+    name: item?.name ?? "",
+    price: item?.price ?? 0,
+    stock_quantity: item?.stock_quantity ?? 1,
+    category_id: item?.category_id ?? 0,
+    color: item?.color ?? "",
+    weight: item?.weight ?? 0,
+    dimension: item?.dimension ?? "",
+    description: item?.description ?? "",
   };
 
   useEffect(() => {
@@ -60,17 +65,18 @@ const AddFurnitureItemForm = () => {
   }, []);
 
   const handleSubmit = (values: typeof initialValues) => {
-    mutate({...values });
+    let reqData: any = { ...values };
+    if (type === "edit") {
+      reqData = { ...reqData, id: item?.id };
+    }
+    mutate({...reqData });
   };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-6">
-        Add Furniture Item
-      </h1>
       <Formik
         initialValues={initialValues}
-        validationSchema={AddFurnitureItemFormSchema}
+        validationSchema={FurnitureItemFormSchema}
         onSubmit={handleSubmit}
       >
         {({ errors, touched, handleSubmit, setFieldValue, values }) => (
@@ -222,7 +228,7 @@ const AddFurnitureItemForm = () => {
               <MyTextInput
                 id="dimension"
                 name="dimension"
-                placeholder="Enter dimension e-g 10x10x10"
+                placeholder="Enter dimension e-g 10x10x10 cm"
                 className={`${
                   touched.dimension && errors.dimension
                     ? "border-red-600 focus:ring-red-600"
@@ -253,7 +259,7 @@ const AddFurnitureItemForm = () => {
             {/* Submit Button */}
             <div className="flex justify-end">
               <GradientButton disabled={isPending} type="submit">
-                Add Furniture
+                {type === "edit" ? "Update" : "Add"} Furniture
               </GradientButton>
             </div>
           </form>
@@ -263,4 +269,4 @@ const AddFurnitureItemForm = () => {
   );
 };
 
-export default AddFurnitureItemForm;
+export default FurnitureItemForm;

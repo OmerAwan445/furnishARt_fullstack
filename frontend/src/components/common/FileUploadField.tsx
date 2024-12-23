@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FileInput, Label } from "flowbite-react";
 
 type FileUploadProps = {
@@ -36,7 +36,7 @@ const FileUploadField: React.FC<FileUploadProps> = ({
     const previews: PreviewFile[] = [];
 
     Array.from(selectedFiles).forEach((file) => {
-      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
       if (
         (acceptedTypes.includes(file.type) || (fileExtension && acceptedTypes.includes(fileExtension))) &&
         file.size <= maxSizeInBytes
@@ -61,24 +61,38 @@ const FileUploadField: React.FC<FileUploadProps> = ({
 
     if (validFiles.length > 0) {
       setFiles(validFiles); // Update files in parent state
-      setPreviewFiles(previews);
       onFilesSelected(validFiles);
     }
   };
 
   const handleRemoveFile = (index: number) => {
-    setPreviewFiles((prev) => {
-      const updatedPreviews = [...prev];
-      updatedPreviews.splice(index, 1);
-      return updatedPreviews;
-    });
-
     setFiles((prevFiles) => {
       const updatedFiles = [...prevFiles];
       updatedFiles.splice(index, 1);
       return updatedFiles;
     });
   };
+
+  useEffect(() => {
+    if (files.length === 0) {
+      setPreviewFiles([]); // Clear previewFiles if all files are removed
+      return;
+    }
+
+    const previews = files.map((file) =>
+      file.type.startsWith("image/")
+        ? { file, previewUrl: URL.createObjectURL(file) }
+        : { file, previewUrl: null }
+    );
+    setPreviewFiles(previews);
+
+    // Cleanup URLs to avoid memory leaks
+    return () => {
+      previews.forEach((preview) => {
+        if (preview.previewUrl) URL.revokeObjectURL(preview.previewUrl);
+      });
+    };
+  }, [files]);
 
   return (
     <div className="flex flex-col w-full items-center justify-center">

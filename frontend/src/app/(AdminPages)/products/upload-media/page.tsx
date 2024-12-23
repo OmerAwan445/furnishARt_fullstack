@@ -18,9 +18,9 @@ const fileSettings = {
         errorMessage: "Only PNG, JPEG files under 2MB are allowed." 
     },
     model: {
-        acceptedTypes: ["glb", "model/gltf-binary"],
+        acceptedTypes: ["glb", "gltf", "model/gltf-binary"],
         maxSizeInBytes: 10 * 1024 * 1024, // 10 MB
-        errorMessage: "Only GLTF files under 10MB are allowed."
+        errorMessage: "Only Glb files under 10MB are allowed."
     }
 }
 
@@ -35,19 +35,29 @@ function UploadMediaPage() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: FurnitureItemsSvs.uploadMedia,
-    onSettled(data) {
+    onError(data) {
       dispatch(
         addMessage({
           message: data?.message ?? "",
-          type: data?.error ? "error" : "success",
+          type: "error",
         })
       );
       setFiles([]);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setFiles([]);
+      dispatch(
+        addMessage({
+          message: data.message ?? "",
+          type: "success",
+        })
+      );
+      setFiles([]);
       if(mediaType === "image") {
         router.push(`/products/upload-media?itemId=${itemId}&mediaType=model`);
-        setFiles([]);
+      }
+      else {
+        router.push(`/furniture/${itemId}`);
       }
     }
   });
@@ -83,7 +93,7 @@ function UploadMediaPage() {
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <GradientButton disabled={isPending} type="submit">Add Furniture</GradientButton>
+          <GradientButton disabled={isPending} type="submit">Add Furniture {mediaType}</GradientButton>
         </div>
       </form>
     </div>

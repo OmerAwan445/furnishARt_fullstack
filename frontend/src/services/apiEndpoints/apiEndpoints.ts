@@ -14,6 +14,8 @@ export const BACKEND_API_ENDPOINTS = {
   getFurnitureItemFromID: "/furniture-item",
   getFurnitureItems: "/furniture-item",
   addFurnitureItems: "/furniture-item",
+  deleteFurnitureItems: "/furniture-item",
+  editFurnitureItems: "/furniture-item",
   uploadFurnitureImages: "/furniture-item/upload-images",
   uploadFurnitureModel: "/furniture-item/upload-model",
 

@@ -2,6 +2,7 @@ import apiInstance from "@/ApiInstance";
 import {
   AddFurnitureItemRequest,
   AutoCompleteResponse,
+  EditFurnitureItemRequest,
   FiltersSliceState,
   FurnitureItemDetailsResponse,
   GetBestSellerResponse,
@@ -13,6 +14,7 @@ import { makeFiltersQuery } from "@/utils/Itemsfilters&pagination/makeFiltersQue
 import { handleApiCall } from "@/utils/apiUtils/handleApiCall";
 import { BACKEND_API_ENDPOINTS } from "./apiEndpoints/apiEndpoints";
 import { headers } from "next/headers";
+import { CustomError } from "@/utils/error/CustomError";
 
 class FurnitureItemsService {
   static async getFurnitureItems(filters?: FiltersSliceState) {
@@ -99,6 +101,45 @@ class FurnitureItemsService {
     if (error) return { message: error.message, error: true };
     return { message: data.message, error: false,  id: data.data.id };
   }
+  
+  static async editFurnitureItem(requestData: EditFurnitureItemRequest) {
+    const { data, error } = await handleApiCall<{
+      message: string;
+      error: string;
+      data: { id: number };
+    }>(
+      async () =>
+        await apiInstance.put(
+          `${BACKEND_API_ENDPOINTS.addFurnitureItems}`,
+          requestData,
+          {
+            isPrivateReq: true,
+          }
+        )
+    );
+
+    if (error) return { message: error.message, error: true };
+    return { message: data.message, error: false,  id: data.data.id };
+  }
+  
+  static async deleteFurnitureItem(id: number) {
+    const { data, error } = await handleApiCall<{
+      message: string;
+      error: string;
+      data: { id: number };
+    }>(
+      async () =>
+        await apiInstance.delete(
+          `${BACKEND_API_ENDPOINTS.deleteFurnitureItems}/${id}`,
+          {
+            isPrivateReq: true,
+          }
+        )
+    );
+
+    if (error) return { message: error.message, error: true };
+    return { message: data.message, error: false };
+  }
 
   static async uploadMedia(reqData: UploadMediaReq) {
     const { mediaType, files, itemId } = reqData;
@@ -114,7 +155,7 @@ class FurnitureItemsService {
       isPrivateReq: true
     }));
     
-    if (error) return { message: error.message, error: true };
+    if (error) throw new CustomError(error.message, error.statusCode);
     return { message: data.message, error: false };
   }
 }

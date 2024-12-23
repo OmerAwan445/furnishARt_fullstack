@@ -1,9 +1,11 @@
-import AddFurnitureItemForm from "@/components/AdminPages/AddProductPage/AddFurnitureItemForm";
+import FurnitureItemForm from "@/components/AdminPages/AddProductPage/FurnitureItemForm";
+import TitleHeadings from "@/components/common/headings/TitleHeadings";
 
 const AddFurnitureItemPage = async () => {
   return (
     <>
-      <AddFurnitureItemForm />
+      <TitleHeadings>Add Furniture Item</TitleHeadings>
+      <FurnitureItemForm />
     </>
   );
 };
