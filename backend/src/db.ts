@@ -6,7 +6,7 @@ const initializePrisma = () => {
   if (!prisma) {
     console.log('Initializing Prisma Client...');
     prisma = new PrismaClient({
-      log: ['query', 'info', 'warn', 'error'], // Optional logging for debugging
+      // log: ['query', 'info', 'warn', 'error'], // Optional logging for debugging
     });
   }
   return prisma;
