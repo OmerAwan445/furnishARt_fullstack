@@ -81,6 +81,12 @@ const TopBar = () => {
             selectedCategoryId={Number(selectedCategory)}
           />
         </Stack>
+        <a
+          href="/furnishart-app.apk" target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:block mr-5 border border-green-700 rounded-lg px-3 py-2 focus:outline-none bg-green-500 hover:text-green-700 hover:bg-transparent text-white text-sm lg:text-base transition">
+          Download App
+        </a>
         <Link href={"/cart"} prefetch>
           <Box component="div" sx={{ display: { xs: "none", md: "block" } }}>
             <BlackOutlinedButton
