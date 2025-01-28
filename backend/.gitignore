@@ -8,3 +8,4 @@ db_test_queries.sql
 .devcontainer
 .contentlayer
 dist
+build

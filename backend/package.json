@@ -7,8 +7,10 @@
     "#*": "./src/*"
   },
   "scripts": {
-    "build": "tsc",
+    "clean": "rimraf -r build && rimraf dist",
+    "build": "tsc && shx mkdir -p build/src && shx mv dist/* build/src/ && rimraf dist && npm run prod",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "node build/src/app.js",
     "start:prod": "export NODE_ENV=production && nodemon -L src/app.ts",
     "dev": "nodemon -L  src/app.ts",
     "dev:debug": "nodemon --inspect src/app.ts",
@@ -58,15 +60,16 @@
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
     "eslint-config-google": "^0.14.0",
-    "prisma": "^5.18.0"
+    "prisma": "^5.18.0",
+    "rimraf": "^6.0.1"
   },
   "_moduleAliases": {
-    "@src": "dist",
-    "@routes": "dist/routes",
-    "@utils": "dist/utils",
-    "@controllers": "dist/controllers",
-    "@models": "dist/models",
-    "@services": "dist/services",
-    "@types": "dist/types"
+    "@src": "build/src",
+    "@routes": "build/src/routes",
+    "@utils": "build/src/utils",
+    "@controllers": "build/src/controllers",
+    "@models": "build/src/models",
+    "@services": "build/src/services",
+    "@types": "build/src/types"
   }
 }
