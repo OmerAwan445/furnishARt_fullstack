@@ -5,7 +5,6 @@ const myEnv = dotenv.config();
 dotenvExpand.expand(myEnv);
 import appRoutes from "@routes/index";
 import { serverConfig } from "@src/server";
-import { getEnv } from "@utils/getEnv";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import { AppError } from "./errors/AppError";
@@ -33,5 +32,5 @@ app.use(
 );
 
 
-serverConfig(app, getEnv("server.port") as string);
+serverConfig(app, process.env.PORT ?? "3001");
 export default app;

@@ -16,7 +16,7 @@ export default {
     password: '',
   },
   server: {
-    port: process.env.SERVER_PORT,
+    port: process.env.PORT,
   },
   FRONTEND_URL: process.env.FRONTEND_URL,
   JWT: {
