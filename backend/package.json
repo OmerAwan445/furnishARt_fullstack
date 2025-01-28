@@ -4,9 +4,10 @@
   "description": "",
   "main": "server.js",
   "imports": {
-     "#*": "./src/*"
+    "#*": "./src/*"
   },
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:prod": "export NODE_ENV=production && nodemon -L src/app.ts",
     "dev": "nodemon -L  src/app.ts",
@@ -41,6 +42,7 @@
     "nodemon": "^3.1.0",
     "stripe": "^16.12.0",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.3",
     "uuid": "^11.0.3"
   },
@@ -59,12 +61,12 @@
     "prisma": "^5.18.0"
   },
   "_moduleAliases": {
-    "@src": "src",
-    "@routes": "src/routes",
-    "@utils": "src/utils",
-    "@controllers": "src/controllers",
-    "@models": "src/models",
-    "@services": "src/services",
-    "@types": "src/types"
+    "@src": "dist",
+    "@routes": "dist/routes",
+    "@utils": "dist/utils",
+    "@controllers": "dist/controllers",
+    "@models": "dist/models",
+    "@services": "dist/services",
+    "@types": "dist/types"
   }
 }
