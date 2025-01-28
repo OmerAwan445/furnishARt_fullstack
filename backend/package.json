@@ -4,19 +4,15 @@
   "description": "",
   "main": "server.js",
   "imports": {
-    "#*": "./src/*"
+     "#*": "./src/*"
   },
   "scripts": {
-    "heroku-postbuild": "npm install --include=dev && npm run migrate && npm run ts-build",
-    "ts-build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:prod": "export NODE_ENV=production && nodemon -L src/app.ts",
-    "prod": "node dist/app.js",
     "dev": "nodemon -L  src/app.ts",
     "dev:debug": "nodemon --inspect src/app.ts",
-    "migrate": "cd src/ && prisma migrate deploy && npx prisma db push",
-    "start:migrate:prod": "npm run migrate && npm run start:prod",
-    "start:migrate:dev": "npm run migrate && npm run dev",
+    "start:migrate:prod": "cd src/ && prisma migrate deploy && npx prisma db push && npm run start:prod",
+    "start:migrate:dev": "cd src/ && prisma migrate deploy && npx prisma db push && npm run dev",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "vercel-build": "echo hello"
@@ -45,7 +41,6 @@
     "nodemon": "^3.1.0",
     "stripe": "^16.12.0",
     "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.3",
     "uuid": "^11.0.3"
   },
@@ -61,16 +56,15 @@
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
     "eslint-config-google": "^0.14.0",
-    "prisma": "^5.18.0",
-    "rimraf": "^6.0.1"
+    "prisma": "^5.18.0"
   },
   "_moduleAliases": {
-    "@src": "dist",
-    "@routes": "dist/routes",
-    "@utils": "dist/utils",
-    "@controllers": "dist/controllers",
-    "@models": "dist/models",
-    "@services": "dist/services",
-    "@types": "dist/types"
+    "@src": "src",
+    "@routes": "src/routes",
+    "@utils": "src/utils",
+    "@controllers": "src/controllers",
+    "@models": "src/models",
+    "@services": "src/services",
+    "@types": "src/types"
   }
 }
