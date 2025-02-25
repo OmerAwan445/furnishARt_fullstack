@@ -17,7 +17,7 @@ export default {
   server: {
     port: 3001,
   },
-  FRONTEND_URL: "http://localhost:3000",
+  FRONTEND_URL: "",
   stripe: {
     secret_key: "",
   },

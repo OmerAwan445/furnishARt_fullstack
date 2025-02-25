@@ -31,7 +31,7 @@ class EmailSvs {
           <p style="font-size: 16px;">You requested for email verification, kindly use this Link <a
             style="color: #007bff; text-decoration: none;" target="_blank" href=${url}/verify-email?token=${token}>
             Verify your email address</a> to verify your email address.</p>
-          <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(getEnv("tokenExpiry.EMAIL_VERIFICATION"))}</b>
+          <b>Note that this link will expire in the next ${formatTimeInWordsWithUnit(Number(getEnv("tokenExpiry.EMAIL_VERIFICATION")))}</b>
         </div>
       `,
     };
