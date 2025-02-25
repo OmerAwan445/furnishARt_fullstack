@@ -101,3 +101,14 @@
   background-color: rgb(215, 110, 45);
   height: 40px;
 }
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

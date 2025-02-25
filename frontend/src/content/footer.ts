@@ -43,7 +43,7 @@ const footerContent = {
             links: [
                 {
                     name: "About Us",
-                    link: "/about-us",
+                    link: "/about",
                 },
                 {
                     name: "Contact Us",
