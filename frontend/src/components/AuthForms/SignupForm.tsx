@@ -18,7 +18,7 @@ const SignupForm = () => {
   } = useAuth({
     mutationFn: AuthSvs.signUpCustomer,
     onSuccess: () => router.push("/login"),
-    onError: (error) => {console.log("Error: ", error); setErrorMessage(error.message)},
+    onError: (error) => setErrorMessage(error.message),
   });
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
